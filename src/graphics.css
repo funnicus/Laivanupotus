@@ -1,0 +1,27 @@
+#game {
+    display: flex;
+    margin: auto;
+    width: 80%;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 440px;
+    height: 440px;
+    background-color: grey;
+    margin: 50px;
+}
+
+.grid div {
+    width: 40px;
+    height: 40px;
+    background-color: blue;
+    border: 1px solid grey;
+    text-align: center;
+} 
+
+.ship {
+
+}
+
