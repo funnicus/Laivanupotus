@@ -41,10 +41,10 @@ function settingsOk(gridHeight, gridWidth) {
 }
 
 /**
- * Function that sets a single 
- * @param {*} player 
- * @param {*} shipType 
- * @param {*} coords 
+ * Function that adds a single ship to the player
+ * @param {number} player 
+ * @param {string} shipType 
+ * @param {object} coords 
  */
 function setShip(player, shipType, coords) {
   const ship = {
