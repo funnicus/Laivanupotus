@@ -10,12 +10,76 @@
   </head>
   <body>
     <main>
+
       <h1>Laivanupotus</h1>
       <div id="settings"></div>
       <div id="game">
         <div id="p1" class="grid"></div>
         <div id="p2" class="grid"></div>
       </div>
+
+      <!--Drag and drop area, which contains the ships for both of the players-->
+      <!--Code isn't very DRY at the moment :/ could this be rewritten in another way?-->
+      <div id="drag-n-drop-area">
+        <div id="p1-ships">
+          <div class="carrier ship" draggable="true">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="battleship ship" draggable="true">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="cruiser ship" draggable="true">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="submarine ship" draggable="true">
+            <div></div>
+            <div></div>
+          </div>
+          <div class="destroyer ship" draggable="true">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div id="p2-ships">
+          <div class="carrier ship" draggable="true">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="battleship ship" draggable="true">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="cruiser ship" draggable="true">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="submarine ship" draggable="true">
+            <div></div>
+            <div></div>
+          </div>
+          <div class="destroyer ship" draggable="true">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <!--==============================-->
+
     </main>
 
     <script src="./graphics.js"></script>
