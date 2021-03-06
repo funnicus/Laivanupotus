@@ -13,11 +13,11 @@ Destroyer = hävittäjä, pituus 2 */
 
 /**
  * Function that sets the amount of different types of ships in the game
- * @param {number} carriers 
- * @param {number} battleships 
- * @param {number} cruisers 
- * @param {number} submarines 
- * @param {number} destroyers 
+ * @param {number} carriers
+ * @param {number} battleships
+ * @param {number} cruisers
+ * @param {number} submarines
+ * @param {number} destroyers
  */
 function setShipAmounts(carriers, battleships, cruisers, submarines, destroyers) {
   ships = {
@@ -31,8 +31,8 @@ function setShipAmounts(carriers, battleships, cruisers, submarines, destroyers)
 
 /**
  * Function that checks whether the grid's area and the combined area of all of the ships are allowed
- * @param {number} gridHeight 
- * @param {number} gridWidth 
+ * @param {number} gridHeight
+ * @param {number} gridWidth
  */
 function settingsOk(gridHeight, gridWidth) {
   const gridSize = gridHeight * gridWidth;
@@ -42,9 +42,9 @@ function settingsOk(gridHeight, gridWidth) {
 
 /**
  * Function that adds a single ship to the player
- * @param {number} player 
- * @param {string} shipType 
- * @param {object} coords 
+ * @param {number} player
+ * @param {string} shipType
+ * @param {object} coords
  */
 function setShip(player, shipType, coords) {
   const ship = {
@@ -59,5 +59,42 @@ function setShip(player, shipType, coords) {
     player2Ships.push(ship);
   } else {
     throw new Error("Invalid player number");
+  }
+}
+
+/**
+ * Shoots at the given coordinates on the board of the given player
+ *
+ * returns:
+ * 0, if didn't hit
+ * 1, if hit but didn't sink
+ * 2, if sank a ship
+ *
+ * @param {number} player
+ * @param {object} coords
+ * @returns {number} osuman tyyppi
+ */
+function shootAt(player, coords) {
+  let ships;
+
+  if (player === 1) {
+    ships = player1Ships;
+  } else if (player === 2) {
+    ships = player2Ships;
+  }
+
+  for (const ship of ships) {
+    if (isShipHit(ship, coords, ship.shipType)) {
+      ship.hits += 1;
+      if (ship.hits < shipLength(ship.shipType)) {
+        return 1;
+      } else if (ship.hits === shipLength(ship.shipType)) {
+        return 2;
+      } else {
+        throw new Error("Oh no! The ship should've sank already or there is something else funny in the code.");
+      }
+    } else {
+      return 0;
+    }
   }
 }
