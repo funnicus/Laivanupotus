@@ -1,5 +1,7 @@
 :root {
     --grid-margins: 50px;
+    /*Default value of 440px, this will change in code...*/
+    --grid-size: 440px
 }
 
 #game {
@@ -12,8 +14,8 @@
 .grid {
     display: flex;
     flex-wrap: wrap;
-    width: 440px;
-    height: 440px;
+    width: var(--grid-size);
+    height: var(--grid-size);
     background-color: grey;
     margin: var(--grid-margins);
     color: white;
@@ -39,8 +41,8 @@
 #p2-ships {
     display: flex;
     justify-content: space-between;
-    width: 440px;
-    height: 440px;
+    width: var(--grid-size);
+    height: var(--grid-size);
     margin: var(--grid-margins);
     background-color: blue;
     border: 1px solid grey;
