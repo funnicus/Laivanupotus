@@ -93,8 +93,8 @@ class Grid {
 
   drop(e) {
     //getting the board x- and y -coordinates by parsing them from the target id
-    const x = parseInt(e.target.getAttribute("id").substring(0, 1));
-    const y = parseInt(e.target.getAttribute("id").substring(1, 2));
+    const x = parseInt(e.target.getAttribute("id").substring(1, 2));
+    const y = parseInt(e.target.getAttribute("id").substring(0, 1));
 
     //is the ship vertical or horizontal?
     if (isVertical) {
@@ -108,7 +108,7 @@ class Grid {
       //"dropping" the ship
       let len = 0;
       while (len < shiplength) {
-        this.squares[x + len][y].classList.add("taken");
+        this.squares[y + len][x].classList.add("taken");
         len++;
       }
     } else {
@@ -122,11 +122,12 @@ class Grid {
       //"dropping" the ship
       let len = 0;
       while (len < shiplength) {
-        this.squares[x][y + len].classList.add("taken");
+        this.squares[y][x + len].classList.add("taken");
         len++;
       }
     }
 
+    // huoh, niin spagettia :-D
     const s = setShip(1, shiplength, { x, y, vertical: isVertical });
     console.log(s);
 
