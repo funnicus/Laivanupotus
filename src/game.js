@@ -85,11 +85,11 @@ function shootAt(player, coords) {
   }
 
   for (const ship of ships) {
-    if (isShipHit(ship, coords, ship.shipType)) {
+    if (isShipHit(ship, coords, ship.type)) {
       ship.hits += 1;
-      if (ship.hits < shipLength(ship.shipType)) {
+      if (ship.hits < shipLength(ship.type)) {
         return 1;
-      } else if (ship.hits === shipLength(ship.shipType)) {
+      } else if (ship.hits === shipLength(ship.type)) {
         return 2;
       } else {
         throw new Error("Oh no! The ship should've sank already or there is something else funny in the code.");
