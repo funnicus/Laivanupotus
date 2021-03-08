@@ -58,11 +58,16 @@ function setShip(player, length, coords) {
 
   const ship = {
     coords: shipCoords,
-    type,
+    length,
     hits: 0,
   };
 
   const shipArr = player === 1 ? player1Ships : player2Ships;
+
+  if (shipArr.length === 0) {
+    shipArr.push(ship);
+    return;
+  }
 
   for (const s of shipArr) {
     for (const shipCoords of s.coords) {
@@ -74,15 +79,15 @@ function setShip(player, length, coords) {
           (newCoords.x === shipCoords.x && newCoords.y + 1 === shipCoords.y) ||
           (newCoords.x === shipCoords.x && newCoords.y - 1 === shipCoords.y)
         ) {
-          new alert("Forbidden placement");
+          console.log("does not fit!");
           return null;
-        } else {
-          shipArr.push(ship);
-          return ship;
         }
       }
     }
   }
+
+  shipArr.push(ship);
+  return ship;
 }
 
 /**
@@ -103,9 +108,9 @@ function shootAt(player, coords) {
 
   ship.hits += 1;
 
-  if (ship.hits < shipLength(ship.type)) {
+  if (ship.hits < ship.length) {
     return 1;
-  } else if (ship.hits === shipLength(ship.type)) {
+  } else if (ship.hits === ship.length) {
     return 2;
   } else {
     throw new Error("Oh no! The ship should've sank already or there is something else funny in the code.");
@@ -128,21 +133,4 @@ function getShipAtCoords(player, coords) {
   }
 
   return null;
-}
-
-/**
- * Returns the length of the given ship type
- * @param {*} type
- * @returns
- */
-function shipLength(type) {
-  const sizes = {
-    carrier: 5,
-    battleship: 4,
-    cruiser: 3,
-    submarine: 3,
-    destroyer: 2,
-  };
-
-  return sizes[type];
 }
