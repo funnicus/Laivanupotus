@@ -66,7 +66,7 @@ function setShip(player, length, coords) {
 
   if (shipArr.length === 0) {
     shipArr.push(ship);
-    return;
+    return ship;
   }
 
   for (const s of shipArr) {

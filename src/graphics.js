@@ -96,6 +96,10 @@ class Grid {
     const x = parseInt(e.target.getAttribute("id").substring(1, 2));
     const y = parseInt(e.target.getAttribute("id").substring(0, 1));
 
+    // huoh, niin spagettia :-D
+    const s = setShip(1, shiplength, { x, y, vertical: isVertical });
+    if (!s) return;
+
     //is the ship vertical or horizontal?
     if (isVertical) {
       //for vertical edge check
@@ -126,10 +130,6 @@ class Grid {
         len++;
       }
     }
-
-    // huoh, niin spagettia :-D
-    const s = setShip(1, shiplength, { x, y, vertical: isVertical });
-    console.log(s);
 
     e.target.classList.remove("drag-over");
   }
