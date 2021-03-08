@@ -61,6 +61,20 @@ function setShip(player, type, coords) {
     type,
     hits: 0,
   };
+
+  const shipArr = player === 1 ? player1Ships : player2Ships;
+
+  for (const s of shipArr) {
+    for (const shipCoords of s.coords) {
+      if ((coords.x === shipCoords.x && coords.y === shipCoords.y) || (coords.x+1 === shipCoords.x && coords.y === shipCoords.y) || (coords.x-1 === shipCoords.x && coords.y === shipCoords.y) || (coords.x === shipCoords.x && coords.y+1 === shipCoords.y) || (coords.x === shipCoords.x && coords.y-1 === shipCoords.y)) {
+        new alert("Forbidden placement");
+      }
+      else {
+        shipArr.push(ship);
+      }
+    }
+  }
+  
   if (player === 1) {
     player1Ships.push(ship);
   } else if (player === 2) {
