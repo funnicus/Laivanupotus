@@ -3,7 +3,7 @@
     /*Default value of 440px, this will change in code...*/
     --grid-size: 440px;
     --ship-container-layout: row;
-    --ship-directons: column;
+    --ship-directions: column;
 }
 
 #game {
@@ -54,7 +54,7 @@
 
 .ship {
     display: flex;
-    flex-direction: var(--ship-directons);
+    flex-direction: var(--ship-directions);
     background-color: grey;
     height: min-content;
     width: min-content;  

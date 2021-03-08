@@ -3,7 +3,7 @@ const p2 = document.querySelector("#p2");
 // ships
 const ships = document.querySelectorAll('.ship');
 
-const isVertical = true;
+let isVertical = true;
 const GRID_SIDE_SIZE = 11;
 const ship_area = (GRID_SIDE_SIZE-1)/2;
 const r = document.querySelector(':root');
@@ -87,7 +87,6 @@ class Grid {
     }
     
     drop(e){
-        //console.log(parseInt(e.target.getAttribute("id")))
         const x = parseInt(e.target.getAttribute("id").substring(0,1))
         const y = parseInt(e.target.getAttribute("id").substring(1,2))
     
@@ -96,19 +95,16 @@ class Grid {
         if(isVertical){
             //for vertical edge check
             if(parseInt(e.target.getAttribute("id").substring(0,1)) + shiplength > GRID_SIDE_SIZE-1) {
-                console.log("return")
+                console.log("drop canceled: out of bounds")
                 return
             };
 
-            //"dropping" the ship"
+            //"dropping" the ship
             let len = 0;
             while(len < shiplength){
                 this.squares[x+len][y].classList.add("taken")
                 len++
             }
-    
-            console.log("dropped...")
-            e.target.classList.remove('drag-over');
         }
         else {
             //for horizontal edge check
@@ -116,7 +112,16 @@ class Grid {
                 console.log("return")
                 return
             };
+
+            //"dropping" the ship
+            let len = 0;
+            while(len < shiplength){
+                this.squares[x][y+len].classList.add("taken")
+                len++
+            }
         }
+        console.log("dropped...")
+        e.target.classList.remove('drag-over');
     }
 }
 
@@ -136,12 +141,8 @@ ships.forEach(ship => {
 
 // handle the dragstart
 function dragStart(e) {
-   //console.log('drag starts...');
-   //console.log(e.target)
    //don't even ask why :/
    shiplength = (e.target.childNodes.length-1)/2
-   //console.log(shiplength)
-   //e.dataTransfer.setData('text/plain', e.target.id);
 }
 
 function dragEnd(e) {
@@ -150,6 +151,26 @@ function dragEnd(e) {
     }, 0);
 }
 
+function changeShipAlignment() {
+    isVertical = !isVertical
+    //const r = document.querySelector(':root');
+    if(isVertical){
+        r.style.setProperty("--ship-container-layout", "row")
+        r.style.setProperty("--ship-directions", "column")
+    }
+    else {
+        r.style.setProperty("--ship-container-layout", "column")
+        r.style.setProperty("--ship-directions", "row")
+    }   
+}
 
+document.addEventListener("keydown", e => {
+    if (e.code === "KeyR") {
+      console.log("HERE")
+      e.preventDefault()
+      changeShipAlignment()
+      return;
+    }
+  });
 
 console.log(grid1)
