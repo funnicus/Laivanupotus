@@ -1,7 +1,9 @@
 :root {
     --grid-margins: 50px;
     /*Default value of 440px, this will change in code...*/
-    --grid-size: 440px
+    --grid-size: 440px;
+    --ship-container-layout: row;
+    --ship-directons: column;
 }
 
 #game {
@@ -40,6 +42,7 @@
 #p1-ships,
 #p2-ships {
     display: flex;
+    flex-direction: var(--ship-container-layout);
     justify-content: space-between;
     width: var(--grid-size);
     height: var(--grid-size);
@@ -50,6 +53,8 @@
 }
 
 .ship {
+    display: flex;
+    flex-direction: var(--ship-directons);
     background-color: grey;
     height: min-content;
     width: min-content;  
@@ -80,5 +85,17 @@
 }
 
 .drag-over {
+    background-color: white !important;
+}
+
+.taken {
     background-color: grey !important;
+}
+
+.vertical {
+    flex-direction: row;
+}
+
+.horizontal {
+    flex-direction: column;
 }
