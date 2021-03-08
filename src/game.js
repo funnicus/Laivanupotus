@@ -47,10 +47,17 @@ function settingsOk(gridHeight, gridWidth) {
  * @param {object} coords
  */
 function setShip(player, type, coords) {
+  const shipCoords = [];
+
+  for (let i = 0; i < shipLength(type); i++) {
+    const x = coords.vertical ? coords.x : coords.x + i;
+    const y = coords.vertical ? coords.y + i : coords.y;
+
+    shipCoords.push({ x, y });
+  }
+
   const ship = {
-    x: coords.x,
-    y: coords.y,
-    dir: coords.dir,
+    coords: shipCoords,
     type,
     hits: 0,
   };
@@ -61,6 +68,8 @@ function setShip(player, type, coords) {
   } else {
     throw new Error("Invalid player number");
   }
+
+  return ship;
 }
 
 /**
@@ -76,62 +85,36 @@ function setShip(player, type, coords) {
  * @returns {number} osuman tyyppi
  */
 function shootAt(player, coords) {
-  let shipArr;
+  const ship = getShipAtCoords(player, coords);
+  if (!ship) return 0;
 
-  if (player === 1) {
-    shipArr = player1Ships;
-  } else if (player === 2) {
-    shipArr = player2Ships;
-  }
+  ship.hits += 1;
 
-  for (const ship of shipArr) {
-    if (isShipHit(ship, coords, ship.type)) {
-      ship.hits += 1;
-      if (ship.hits < shipLength(ship.type)) {
-        return 1;
-      } else if (ship.hits === shipLength(ship.type)) {
-        return 2;
-      } else {
-        throw new Error("Oh no! The ship should've sank already or there is something else funny in the code.");
-      }
-    } else {
-      return 0;
-    }
+  if (ship.hits < shipLength(ship.type)) {
+    return 1;
+  } else if (ship.hits === shipLength(ship.type)) {
+    return 2;
+  } else {
+    throw new Error("Oh no! The ship should've sank already or there is something else funny in the code.");
   }
 }
 
 /**
- * Checks if the coordinates are inside a ship
+ * Checks if the coordinates are inside a ship.
  * @param {object} ship
- * @param {object} hitCoords
+ * @param {object} coords
  * @param {string} type
  */
-function areCoordsOnShip(ship, hitCoords, type) {
-  let currX = ship.x;
-  let currY = ship.y;
+function getShipAtCoords(player, coords) {
+  const shipArr = player === 1 ? player1Ships : player2Ships;
 
-  const l = shipLength(type);
-
-  for (let i = 0; i < l; i++) {
-    switch (ship.dir) {
-      case "l":
-        currX -= 1;
-        break;
-      case "r":
-        currX += 1;
-        break;
-      case "u":
-        currY -= 1;
-        break;
-      case "d":
-        currY += 1;
-        break;
+  for (const s of shipArr) {
+    for (const shipCoords of s.coords) {
+      if (coords.x === shipCoords.x && coords.y === shipCoords.y) return s;
     }
-
-    if (currX === hitCoords.x && currY === hitCoords.y) return true;
   }
 
-  return false;
+  return null;
 }
 
 /**
