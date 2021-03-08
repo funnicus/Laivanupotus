@@ -98,7 +98,10 @@ class Grid {
 
     // huoh, niin spagettia :-D
     const s = setShip(1, shiplength, { x, y, vertical: isVertical });
-    if (!s) return;
+    if (!s) {
+      e.target.classList.remove("drag-over");
+      return;
+    }
 
     //is the ship vertical or horizontal?
     if (isVertical) {
