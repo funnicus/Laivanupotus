@@ -46,10 +46,10 @@ function settingsOk(gridHeight, gridWidth) {
  * @param {string} type
  * @param {object} coords
  */
-function setShip(player, type, coords) {
+function setShip(player, length, coords) {
   const shipCoords = [];
 
-  for (let i = 0; i < shipLength(type); i++) {
+  for (let i = 0; i < length; i++) {
     const x = coords.vertical ? coords.x : coords.x + i;
     const y = coords.vertical ? coords.y + i : coords.y;
 
@@ -66,24 +66,23 @@ function setShip(player, type, coords) {
 
   for (const s of shipArr) {
     for (const shipCoords of s.coords) {
-      if ((coords.x === shipCoords.x && coords.y === shipCoords.y) || (coords.x+1 === shipCoords.x && coords.y === shipCoords.y) || (coords.x-1 === shipCoords.x && coords.y === shipCoords.y) || (coords.x === shipCoords.x && coords.y+1 === shipCoords.y) || (coords.x === shipCoords.x && coords.y-1 === shipCoords.y)) {
-        new alert("Forbidden placement");
-      }
-      else {
-        shipArr.push(ship);
+      for (const newCoords of ship.coords) {
+        if (
+          (newCoords.x === shipCoords.x && newCoords.y === shipCoords.y) ||
+          (newCoords.x + 1 === shipCoords.x && newCoords.y === shipCoords.y) ||
+          (newCoords.x - 1 === shipCoords.x && newCoords.y === shipCoords.y) ||
+          (newCoords.x === shipCoords.x && newCoords.y + 1 === shipCoords.y) ||
+          (newCoords.x === shipCoords.x && newCoords.y - 1 === shipCoords.y)
+        ) {
+          new alert("Forbidden placement");
+          return null;
+        } else {
+          shipArr.push(ship);
+          return ship;
+        }
       }
     }
   }
-  
-  if (player === 1) {
-    player1Ships.push(ship);
-  } else if (player === 2) {
-    player2Ships.push(ship);
-  } else {
-    throw new Error("Invalid player number");
-  }
-
-  return ship;
 }
 
 /**
