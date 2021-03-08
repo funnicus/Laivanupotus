@@ -1,6 +1,6 @@
 let height = 10;
 let width = 10;
-let ships = {};
+let shipAmounts = {};
 let player1Ships = [];
 let player2Ships = [];
 
@@ -20,7 +20,7 @@ Destroyer = hävittäjä, pituus 2 */
  * @param {number} destroyers
  */
 function setShipAmounts(carriers, battleships, cruisers, submarines, destroyers) {
-  ships = {
+  shipAmounts = {
     carriers,
     battleships,
     cruisers,
@@ -36,7 +36,7 @@ function setShipAmounts(carriers, battleships, cruisers, submarines, destroyers)
  */
 function settingsOk(gridHeight, gridWidth) {
   const gridSize = gridHeight * gridWidth;
-  const shipSize = ships.carriers * 5 + ships.battleships * 4 + ships.cruisers * 3 + ships.submarines * 3 + ships.destroyers * 2;
+  const shipSize = shipAmounts.carriers * 5 + shipAmounts.battleships * 4 + shipAmounts.cruisers * 3 + shipAmounts.submarines * 3 + shipAmounts.destroyers * 2;
   return gridSize >= shipSize * 2;
 }
 
@@ -55,7 +55,7 @@ function setShip(player, type, coords) {
     hits: 0,
   };
   if (player === 1) {
-    Player1Ships.push(ship);
+    player1Ships.push(ship);
   } else if (player === 2) {
     player2Ships.push(ship);
   } else {
@@ -76,15 +76,15 @@ function setShip(player, type, coords) {
  * @returns {number} osuman tyyppi
  */
 function shootAt(player, coords) {
-  let ships;
+  let shipArr;
 
   if (player === 1) {
-    ships = player1Ships;
+    shipArr = player1Ships;
   } else if (player === 2) {
-    ships = player2Ships;
+    shipArr = player2Ships;
   }
 
-  for (const ship of ships) {
+  for (const ship of shipArr) {
     if (isShipHit(ship, coords, ship.type)) {
       ship.hits += 1;
       if (ship.hits < shipLength(ship.type)) {
