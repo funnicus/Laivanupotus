@@ -14,7 +14,9 @@ const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
 /**
  * This class is used to create a grid with divs inside the 
- * given constructor parameter element
+ * given constructor parameter element. I'm using a class,
+ * because refering to the correct grid with the drop eventListener is
+ * easier this way!
  */
 class Grid {
 
@@ -26,6 +28,7 @@ class Grid {
         this.squares = [];
     }
 
+    //method for creating the grid
     createGrid() {
         for(let i = 0; i < GRID_SIDE_SIZE; i++){
             const rows = []
@@ -87,15 +90,16 @@ class Grid {
     }
     
     drop(e){
+        //getting the board x- and y -coordinates by parsing them from the target id
         const x = parseInt(e.target.getAttribute("id").substring(0,1))
         const y = parseInt(e.target.getAttribute("id").substring(1,2))
     
-        console.log(x + ', ' + y)
-    
+        //is the ship vertical or horizontal?
         if(isVertical){
             //for vertical edge check
             if(parseInt(e.target.getAttribute("id").substring(0,1)) + shiplength > GRID_SIDE_SIZE-1) {
                 console.log("drop canceled: out of bounds")
+                e.target.classList.remove('drag-over');
                 return
             };
 
@@ -110,6 +114,7 @@ class Grid {
             //for horizontal edge check
             if(parseInt(e.target.getAttribute("id").substring(1,2)) + shiplength > GRID_SIDE_SIZE-1) {
                 console.log("return")
+                e.target.classList.remove('drag-over');
                 return
             };
 
@@ -120,7 +125,6 @@ class Grid {
                 len++
             }
         }
-        console.log("dropped...")
         e.target.classList.remove('drag-over');
     }
 }
@@ -151,6 +155,9 @@ function dragEnd(e) {
     }, 0);
 }
 
+/**
+ * Function for changing ship alignment, when placing
+ */
 function changeShipAlignment() {
     isVertical = !isVertical
     //const r = document.querySelector(':root');
@@ -164,6 +171,7 @@ function changeShipAlignment() {
     }   
 }
 
+//Listening to r-keypress, so we can rotate the ships
 document.addEventListener("keydown", e => {
     if (e.code === "KeyR") {
       console.log("HERE")
