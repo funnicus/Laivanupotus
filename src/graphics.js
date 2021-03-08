@@ -13,72 +13,80 @@ r.style.setProperty("--grid-size", GRID_SIDE_SIZE*40 + "px");
 const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
 /**
- * This function creates a grid with divs inside the 
- * given function parameter element
- * @param {Element} div 
+ * This class is used to create a grid with divs inside the 
+ * given constructor parameter element
  */
-function createGrid(div) {
-    this.grid = undefined;
-    const squares = [];
-    for(let i = 0; i < GRID_SIDE_SIZE; i++){
-        const rows = []
-        for(let j = 0; j < GRID_SIDE_SIZE; j++){
-            const square = document.createElement("div");
-            //id of the square is i-1 + j-1
-            //-1, because we want to ignore the left ant top rows of the grid
-            square.id = (i-1).toString() + (j-1).toString();
-            div.appendChild(square)
-            //leaving the top left corner blank
-            if(j === 0 && i === 0) continue;
-            //if we are on the first row, append characters from A to J inside the squares, depending on j
-            if(i === 0){
-                const p = document.createElement("p");
-                square.appendChild(p);
-                const index = j-1;
-                p.innerHTML = chars[index];
-                continue;
-            }
-            //if we are the first square of the row, append the row number inside the square
-            if(j === 0){
-                const p = document.createElement("p")
-                square.appendChild(p);
-                p.innerHTML = i;
-                continue;
-            }
-            //event listeners for the square, for drag and drop operations
-            square.addEventListener('dragenter', dragEnter);
-            square.addEventListener('dragover', dragOver);
-            square.addEventListener('dragleave', dragLeave);
-            square.addEventListener('drop', drop);
-            rows.push(square)
-        }
-        //dont push the first row, because it's not part of the game area
-        if(i === 0) continue;
-        squares.push(rows);
+class Grid {
+
+    /**
+     * @param {Element} div 
+     */
+    constructor(div) {
+        this.div = div;
+        this.squares = [];
     }
 
-    this.grid = squares;
+    createGrid() {
+        for(let i = 0; i < GRID_SIDE_SIZE; i++){
+            const rows = []
+            for(let j = 0; j < GRID_SIDE_SIZE; j++){
+                const square = document.createElement("div");
+                //id of the square is i-1 + j-1
+                //-1, because we want to ignore the left ant top rows of the grid
+                square.id = (i-1).toString() + (j-1).toString();
+                this.div.appendChild(square)
+                //leaving the top left corner blank
+                if(j === 0 && i === 0) continue;
+                //if we are on the first row, append characters from A to J inside the squares, depending on j
+                if(i === 0){
+                    const p = document.createElement("p");
+                    square.appendChild(p);
+                    const index = j-1;
+                    p.innerHTML = chars[index];
+                    continue;
+                }
+                //if we are the first square of the row, append the row number inside the square
+                if(j === 0){
+                    const p = document.createElement("p")
+                    square.appendChild(p);
+                    p.innerHTML = i;
+                    continue;
+                }
+                //event listeners for the square, for drag and drop operations
+                square.addEventListener('dragenter', this.dragEnter);
+                square.addEventListener('dragover', this.dragOver);
+                square.addEventListener('dragleave', this.dragLeave);
+                //we must bind this, so it refers to the object created using this class
+                //otherwise this refers to the element, the eventListener callback belongs to!
+                square.addEventListener('drop', this.drop.bind(this));
+                //square.drop = square.drop.bind(this)
+                rows.push(square)
+            }
+            //dont push the first row, because it's not part of the game area
+            if(i === 0) continue;
+            this.squares.push(rows);
+        }
+    }
 
-    function dragEnter(e){
+    dragEnter(e){
         if(!e.target.classList.contains("taken")){
             e.preventDefault();
             e.target.classList.add('drag-over');
         }
     }
     
-    function dragOver(e) {
+    dragOver(e) {
         if(!e.target.classList.contains("taken")){
             e.preventDefault();
             e.target.classList.add('drag-over');
         }
     }
     
-    function dragLeave(e) {
+    dragLeave(e) {
         e.target.classList.remove('drag-over');
     }
     
-    function drop(e){
-    
+    drop(e){
         //console.log(parseInt(e.target.getAttribute("id")))
         const x = parseInt(e.target.getAttribute("id").substring(0,1))
         const y = parseInt(e.target.getAttribute("id").substring(1,2))
@@ -91,26 +99,33 @@ function createGrid(div) {
                 console.log("return")
                 return
             };
-    
-            grid[x][y].classList.add("taken")
+
+            //"dropping" the ship"
+            let len = 0;
+            while(len < shiplength){
+                this.squares[x+len][y].classList.add("taken")
+                len++
+            }
     
             console.log("dropped...")
             e.target.classList.remove('drag-over');
-            //e.target.classList.add("taken")
-            //const id = e.dataTransfer.getData('text/plain');
-            //const draggable = document.getElementById(id);
-            //e.target.appendChild(draggable)
-            console.log(e.target)
         }
         else {
-    
+            //for horizontal edge check
+            if(parseInt(e.target.getAttribute("id").substring(1,2)) + shiplength > GRID_SIDE_SIZE-1) {
+                console.log("return")
+                return
+            };
         }
     }
-    return squares;
 }
 
-const grid1 = createGrid(p1)
-const grid2 = createGrid(p2)
+const grid1 = new Grid(p1)
+const grid2 = new Grid(p2)
+
+grid1.createGrid()
+grid2.createGrid()
+
 let shiplength = undefined;
 
 // attach the dragstart event handler
