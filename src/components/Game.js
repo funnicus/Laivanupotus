@@ -1,6 +1,8 @@
+const SIZE = 9;
+
 const Game = {
-  setup: () => ({ cells: [] }), // tyhjä toistaiseksi
-  moves: {}, // tänne määritellään mahdolliset liikkeet
+  setup: () => ({ cells: Array(SIZE).fill(Array(SIZE).fill(null)) }),
+  moves: {},
 };
 
 export default Game;
