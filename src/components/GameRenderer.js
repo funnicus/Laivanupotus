@@ -1,5 +1,5 @@
 import Setup from "./Setup/Setup";
-import BattleshipBoards from "./BattleshipBoards";
+import BattleshipBoards from "./Play/BattleshipBoards";
 
 const GameRenderer = props => {
   switch (props.ctx.phase) {
