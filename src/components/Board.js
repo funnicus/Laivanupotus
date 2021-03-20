@@ -1,66 +1,62 @@
-const Board = props => {
+const Board = ({ game, playerNum }) => {
+  const isOwnBoard = parseInt(game.ctx.currentPlayer) === playerNum;
 
   const GRID_SIDE_SIZE = 10;
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
   const boardStyle = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    width: '440px',
-    height: '440px',
-  }
+    display: "flex",
+    flexWrap: "wrap",
+    width: "440px",
+    height: "440px",
+  };
 
   const cellStyle = {
-    border: '1px solid #555',
-    width: '40px',
-    height: '40px',
-    textAlign: 'center',
+    border: "1px solid #555",
+    width: "40px",
+    height: "40px",
+    textAlign: "center",
   };
 
   const createGrid = () => {
     const squares = [];
-    for (let i = 0; i < GRID_SIDE_SIZE; i++) {
+    for (let y = 0; y < GRID_SIDE_SIZE; y++) {
       const rows = [];
-      for (let j = 0; j < GRID_SIDE_SIZE; j++) {
-        //id of the square is i-1 + j-1
-        //-1, because we want to ignore the left ant top rows of the grid
-        const squareId = (i - 1).toString() + (j - 1).toString();
+      for (let x = 0; x < GRID_SIDE_SIZE; x++) {
         let squareText = "";
         //if we are on the first row, append characters from A to J inside the squares, depending on j
-        if (i === 0 && j !== 0) {
-          console.log("here")
-          const index = j - 1;
-          console.log(chars[index])
+        if (y === 0 && x !== 0) {
+          const index = x - 1;
           squareText = chars[index];
         }
         //if we are the first square of the row, append the row number inside the square
-        if (j === 0 && i !== 0) {
-          squareText = `${i}`;
+        if (x === 0 && y !== 0) {
+          squareText = `${y}`;
         }
-        rows.push({ squareId, squareText });
+
+        // subtract 1 from x and y because of the extra cells on the left and top
+        rows.push({ x: x - 1, y: y - 1, squareText });
       }
       //dont push the first row, because it's not part of the game area
       squares.push(rows);
     }
     return squares;
-  }
-
-  console.log(createGrid());
+  };
 
   return (
     <div className="Board" style={boardStyle}>
       {createGrid().map(row => {
-        return row.map(column => {
-          //console.log(column)
-          return (
-            <div key={column.squareId} style={cellStyle}>
-              {column.squareText}
-            </div>
-            )
-          })
-        })}
+        return row.map(cell => (
+          <div
+            key={cell.x + "" + cell.y}
+            style={cellStyle}
+            onClick={() => !isOwnBoard && game.moves.clickCell(cell)}>
+            {cell.squareText}
+          </div>
+        ));
+      })}
     </div>
-    );
+  );
 };
 
 export default Board;
