@@ -5,17 +5,15 @@ const Home = () => {
     <div>
       <h1 id="title">Laivanupotus</h1>
       <div id="home-button-container">
-        <div id="main-buttons">
-          <Link to="/play">
-            <button className="home-button">Aloita peli</button>
-          </Link>
-          <Link to="/help">
-            <button className="home-button">Ohjeet</button>
-          </Link>
-        </div>
-        <div id="credits-button">
+        <Link to="/play">
+          <button className="home-button">Aloita peli</button>
+        </Link>
+        <Link to="/help">
+          <button className="home-button">Ohjeet</button>
+        </Link>
+        <Link to="/credits">
           <button className="home-button">Tekijät</button>
-        </div>
+        </Link>
       </div>
     </div>
   );
