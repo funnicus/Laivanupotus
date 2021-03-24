@@ -1,14 +1,12 @@
-const Board = ({ game, playerNum }) => {
+const Board = ({ game, playerNum, size }) => {
   const isOwnBoard = parseInt(game.ctx.currentPlayer) === playerNum;
 
-  const GRID_SIDE_SIZE = 10;
+  const GRID_SIDE_SIZE = size;
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
   const boardStyle = {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "440px",
-    height: "440px",
+    display: "grid",
+    gridTemplateColumns: `repeat(${size}, 1fr)`,
   };
 
   const cellStyle = {
