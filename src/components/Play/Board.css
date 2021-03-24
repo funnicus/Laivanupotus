@@ -1,0 +1,41 @@
+/* Container for both boards */
+.BattleshipBoards {
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center;
+  gap: 3em;
+
+  height: 100vh;
+}
+
+.Board {
+  display: grid;
+  height: max-content;
+}
+
+/* Current player's own board */
+.Board.own {
+  opacity: 0.5;
+}
+
+.BoardCell {
+  display: grid;
+  place-content: center;
+  border: 1px solid #c8c8c8;
+  width: 3em;
+  height: 3em;
+
+  border-top: 1px solid #c8c8c8;
+  border-top: 1px solid #c8c8c8;
+}
+
+/* Cells in enemy player's board */
+.Board:not(.own) .BoardCell {
+  cursor: pointer;
+}
+
+/* Cells that aren't part of the play area */
+.BoardCell.outer {
+  pointer-events: none;
+  border: 1px solid transparent;
+}
