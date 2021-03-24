@@ -4,7 +4,9 @@ const Help = () => {
   return (
     <div>
       <Link to="/">
-        <button className="back-button">←</button>
+        <button title="Takaisin" className="back-button">
+          ←
+        </button>
       </Link>
       <h1 className="title">Ohjeet</h1>
       <p id="help-text">
