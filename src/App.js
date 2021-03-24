@@ -1,6 +1,6 @@
 import { Client } from "boardgame.io/react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-import Game from "./components/Game/Game";
+import Game from "./Game/Game";
 import GameRenderer from "./components/GameRenderer";
 import Home from "./components/Home/Home";
 import Help from "./components/Help/Help";
