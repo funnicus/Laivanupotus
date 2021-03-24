@@ -1,8 +1,13 @@
+import { Link } from "react-router-dom";
+
 const Help = () => {
   return (
     <div>
-      <h1 id="title">Ohjeet</h1>
-      <p>
+      <Link to="/">
+        <button className="back-button">←</button>
+      </Link>
+      <h1 className="title">Ohjeet</h1>
+      <p id="help-text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pretium
         lectus sed ex pellentesque, interdum sagittis lorem porta. Integer nec
         massa iaculis, elementum urna id, pulvinar nisl. Nulla ac accumsan
