@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div>
-      <h1 id="title">Laivanupotus</h1>
+    <div id="home-bg">
+      <h1 className="title">Laivanupotus</h1>
       <div id="home-button-container">
         <Link to="/play">
           <button className="home-button">Aloita peli</button>

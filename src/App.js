@@ -4,6 +4,7 @@ import Game from "./components/Game/Game";
 import GameRenderer from "./components/GameRenderer";
 import Home from "./components/Home/Home";
 import Help from "./components/Help/Help";
+import Credits from "./components/Credits/Credits";
 import "./Home.css";
 
 const App = () => {
@@ -21,6 +22,9 @@ const App = () => {
           </Route>
           <Route path="/help">
             <Help />
+          </Route>
+          <Route path="/credits">
+            <Credits />
           </Route>
         </Switch>
       </BrowserRouter>
