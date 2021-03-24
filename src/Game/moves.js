@@ -43,6 +43,5 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
 
   if (board[x][y] !== null) return INVALID_MOVE;
   board[x][y] = true;
-
   ctx.events.endTurn();
 };
