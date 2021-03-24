@@ -1,7 +1,9 @@
-const Board = ({ game, playerNum, size }) => {
+const Board = ({ game, playerNum }) => {
   const isOwnBoard = parseInt(game.ctx.currentPlayer) === playerNum;
 
-  const GRID_SIDE_SIZE = size;
+  const size = game.G.boards[playerNum].length + 1;
+  const board = game.G.boards[playerNum];
+
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
   const boardStyle = {
@@ -11,9 +13,9 @@ const Board = ({ game, playerNum, size }) => {
 
   const createGrid = () => {
     const squares = [];
-    for (let y = 0; y < GRID_SIDE_SIZE; y++) {
+    for (let y = 0; y < size; y++) {
       const rows = [];
-      for (let x = 0; x < GRID_SIDE_SIZE; x++) {
+      for (let x = 0; x < size; x++) {
         let isOuter = x === 0 && y === 0; // top-left cell is automatically out
 
         let squareText = "";
@@ -29,8 +31,10 @@ const Board = ({ game, playerNum, size }) => {
           isOuter = true;
         }
 
+        const isHit = !isOuter ? board[x - 1][y - 1] !== null : false;
+
         // subtract 1 from x and y because of the extra cells on the left and top
-        rows.push({ x: x - 1, y: y - 1, squareText, isOuter });
+        rows.push({ x: x - 1, y: y - 1, squareText, isOuter, isHit });
       }
       //dont push the first row, because it's not part of the game area
       squares.push(rows);
@@ -43,9 +47,14 @@ const Board = ({ game, playerNum, size }) => {
       {createGrid().map(row => {
         return row.map(cell => (
           <div
-            className={`BoardCell ${cell.isOuter ? "outer" : ""}`}
+            className={`BoardCell ${cell.isOuter ? "outer" : ""} ${
+              cell.isHit ? "hit" : ""
+            }`}
             key={cell.x + "" + cell.y}
-            onClick={() => !isOwnBoard && game.moves.clickCell(cell)}>
+            onClick={() =>
+              !isOwnBoard &&
+              game.moves.clickCell({ coords: cell, targetPlayer: playerNum })
+            }>
             {cell.squareText}
           </div>
         ));
