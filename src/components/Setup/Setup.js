@@ -1,9 +1,12 @@
-const Menu = () => {
+const Setup = props => {
+  console.log("Setup component:", props);
+
   return <div></div>;
 };
 
-export default Menu;
+export default Setup;
 
+/*
 const settings = {
   player1: "",
   player2: "",
@@ -16,3 +19,4 @@ const settings = {
     destroyers: 1,
   },
 };
+*/
