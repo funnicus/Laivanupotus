@@ -1,12 +1,24 @@
-import { placeShip, shootAt } from "./moves";
+import { placeShip, setBoardSize, shootAt } from "./moves";
 
-const SIZE = 9; // size of board
+export const DEFAULT_BOARD_SIZE = 9; // initial size of board
+export const MAX_BOARD_SIZE = 10;
+export const MIN_BOARD_SIZE = 5;
 
 const Game = {
   /* Setup the empty game board */
-  setup: () => ({
-    cells: Array(SIZE).fill(Array(SIZE).fill(null)),
-  }),
+  setup: ctx => {
+    let boards = [];
+
+    for (let i = 0; i < ctx.numPlayers; i++) {
+      boards.push(
+        Array(DEFAULT_BOARD_SIZE).fill(Array(DEFAULT_BOARD_SIZE).fill(null))
+      );
+    }
+
+    return {
+      boards,
+    };
+  },
 
   phases: {
     // players place their ships during this phase
@@ -15,6 +27,7 @@ const Game = {
       next: "play", // name of next phase
       moves: {
         clickCell: placeShip,
+        setBoardSize: setBoardSize,
       },
     },
 

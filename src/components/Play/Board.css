@@ -1,3 +1,12 @@
+@keyframes hit-in {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 /* Container for both boards */
 .BattleshipBoards {
   display: grid;
@@ -11,22 +20,44 @@
 .Board {
   display: grid;
   height: max-content;
+
+  transition: opacity 500ms;
 }
 
 /* Current player's own board */
 .Board.own {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .BoardCell {
   display: grid;
   place-content: center;
-  border: 1px solid #c8c8c8;
+
   width: 3em;
   height: 3em;
 
-  border-top: 1px solid #c8c8c8;
-  border-top: 1px solid #c8c8c8;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  background-color: var(--primary);
+}
+
+.BoardCell.hit {
+  cursor: not-allowed !important;
+}
+
+.BoardCell.hit::before {
+  font-size: 2rem;
+  content: "✕";
+  display: flex;
+  place-content: center;
+
+  color: white;
+
+  animation: hit-in 250ms both;
+}
+
+.BoardCell.hit:hover {
+  filter: none !important;
 }
 
 /* Cells in enemy player's board */
@@ -34,8 +65,14 @@
   cursor: pointer;
 }
 
+.Board:not(.own) .BoardCell:hover {
+  filter: brightness(1.15);
+}
+
 /* Cells that aren't part of the play area */
 .BoardCell.outer {
   pointer-events: none;
   border: 1px solid transparent;
+
+  background-color: transparent;
 }
