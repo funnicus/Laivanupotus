@@ -1,7 +1,31 @@
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
+import DnDBoard from './DnDBoard';
+import Ship from './Ship';
+
+import './Setup.css';
+
+export const ItemTypes = {
+  SHIP: 'ship'
+}
+
 const Setup = props => {
   console.log("Setup component:", props);
 
-  return <div></div>;
+  return (
+      <DndProvider backend={HTML5Backend}>
+        <div className="Setup">
+            <div className="ShipPool">
+              <h2>Ships:</h2>
+                <Ship size={5} />
+            </div>
+            <div className="board-area">
+              <DnDBoard size={10} />
+            </div>
+        </div>
+      </DndProvider>
+  );
 };
 
 export default Setup;
