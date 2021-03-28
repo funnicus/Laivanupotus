@@ -1,16 +1,14 @@
+import React, { useState, useEffect } from 'react';
+import Cell from './Cell';
+
 const DnDBoard = ({ size }) => {
+
+    const [ grid, setGrid ] = useState([]);
+    const [ ships, setShips ] = useState([[{x: 1, y: 2},{x: 1, y: 3},{x: 1, y: 4}],[{x: 3, y: 4}],[{x: 3, y: 3}]]);
+
     const GRID_SIDE_SIZE = size;
     const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
-    const cellStyle = {
-        width: "40px",
-        height: "40px",
-        backgroundColor: "#00d4ff",
-        textAlign: "center",
-        border: "1px solid black",
-        /*box-sizing because then borders wont make the cell bigger*/
-        boxSizing: "border-box"
-    }
     const boardStyle = {
         display: "flex",
         flexWrap: "wrap",
@@ -19,6 +17,10 @@ const DnDBoard = ({ size }) => {
         backgroundColor: "black",
         margin: "20vh auto",
     }
+
+    useEffect(() => {
+        setGrid(createGrid())
+    }, [ships])
   
     const createGrid = () => {
       const squares = [];
@@ -41,22 +43,50 @@ const DnDBoard = ({ size }) => {
           }
   
           // subtract 1 from x and y because of the extra cells on the left and top
-          rows.push({ x: x - 1, y: y - 1, squareText, isOuter });
+          rows.push({ x, y, squareText, isOuter, isHighlighted: false });
         }
         //dont push the first row, because it's not part of the game area
         squares.push(rows);
       }
+      drawShipsOnBoard(squares);
       return squares;
     };
 
+    const drawShipsOnBoard = (board) => {
+        for(let i = 0; i < ships.length; i++){
+            for(let j = 0; j < ships[i].length; j++){
+                if(!ships[i][j]) return;
+                const coord = ships[i][j];
+                board[coord.y][coord.x].isHighlighted = true;
+            }
+        }
+    }
+
+    const drawShip = (x, y) => {
+        const newGrid = createGrid();
+        for(let i = x; i < x+5; i++){
+            newGrid[y][i].isHighlighted = true;
+        }
+        setGrid(newGrid);
+    }
+
+    const dropShip = (x, y) => {
+        const shipCoord = [];
+        for(let i = x; i < x+5; i++){
+            shipCoord.push({ x: i, y });
+        }
+
+        const newShips = ships.concat(shipCoord);
+        setShips(newShips);
+        console.log("Laivat: " + ships)
+    }
+
     return (
         <div className="DnDBoard" style={boardStyle}>
-            {createGrid().map(row => {
-                return row.map((cell, i) => {
+            {grid.map(row => {
+                return row.map(cell => {
                     return(
-                    <div key={cell.x + "" + cell.y} style={cellStyle}>
-                        {cell.squareText}
-                    </div>
+                        <Cell key={cell.x + " " + cell.y} {...cell} drawShip={drawShip} dropShip={dropShip} />
                     )
                 })
             })}

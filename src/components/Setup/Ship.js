@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ItemTypes } from './Setup'
 import { useDrag } from 'react-dnd'
 
 const Ship = ({ size }) => {
+
+    const [ nthCell, setNthCell ] = useState(null);
+
+    const cellNth = () => {
+        setNthCell(i)
+        console.log(nthCell)
+    }
+
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.SHIP,
         collect: (monitor) => ({
@@ -18,9 +26,6 @@ const Ship = ({ size }) => {
         backgroundColor: "#b2beb5",
     }
 
-    //console.log(Array.from(size, (v, i) => <div key={i} style={shipCellStyle}></div>));
-    console.log()
-
     return (
         <div className="Ship"
         ref={drag}
@@ -31,7 +36,7 @@ const Ship = ({ size }) => {
             cursor: 'move',
             display: "flex",
         }}>
-            {Array.from({length: 5}, (v, i) => <div key={i} style={shipCellStyle}></div>)}
+            {Array.from({length: 5}, (v, i) => <div key={i} style={shipCellStyle} onDrag={cellNth}></div>)}
         </div>
     );
 
