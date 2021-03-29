@@ -6,11 +6,11 @@ const Cell = ({ x, y, squareText, isOuter, isHighlighted, drawShip, dropShip }) 
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.SHIP,
-        drop: () => {
-            dropShip(x, y);
+        drop: (item) => {
+            dropShip(x, y, item);
         },
         hover: () => {
-            drawShip(x, y);
+            //drawShip(x, y);
         },
         collect: monitor => ({
           isOver: !!monitor.isOver(),

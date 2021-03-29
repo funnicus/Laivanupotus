@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Cell from './Cell';
 
-const DnDBoard = ({ size }) => {
+const DnDBoard = ({ size, isHorizontal }) => {
 
     const [ grid, setGrid ] = useState([]);
-    const [ ships, setShips ] = useState([[{x: 1, y: 2},{x: 1, y: 3},{x: 1, y: 4}],[{x: 3, y: 4}],[{x: 3, y: 3}]]);
+    const [ ships, setShips ] = useState([]); //[{x: 1, y: 2},{x: 1, y: 3},{x: 1, y: 4}],[{x: 3, y: 4}],[{x: 3, y: 3}]
 
     const GRID_SIDE_SIZE = size;
     const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -23,6 +23,7 @@ const DnDBoard = ({ size }) => {
     }, [ships])
   
     const createGrid = () => {
+      console.log(ships.length)
       const squares = [];
       for (let y = 0; y < GRID_SIDE_SIZE; y++) {
         const rows = [];
@@ -55,7 +56,7 @@ const DnDBoard = ({ size }) => {
     const drawShipsOnBoard = (board) => {
         for(let i = 0; i < ships.length; i++){
             for(let j = 0; j < ships[i].length; j++){
-                if(!ships[i][j]) return;
+                if(!ships[i][j]) continue;
                 const coord = ships[i][j];
                 board[coord.y][coord.x].isHighlighted = true;
             }
@@ -63,22 +64,45 @@ const DnDBoard = ({ size }) => {
     }
 
     const drawShip = (x, y) => {
-        const newGrid = createGrid();
-        for(let i = x; i < x+5; i++){
-            newGrid[y][i].isHighlighted = true;
-        }
-        setGrid(newGrid);
+        setGrid(prevGrid => {
+            const newGrid = [ ...prevGrid ];
+            for(let i = x; i < x+5; i++){
+                newGrid[y][i].isHighlighted = true;
+            }
+            return newGrid;
+        });
     }
 
-    const dropShip = (x, y) => {
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {Object} item 
+     * @returns {void}
+     */
+    const dropShip = (x, y, item) => {
+        const { size } = item;
         const shipCoord = [];
-        for(let i = x; i < x+5; i++){
-            shipCoord.push({ x: i, y });
+        console.log(isHorizontal)
+        if(isHorizontal){
+            if(y+size > GRID_SIDE_SIZE) return;
+            for(let i = y; i < y+size; i++){
+                shipCoord.push({ x, y: i });
+            }
         }
+        else {
+            if(x+size > GRID_SIDE_SIZE) return;
+            for(let i = x; i < x+size; i++){
+                shipCoord.push({ x: i, y });
+            }
+        }
+        setShips(prev => [ ...prev, shipCoord ]);
+    }
 
-        const newShips = ships.concat(shipCoord);
+    const test = () => {
+        const shipCoord = [{ x: Math.floor(Math.random()*9+1) , y: Math.floor(Math.random()*9+1)}]
+        const newShips = [ ...ships, shipCoord ];
         setShips(newShips);
-        console.log("Laivat: " + ships)
     }
 
     return (
@@ -86,10 +110,11 @@ const DnDBoard = ({ size }) => {
             {grid.map(row => {
                 return row.map(cell => {
                     return(
-                        <Cell key={cell.x + " " + cell.y} {...cell} drawShip={drawShip} dropShip={dropShip} />
+                        <Cell key={cell.x + " " + cell.y} {...cell} drawShip={drawShip} dropShip={dropShip} l={ships.length} />
                     )
                 })
             })}
+            <button style={{ position: 'absolute', x: '50', y: '50', z: '3' }} onClick={test}>Hei</button>
         </div>
     )
 }
