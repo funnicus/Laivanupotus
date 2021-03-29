@@ -1,7 +1,7 @@
 import Board from "./Board";
 import "./Board.css";
 
-const BattleshipBoards = props => {
+const Play = props => {
   return (
     <div className="BattleshipBoards">
       <Board game={props} playerNum={0} />
@@ -10,4 +10,4 @@ const BattleshipBoards = props => {
   );
 };
 
-export default BattleshipBoards;
+export default Play;

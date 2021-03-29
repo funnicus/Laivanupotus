@@ -1,5 +1,5 @@
 import Setup from "./Setup/Setup";
-import BattleshipBoards from "./Play/BattleshipBoards";
+import Play from "./Play/Play";
 import { useEffect, useState } from "react";
 import ChangeScreen from "./ChangeScreen/ChangeScreen";
 
@@ -10,7 +10,7 @@ const GameRenderer = props => {
     if (props.ctx.phase !== "play") return;
 
     setShowOverlay(true);
-  }, [props.ctx.currentPlayer]);
+  }, [props.ctx.currentPlayer, props.ctx.phase]);
 
   const Game = () => {
     switch (props.ctx.phase) {
@@ -19,7 +19,7 @@ const GameRenderer = props => {
         return <Setup {...props} />;
 
       case "play":
-        return <BattleshipBoards {...props} />;
+        return <Play {...props} />;
     }
   };
 

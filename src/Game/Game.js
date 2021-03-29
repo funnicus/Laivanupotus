@@ -15,6 +15,13 @@ const Game = {
       );
     }
 
+    boards[0][1][3] = {
+      type: "carrier",
+      dir: "r",
+      imageIndex: 0,
+      isHit: false,
+    };
+
     return {
       boards,
     };
