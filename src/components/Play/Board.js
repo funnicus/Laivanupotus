@@ -44,8 +44,8 @@ const Board = ({ game, playerNum }) => {
 
   return (
     <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
-      {createGrid().map(row => {
-        return row.map(cell => (
+      {createGrid().map((row) => {
+        return row.map((cell) => (
           <div
             className={`BoardCell ${cell.isOuter ? "outer" : ""} ${
               cell.isHit ? "hit" : ""
@@ -54,7 +54,8 @@ const Board = ({ game, playerNum }) => {
             onClick={() =>
               !isOwnBoard &&
               game.moves.clickCell({ coords: cell, targetPlayer: playerNum })
-            }>
+            }
+          >
             {cell.squareText}
           </div>
         ));

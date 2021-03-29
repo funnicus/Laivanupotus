@@ -1,7 +1,7 @@
 import Board from "./Board";
 import "./Board.css";
 
-const BattleshipBoards = props => {
+const BattleshipBoards = (props) => {
   return (
     <div className="BattleshipBoards">
       <Board game={props} playerNum={0} />
