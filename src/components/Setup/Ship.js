@@ -41,7 +41,7 @@ const Ship = ({ size, isHorizontal }) => {
             flexDirection: isHorizontal ? "column" : "row",
             margin: "10px"
         }}>
-            {Array.from({length: size}, (v, i) => <div key={i} style={shipCellStyle} onMouseDown={() => cellNth(i)}></div>)}
+            {Array.from({length: size}, (v, i) => <div key={i} style={shipCellStyle}></div>)}
         </div>
     );
 

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { ItemTypes } from './Setup';
 import { useDrop } from 'react-dnd';
 

@@ -74,7 +74,7 @@ const DnDBoard = ({ size, isHorizontal }) => {
     }
 
     /**
-     * 
+     * Funktio käsittelee aluksen pudottamiseen liittyvät tapahtumat
      * @param {number} x 
      * @param {number} y 
      * @param {Object} item 
@@ -87,22 +87,24 @@ const DnDBoard = ({ size, isHorizontal }) => {
         if(isHorizontal){
             if(y+size > GRID_SIDE_SIZE) return;
             for(let i = y; i < y+size; i++){
+                if(grid[x][i].isHighlighted) {
+                    console.log("heyyy")
+                    return;
+                };
                 shipCoord.push({ x, y: i });
             }
         }
         else {
             if(x+size > GRID_SIDE_SIZE) return;
             for(let i = x; i < x+size; i++){
+                if(grid[i][y].isHighlighted) {
+                    console.log("heyyy")
+                    return;
+                };
                 shipCoord.push({ x: i, y });
             }
         }
         setShips(prev => [ ...prev, shipCoord ]);
-    }
-
-    const test = () => {
-        const shipCoord = [{ x: Math.floor(Math.random()*9+1) , y: Math.floor(Math.random()*9+1)}]
-        const newShips = [ ...ships, shipCoord ];
-        setShips(newShips);
     }
 
     return (
@@ -110,11 +112,12 @@ const DnDBoard = ({ size, isHorizontal }) => {
             {grid.map(row => {
                 return row.map(cell => {
                     return(
-                        <Cell key={cell.x + " " + cell.y} {...cell} drawShip={drawShip} dropShip={dropShip} l={ships.length} />
+                        //avaimessa isHorizontal, jotta <Cell> uudelleen-renderöityy, kun kyseisen propsin arvo vaihtuu
+                        //cursed solution, i know :)
+                        <Cell key={cell.x + " " + cell.y + " " + isHorizontal} {...cell} drawShip={drawShip} dropShip={dropShip} />
                     )
                 })
             })}
-            <button style={{ position: 'absolute', x: '50', y: '50', z: '3' }} onClick={test}>Hei</button>
         </div>
     )
 }
