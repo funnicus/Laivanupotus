@@ -10,17 +10,14 @@ const Game = {
     let boards = [];
 
     for (let i = 0; i < ctx.numPlayers; i++) {
-      boards.push(
-        Array(DEFAULT_BOARD_SIZE).fill(Array(DEFAULT_BOARD_SIZE).fill(null))
-      );
-    }
+      const board = [];
 
-    boards[0][1][3] = {
-      type: "carrier",
-      dir: "r",
-      imageIndex: 0,
-      isHit: false,
-    };
+      for(let j = 0; j < DEFAULT_BOARD_SIZE; j++) {
+        board.push(Array(DEFAULT_BOARD_SIZE).fill(null));
+      }
+
+      boards.push(board);
+    }
 
     return {
       boards,
