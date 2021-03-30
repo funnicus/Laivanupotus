@@ -92,7 +92,7 @@ const Board = ({ game, playerNum }) => {
             className={cellClassName(cell)}
             key={cell.x + "" + cell.y}
             onClick={() => cellOnClick(cell)}>
-            {cell.squareText}
+            <div className="OuterText">{cell.squareText}</div>
             <div className="Ship">{isOwnBoard && renderShip(cell)}</div>
           </div>
         ));
