@@ -3,6 +3,7 @@ const Board = ({ game, playerNum }) => {
 
   const size = game.G.boards[playerNum].length + 1;
   const board = game.G.boards[playerNum];
+  const ownShips = game.G[playerNum === 0 ? "shipsPlayer1" : "shipsPlayer2"];
 
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
@@ -34,7 +35,7 @@ const Board = ({ game, playerNum }) => {
         const isHit = !isOuter ? board[x - 1][y - 1] !== null : false;
 
         // subtract 1 from x and y because of the extra cells on the left and top
-        rows.push({ x: x - 1, y: y - 1, squareText, isOuter, isHit });
+        rows.push({ x, y, squareText, isOuter, isHit });
       }
       //dont push the first row, because it's not part of the game area
       squares.push(rows);
@@ -42,20 +43,50 @@ const Board = ({ game, playerNum }) => {
     return squares;
   };
 
+  const getShipAtCoords = (cell) => {
+    const { x, y } = cell;
+    return ownShips.find((ship) =>
+      ship.find((coords) => coords.x === x && coords.y === y)
+    );
+  };
+
+  const renderShip = (cell) => {
+    const ship = getShipAtCoords(cell);
+    if (!ship) return null;
+
+    const index = ship.findIndex(
+      (coords) => coords.x === cell.x && coords.y === cell.y
+    );
+
+    return <img src={getShipImage(ship, index)} />;
+  };
+
+  const cellOnClick = (cell) => {
+    if (isOwnBoard) return;
+    game.moves.clickCell({
+      coords: { x: cell.x - 1, y: cell.y - 1 },
+      targetPlayer: playerNum,
+    });
+  };
+
+  const cellClassName = (cell) => {
+    const outer = cell.isOuter ? " outer" : "";
+    const clicked = cell.isHit ? " clicked" : "";
+    const hitShip = clicked && getShipAtCoords(cell) ? " hit" : "";
+
+    return `BoardCell${outer}${clicked}${hitShip}`;
+  };
+
   return (
     <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
-      {createGrid().map(row => {
-        return row.map(cell => (
+      {createGrid().map((row) => {
+        return row.map((cell) => (
           <div
-            className={`BoardCell ${cell.isOuter ? "outer" : ""} ${
-              cell.isHit ? "hit" : ""
-            }`}
+            className={cellClassName(cell)}
             key={cell.x + "" + cell.y}
-            onClick={() =>
-              !isOwnBoard &&
-              game.moves.clickCell({ coords: cell, targetPlayer: playerNum })
-            }>
+            onClick={() => cellOnClick(cell)}>
             {cell.squareText}
+            <div className="Ship">{isOwnBoard && renderShip(cell)}</div>
           </div>
         ));
       })}
@@ -64,3 +95,29 @@ const Board = ({ game, playerNum }) => {
 };
 
 export default Board;
+
+const getShipImage = (ship, index) => {
+  const imageArr = SHIP_IMAGES[ship[0].type];
+  if (!imageArr) return null;
+
+  return imageArr[index];
+};
+
+export const SHIP_IMAGES = {
+  carrier: [
+    "./image/Carrier front.png",
+    "./image/Carrier middle1.png",
+    "./image/Carrier middle2.png",
+    "./image/Carrier middle3.png",
+    "./image/Carrier back.png",
+  ],
+  battleship: [
+    "./image/Battleship front.png",
+    "./image/Battleship middle1.png",
+    "./image/Battleship middle2.png",
+    "./image/Battleship back.png",
+  ],
+  cruiser: [],
+  submarine: [],
+  destroyer: [],
+};

@@ -99,12 +99,12 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
     if (isHorizontal) {
       start = y - nthCell;
       for (let i = start; i < start + size; i++) {
-        shipCoord.push({ x, y: i, isHorizontal, type, index: i });
+        shipCoord.push({ x: x, y: i, isHorizontal, type });
       }
     } else {
       start = x - nthCell;
       for (let i = start; i < start + size; i++) {
-        shipCoord.push({ x: i, y, isHorizontal, type, index: i });
+        shipCoord.push({ x: i, y, isHorizontal, type });
       }
     }
 
