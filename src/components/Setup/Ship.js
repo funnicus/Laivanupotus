@@ -4,11 +4,11 @@ import { useDrag } from "react-dnd";
 
 const getShipSize = (type) => {
   const sizes = {
-    carrier: 5,
-    battleship: 4,
-    cruiser: 3,
-    submarine: 3,
-    destroyer: 2,
+    carriers: 5,
+    battleships: 4,
+    cruisers: 3,
+    submarines: 3,
+    destroyers: 2,
   };
 
   return sizes[type];

@@ -36,6 +36,13 @@ const Game = {
       boards: createBoards(ctx),
       shipsPlayer1: [],
       shipsPlayer2: [],
+      shipAmounts: {
+        carriers: 1,
+        battleships: 2,
+        cruisers: 2,
+        submarines: 1,
+        destroyers: 1,
+      },
     };
   },
 

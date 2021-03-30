@@ -12,7 +12,8 @@ export const ItemTypes = {
 };
 
 const Setup = (props) => {
-  const gridSize = props.G.boards[0].length + 1;
+  const { shipAmounts, boards } = props.G;
+  const gridSize = boards[0].length + 1;
 
   const [isHorizontal, setIsHorizontal] = useState(true);
   const [nthCell, setNthCell] = useState(null);
@@ -29,6 +30,28 @@ const Setup = (props) => {
     return () => window.removeEventListener("keydown", onDown);
   }, []);
 
+  const renderDraggableShips = () => {
+    const shipArr = Object.entries(shipAmounts);
+
+    const items = shipArr.map(([type, amount]) => {
+      const shipsOfType = [];
+
+      for (let i = 0; i < amount; i++) {
+        shipsOfType.push(
+          <Ship
+            type={type}
+            isHorizontal={isHorizontal}
+            setNthCell={setNthCell}
+          />
+        );
+      }
+
+      return shipsOfType;
+    });
+
+    return items.flat(1);
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="Setup">
@@ -42,6 +65,7 @@ const Setup = (props) => {
               flexDirection: isHorizontal ? "row" : "column",
             }}
             className="ship-container">
+            {renderDraggableShips()}
             <Ship
               type="carrier"
               isHorizontal={isHorizontal}
