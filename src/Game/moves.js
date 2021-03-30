@@ -33,6 +33,21 @@ export const placeShip = (G, ctx, opts) => {
 };
 
 /**
+ * Called when placed ships for a player are submitted
+ */
+export const submitShips = (G, ctx, ships) => {
+  console.log("Submitted for: " + ctx.currentPlayer)
+  if(ctx.currentPlayer === "0"){
+    G.shipsPlayer1 = ships
+    ctx.events.endTurn();
+  }
+  else {
+    G.shipsPlayer2 = ships
+    ctx.events.endPhase();
+  }
+}
+
+/**
  * Called when a player clicks on a cell during the 'play' phase.
  */
 export const shootAt = (G, ctx, { coords, targetPlayer }) => {
