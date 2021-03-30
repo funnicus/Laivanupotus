@@ -6,13 +6,13 @@ export const MIN_BOARD_SIZE = 5;
 
 const Game = {
   /* Setup the empty game board */
-  setup: ctx => {
+  setup: (ctx) => {
     let boards = [];
 
     for (let i = 0; i < ctx.numPlayers; i++) {
       const board = [];
 
-      for(let j = 0; j < DEFAULT_BOARD_SIZE; j++) {
+      for (let j = 0; j < DEFAULT_BOARD_SIZE; j++) {
         board.push(Array(DEFAULT_BOARD_SIZE).fill(null));
       }
 
