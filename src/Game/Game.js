@@ -10,9 +10,13 @@ const Game = {
     let boards = [];
 
     for (let i = 0; i < ctx.numPlayers; i++) {
-      boards.push(
-        Array(DEFAULT_BOARD_SIZE).fill(Array(DEFAULT_BOARD_SIZE).fill(null))
-      );
+      const board = [];
+
+      for(let j = 0; j < DEFAULT_BOARD_SIZE; j++) {
+        board.push(Array(DEFAULT_BOARD_SIZE).fill(null));
+      }
+
+      boards.push(board);
     }
 
     return {

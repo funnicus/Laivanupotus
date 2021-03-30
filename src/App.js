@@ -8,7 +8,11 @@ import Credits from "./components/Credits/Credits";
 import "./Home.css";
 
 const App = () => {
-  const GameComponent = Client({ game: Game, board: GameRenderer });
+  const GameComponent = Client({
+    game: Game,
+    board: GameRenderer,
+    numPlayers: 2,
+  });
 
   return (
     <div>
