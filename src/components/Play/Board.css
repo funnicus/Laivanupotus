@@ -63,15 +63,19 @@
   filter: none !important;
 }
 
-.BoardCell > .Ship {
+.BoardCell .Ship {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-.BoardCell > .Ship > img {
+.BoardCell .Ship img {
   width: 100%;
   height: 100%;
+}
+
+.BoardCell .Ship img.horizontal {
+  transform: rotate(-90deg);
 }
 
 /* Cells in enemy player's board */

@@ -58,7 +58,14 @@ const Board = ({ game, playerNum }) => {
       (coords) => coords.x === cell.x && coords.y === cell.y
     );
 
-    return <img src={getShipImage(ship, index)} />;
+    const isHorizontal = !ship[0].isHorizontal; // huoh, isHorizontalia pitää käyttää näin päin koska spagetti muualla
+
+    return (
+      <img
+        className={isHorizontal ? "horizontal" : ""}
+        src={getShipImage(ship, index)}
+      />
+    );
   };
 
   const cellOnClick = (cell) => {
@@ -117,7 +124,15 @@ export const SHIP_IMAGES = {
     "./image/Battleship middle2.png",
     "./image/Battleship back.png",
   ],
-  cruiser: [],
-  submarine: [],
-  destroyer: [],
+  cruiser: [
+    "./image/Cruiser front.png",
+    "./image/Cruiser middle.png",
+    "./image/Cruiser back.png",
+  ],
+  submarine: [
+    "./image/Submarine front.png",
+    "./image/Submarine middle.png",
+    "./image/Submarine back.png",
+  ],
+  destroyer: ["./image/Destroyer front.png", "./image/Destroyer back.png"],
 };

@@ -1,6 +1,6 @@
 import Setup from "./Setup/Setup";
 import Play from "./Play/Play";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import ChangeScreen from "./ChangeScreen/ChangeScreen";
 
 /**
@@ -11,7 +11,7 @@ import ChangeScreen from "./ChangeScreen/ChangeScreen";
 const GameRenderer = (props) => {
   const [showOverlay, setShowOverlay] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.ctx.phase !== "play") return;
 
     setShowOverlay(true); // näyttää peliruudun kun pelaaja vaihtuu
