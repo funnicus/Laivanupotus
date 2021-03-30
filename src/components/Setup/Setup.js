@@ -31,25 +31,25 @@ const Setup = (props) => {
   }, []);
 
   const renderDraggableShips = () => {
-    const shipArr = Object.entries(shipAmounts);
+    const shipArr = Object.keys(shipAmounts);
 
-    const items = shipArr.map(([type, amount]) => {
-      const shipsOfType = [];
+    const arr = [];
+
+    for (const shipType of shipArr) {
+      const amount = shipAmounts[shipType];
 
       for (let i = 0; i < amount; i++) {
-        shipsOfType.push(
+        arr.push(
           <Ship
-            type={type}
+            type={shipType}
             isHorizontal={isHorizontal}
             setNthCell={setNthCell}
           />
         );
       }
+    }
 
-      return shipsOfType;
-    });
-
-    return items.flat(1);
+    return arr;
   };
 
   return (
