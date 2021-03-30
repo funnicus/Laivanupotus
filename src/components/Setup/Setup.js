@@ -12,9 +12,11 @@ export const ItemTypes = {
 };
 
 const Setup = (props) => {
+  const gridSize = props.G.boards[0].length + 1;
+
   const [isHorizontal, setIsHorizontal] = useState(true);
   const [nthCell, setNthCell] = useState(null);
-  const [ships, setShips] = useState([]); //[{x: 1, y: 2},{x: 1, y: 3},{x: 1, y: 4}],[{x: 3, y: 4}],[{x: 3, y: 3}]
+  const [ships, setShips] = useState([]);
 
   useEffect(() => {
     function onDown(e) {
@@ -75,7 +77,7 @@ const Setup = (props) => {
         </div>
         <div className="board-area">
           <DnDBoard
-            size={10}
+            size={gridSize}
             ships={ships}
             setShips={setShips}
             isHorizontal={isHorizontal}
