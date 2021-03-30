@@ -3,13 +3,18 @@ import Play from "./Play/Play";
 import { useEffect, useState } from "react";
 import ChangeScreen from "./ChangeScreen/ChangeScreen";
 
-const GameRenderer = props => {
+/**
+ * Renderöi pelaajien laudat
+ * @param {*} props
+ * @returns
+ */
+const GameRenderer = (props) => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
     if (props.ctx.phase !== "play") return;
 
-    setShowOverlay(true);
+    setShowOverlay(true); // näyttää peliruudun kun pelaaja vaihtuu
   }, [props.ctx.currentPlayer, props.ctx.phase]);
 
   const Game = () => {
@@ -23,6 +28,9 @@ const GameRenderer = props => {
     }
   };
 
+  /**
+   * Renderöi pelaajan vaihtoruudun silloin kun täytyy
+   */
   if (showOverlay) {
     return (
       <ChangeScreen
