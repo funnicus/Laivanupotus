@@ -54,10 +54,7 @@ const Board = ({ game, playerNum }) => {
     const ship = getShipAtCoords(cell);
     if (!ship) return null;
 
-    const index = ship.findIndex(
-      (coords) => coords.x === cell.x && coords.y === cell.y
-    );
-
+    const index = ship.findIndex((c) => c.x === cell.x && c.y === cell.y);
     const isHorizontal = !ship[0].isHorizontal; // huoh, isHorizontalia pitää käyttää näin päin koska spagetti muualla
 
     return (
@@ -111,28 +108,28 @@ const getShipImage = (ship, index) => {
 };
 
 export const SHIP_IMAGES = {
-  carrier: [
+  carriers: [
     "./image/Carrier front.png",
     "./image/Carrier middle1.png",
     "./image/Carrier middle2.png",
     "./image/Carrier middle3.png",
     "./image/Carrier back.png",
   ],
-  battleship: [
+  battleships: [
     "./image/Battleship front.png",
     "./image/Battleship middle1.png",
     "./image/Battleship middle2.png",
     "./image/Battleship back.png",
   ],
-  cruiser: [
+  cruisers: [
     "./image/Cruiser front.png",
     "./image/Cruiser middle.png",
     "./image/Cruiser back.png",
   ],
-  submarine: [
+  submarines: [
     "./image/Submarine front.png",
     "./image/Submarine middle.png",
     "./image/Submarine back.png",
   ],
-  destroyer: ["./image/Destroyer front.png", "./image/Destroyer back.png"],
+  destroyers: ["./image/Destroyer front.png", "./image/Destroyer back.png"],
 };
