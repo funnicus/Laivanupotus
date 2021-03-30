@@ -33,15 +33,11 @@ const Setup = props => {
     props.moves.submitShips(ships)
   }
 
-  const reset = () => {
-    setShips([]);
-  }
-
   return (
       <DndProvider backend={HTML5Backend}>
         <div className="Setup">
             <div className="ShipPool">
-              <h2>Asetetaan laivoja pelaajalle 1</h2>
+              <h2>Asetetaan laivoja pelaajalle {parseInt(props.ctx.currentPlayer) + 1}</h2>
               <div style={{ display: "flex", flexDirection: isHorizontal ? "row" : "column" }} className="ship-container">
                 <Ship size={5} isHorizontal={isHorizontal} />
                 <Ship size={4} isHorizontal={isHorizontal} />
@@ -50,7 +46,7 @@ const Setup = props => {
               </div>
               <div>
                 <button className="confirm-button" onClick={submitShips} disabled={ships.length < 4}>Vahvista alusten sijainti!</button>
-                <button className="confirm-button" onClick={reset}>Aseta laivat uudelleen...</button>
+                <button className="confirm-button" onClick={() => props.undo()}>Aseta laivat uudelleen...</button>
               </div>
             </div>
             <div className="board-area">

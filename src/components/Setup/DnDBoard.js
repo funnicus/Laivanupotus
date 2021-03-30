@@ -100,10 +100,10 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
                     console.log("heyyy")
                     return;
                 };
-                shipCoord.push({ x: i, y });
+                shipCoord.push({ x: i, y, isHorizontal });
             }
         }
-        
+
         setShips(prev => [ ...prev, shipCoord ]);
     }
 
