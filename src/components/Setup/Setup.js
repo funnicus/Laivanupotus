@@ -29,10 +29,6 @@ const Setup = props => {
     return () => window.removeEventListener('keydown', onDown);
   }, []);
 
-  const submitShips = () => {
-    props.moves.submitShips(ships)
-  }
-
   return (
       <DndProvider backend={HTML5Backend}>
         <div className="Setup">
@@ -45,7 +41,7 @@ const Setup = props => {
                 <Ship size={2} isHorizontal={isHorizontal} setNthCell={setNthCell} />
               </div>
               <div>
-                <button className="confirm-button" onClick={submitShips} disabled={ships.length < 4}>Vahvista alusten sijainti!</button>
+                <button className="confirm-button" onClick={() => props.moves.submitShips(ships)} disabled={ships.length < 4}>Vahvista laivojen sijainti!</button>
                 <button className="confirm-button" onClick={() => props.undo()}>Aseta laivat uudelleen...</button>
               </div>
             </div>

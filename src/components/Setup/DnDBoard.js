@@ -22,6 +22,10 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         console.log(grid)
     }, [ships])
   
+    /**
+     * Creates an array specifying the board that is to be rendered
+     * @returns {Object[][]}
+     */
     const createGrid = () => {
       console.log(ships.length)
       const squares = [];
@@ -56,7 +60,7 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
 
     /**
      * Draws ships on a given board
-     * @param {Array<Array<Object>>} board 
+     * @param {Object[][]} board 
      */
     const drawShipsOnBoard = (board) => {
         for(let i = 0; i < ships.length; i++){
@@ -84,7 +88,7 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
     }
 
     /**
-     * Funktio käsittelee aluksen pudottamiseen liittyvät tapahtumat
+     * Function handles ship placement
      * @param {number} x 
      * @param {number} y 
      * @param {Object} item 
@@ -98,14 +102,12 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
 
         if(isHorizontal){
             start = y-nthCell;
-            if(start+size > GRID_SIDE_SIZE || start < 0) return;
             for(let i = start; i < start+size; i++){
                 shipCoord.push({ x, y: i, isHorizontal });
             }
         }
         else {
             start = x-nthCell;
-            if(start+size > GRID_SIDE_SIZE || start < 0) return;
             for(let i = start; i < start+size; i++){
                 shipCoord.push({ x: i, y, isHorizontal });
             }
@@ -114,6 +116,13 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         setShips(prev => [ ...prev, shipCoord ]);
     }
 
+    /**
+     * Checks if ship can be dropped on target
+     * @param {number} x 
+     * @param {number} y 
+     * @param {Object} item 
+     * @returns 
+     */
     const canDropShip = (x, y, item) => {
         const { size } = item;
         let start;
