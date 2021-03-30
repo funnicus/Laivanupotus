@@ -61,19 +61,31 @@ const Board = ({ game, playerNum }) => {
     return <img src={getShipImage(ship, index)} />;
   };
 
+  /**
+   * Luo luokkanimen ruudulle riippuen sen tilasta
+   * @param {*} cell Ruutu jolle luokkanimi luodaan
+   * @returns {string}
+   */
+  const cellClassName = (cell) => {
+    const isOuter = cell.isOuter ? " outer" : "";
+    const isHit = cell.isHit ? " clicked" : "";
+
+    return `BoardCell${isOuter}${isHit}`;
+  };
+
+  const cellOnClick = (cell) => {
+    if (isOwnBoard) return;
+    game.moves.clickCell({ coords: cell, targetPlayer: playerNum });
+  };
+
   return (
     <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
       {createGrid().map((row) => {
         return row.map((cell) => (
           <div
-            className={`BoardCell ${cell.isOuter ? "outer" : ""} ${
-              cell.isHit ? "clicked" : ""
-            }`}
             key={cell.x + "" + cell.y}
-            onClick={() =>
-              !isOwnBoard &&
-              game.moves.clickCell({ coords: cell, targetPlayer: playerNum })
-            }>
+            className={cellClassName(cell)}
+            onClick={() => cellOnClick(cell)}>
             {cell.squareText}
             <div className="Ship">{isOwnBoard && renderShip(cell)}</div>
           </div>
@@ -85,11 +97,15 @@ const Board = ({ game, playerNum }) => {
 
 export default Board;
 
+/**
+ * Palauttaa laivan osan kuvan
+ * @param {object} ship
+ * @param {number} index
+ * @returns {string}
+ */
 const getShipImage = (ship, index) => {
   const imageArr = SHIP_IMAGES[ship[0].type];
-  if (!imageArr) return null;
-
-  return imageArr[index];
+  return imageArr && imageArr[index];
 };
 
 export const SHIP_IMAGES = {
