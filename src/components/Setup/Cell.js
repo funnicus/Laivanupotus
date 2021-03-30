@@ -1,17 +1,18 @@
 import { ItemTypes } from './Setup';
 import { useDrop } from 'react-dnd';
 
-const Cell = ({ x, y, squareText, isOuter, isHighlighted, drawShip, dropShip }) => {
+const Cell = ({ x, y, squareText, isOuter, isHighlighted, drawShip, dropShip, canDropShip }) => {
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.SHIP,
         drop: (item) => {
+            console.log(item)
             dropShip(x, y, item);
         },
         hover: () => {
             //drawShip(x, y);
         },
-        canDrop: () => true,
+        canDrop: (item) => canDropShip(x, y, item),
         collect: monitor => ({
           isOver: !!monitor.isOver(),
         }),

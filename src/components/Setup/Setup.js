@@ -12,9 +12,9 @@ export const ItemTypes = {
 }
 
 const Setup = props => {
-  console.log("Setup component:", props);
 
   const [ isHorizontal, setIsHorizontal ] = useState(true);
+  const [ nthCell, setNthCell ] = useState(null);
   const [ ships, setShips ] = useState([]); //[{x: 1, y: 2},{x: 1, y: 3},{x: 1, y: 4}],[{x: 3, y: 4}],[{x: 3, y: 3}]
 
   useEffect(() => {
@@ -39,10 +39,10 @@ const Setup = props => {
             <div className="ShipPool">
               <h2>Asetetaan laivoja pelaajalle {parseInt(props.ctx.currentPlayer) + 1}</h2>
               <div style={{ display: "flex", flexDirection: isHorizontal ? "row" : "column" }} className="ship-container">
-                <Ship size={5} isHorizontal={isHorizontal} />
-                <Ship size={4} isHorizontal={isHorizontal} />
-                <Ship size={3} isHorizontal={isHorizontal} />
-                <Ship size={2} isHorizontal={isHorizontal} />
+                <Ship size={5} isHorizontal={isHorizontal} setNthCell={setNthCell} />
+                <Ship size={4} isHorizontal={isHorizontal} setNthCell={setNthCell} />
+                <Ship size={3} isHorizontal={isHorizontal} setNthCell={setNthCell} />
+                <Ship size={2} isHorizontal={isHorizontal} setNthCell={setNthCell} />
               </div>
               <div>
                 <button className="confirm-button" onClick={submitShips} disabled={ships.length < 4}>Vahvista alusten sijainti!</button>
@@ -50,7 +50,7 @@ const Setup = props => {
               </div>
             </div>
             <div className="board-area">
-              <DnDBoard size={10} ships={ships} setShips={setShips} isHorizontal={isHorizontal} />
+              <DnDBoard size={10} ships={ships} setShips={setShips} isHorizontal={isHorizontal} nthCell={nthCell} />
             </div>
         </div>
       </DndProvider>

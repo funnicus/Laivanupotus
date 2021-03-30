@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cell from './Cell';
 
-const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
+const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
 
     const [ grid, setGrid ] = useState([]);
 
@@ -19,6 +19,7 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
 
     useEffect(() => {
         setGrid(createGrid())
+        console.log(grid)
     }, [ships])
   
     const createGrid = () => {
@@ -52,6 +53,11 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
       return squares;
     };
 
+
+    /**
+     * Draws ships on a given board
+     * @param {Array<Array<Object>>} board 
+     */
     const drawShipsOnBoard = (board) => {
         for(let i = 0; i < ships.length; i++){
             for(let j = 0; j < ships[i].length; j++){
@@ -62,6 +68,11 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
         }
     }
 
+    /**
+     * May be obsolete...
+     * @param {number} x 
+     * @param {number} y 
+     */
     const drawShip = (x, y) => {
         setGrid(prevGrid => {
             const newGrid = [ ...prevGrid ];
@@ -83,23 +94,19 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
         const { size } = item;
         const shipCoord = [];
 
+        let start;
+
         if(isHorizontal){
-            if(y+size > GRID_SIDE_SIZE) return;
-            for(let i = y; i < y+size; i++){
-                if(grid[x][i].isHighlighted) {
-                    console.log("heyyy")
-                    return;
-                };
-                shipCoord.push({ x, y: i });
+            start = y-nthCell;
+            if(start+size > GRID_SIDE_SIZE || start < 0) return;
+            for(let i = start; i < start+size; i++){
+                shipCoord.push({ x, y: i, isHorizontal });
             }
         }
         else {
-            if(x+size > GRID_SIDE_SIZE) return;
-            for(let i = x; i < x+size; i++){
-                if(grid[i][y].isHighlighted) {
-                    console.log("heyyy")
-                    return;
-                };
+            start = x-nthCell;
+            if(start+size > GRID_SIDE_SIZE || start < 0) return;
+            for(let i = start; i < start+size; i++){
                 shipCoord.push({ x: i, y, isHorizontal });
             }
         }
@@ -107,19 +114,50 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
         setShips(prev => [ ...prev, shipCoord ]);
     }
 
+    const canDropShip = (x, y, item) => {
+        const { size } = item;
+        let start;
+        if(isHorizontal){
+            start = y-nthCell;
+            if(start+size > GRID_SIDE_SIZE || start < 0) return false;
+            for(let i = start; i < start+size; i++){
+                if(i < 1 || i > GRID_SIDE_SIZE-1) return false;
+                if(grid[i][x+1].isHighlighted || grid[i][x-1].isHighlighted || grid[i][x].isHighlighted) return false;
+                if(i === start && grid[i-1][x].isHighlighted) return false;
+            }
+            return true;
+        }
+        else {
+            start = x-nthCell;
+            if(start+size > GRID_SIDE_SIZE || start < 0) return false;
+            for(let i = start; i < start+size; i++){
+                if(i < 1 || i > GRID_SIDE_SIZE-1) return false;
+                if(grid[y+1][i].isHighlighted || grid[y-1][i].isHighlighted || grid[y][i].isHighlighted) return false;
+                if(i === start && grid[x][i-1].isHighlighted) return false;
+            }
+            return true
+        }
+    }
+
     return (
-        <div className="DnDBoard" style={boardStyle}>
+        <div className="DnDBoard" style={boardStyle} key={nthCell}>
             {grid.map(row => {
                 return row.map(cell => {
                     return(
                         //avaimessa isHorizontal, jotta <Cell> uudelleen-renderöityy, kun kyseisen propsin arvo vaihtuu
                         //cursed solution, i know :)
-                        <Cell key={cell.x + " " + cell.y + " " + isHorizontal} {...cell} drawShip={drawShip} dropShip={dropShip} />
+                        <Cell 
+                            key={cell.x + " " + cell.y + " " + isHorizontal} 
+                            {...cell} 
+                            drawShip={drawShip} 
+                            dropShip={dropShip} 
+                            canDropShip={canDropShip} 
+                        />
                     )
                 })
             })}
         </div>
     )
-}
+}   
 
 export default DnDBoard;
