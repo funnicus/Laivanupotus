@@ -14,6 +14,20 @@ export const setBoardSize = (G, ctx, size) => {
 };
 
 /**
+ * Called when placed ships for a player are submitted
+ */
+export const submitShips = (G, ctx, ships) => {
+  console.log("Submitted for: " + ctx.currentPlayer);
+  if (ctx.currentPlayer === "0") {
+    G.shipsPlayer1 = ships;
+    ctx.events.endTurn();
+  } else {
+    G.shipsPlayer2 = ships;
+    ctx.events.endPhase();
+  }
+};
+
+/**
  * Returns true if coordinates are inside the game board
  */
 const isInsideBounds = (G, coords, playerNum) => {
@@ -26,28 +40,6 @@ const isInsideBounds = (G, coords, playerNum) => {
 };
 
 /**
- * Called when a player clicks on a cell during the 'setup' phase
- */
-export const placeShip = (G, ctx, opts) => {
-  console.log("place ship:", opts);
-};
-
-/**
- * Called when placed ships for a player are submitted
- */
-export const submitShips = (G, ctx, ships) => {
-  console.log("Submitted for: " + ctx.currentPlayer)
-  if(ctx.currentPlayer === "0"){
-    G.shipsPlayer1 = ships
-    ctx.events.endTurn();
-  }
-  else {
-    G.shipsPlayer2 = ships
-    ctx.events.endPhase();
-  }
-}
-
-/**
  * Called when a player clicks on a cell during the 'play' phase.
  */
 export const shootAt = (G, ctx, { coords, targetPlayer }) => {
@@ -57,6 +49,7 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
   const board = G.boards[targetPlayer];
 
   if (board[x][y] !== null) return INVALID_MOVE;
+
   board[x][y] = true;
   ctx.events.endTurn();
 };

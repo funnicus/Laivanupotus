@@ -7,8 +7,8 @@ export const MIN_BOARD_SIZE = 5;
 /**
  * Creates two, two-dimensional arrays reprsenting the battleship boards
  * for game state. Called in setup.
- * @param {Object} ctx 
- * @returns 
+ * @param {Object} ctx
+ * @returns
  */
 const createBoards = (ctx) => {
   let boards = [];
@@ -24,18 +24,18 @@ const createBoards = (ctx) => {
   }
 
   return boards;
-}
+};
 
 const Game = {
   // The name of the game.
-  name: 'Laivanupotus',
+  name: "Laivanupotus",
 
   /* Setup the empty game board */
   setup: (ctx) => {
     return {
       boards: createBoards(ctx),
       shipsPlayer1: [],
-      shipsPlayer2: []
+      shipsPlayer2: [],
     };
   },
 
@@ -45,7 +45,6 @@ const Game = {
       start: true, // start game at this phase
       next: "play", // name of next phase
       moves: {
-        clickCell: placeShip,
         submitShips: submitShips,
         setBoardSize: setBoardSize,
       },

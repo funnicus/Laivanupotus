@@ -3,6 +3,7 @@ const Board = ({ game, playerNum }) => {
 
   const size = game.G.boards[playerNum].length + 1;
   const board = game.G.boards[playerNum];
+  const ownShips = game.G[playerNum === 0 ? "shipsPlayer1" : "shipsPlayer2"];
 
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
@@ -42,13 +43,31 @@ const Board = ({ game, playerNum }) => {
     return squares;
   };
 
+  const getShipAtCoords = (cell) => {
+    const { x, y } = cell;
+    return ownShips.find((ship) =>
+      ship.find((coords) => coords.x === x && coords.y === y)
+    );
+  };
+
+  const renderShip = (cell) => {
+    const ship = getShipAtCoords(cell);
+    if (!ship) return null;
+
+    const index = ship.findIndex(
+      (coords) => coords.x === cell.x && coords.y === cell.y
+    );
+
+    return <img src={getShipImage(ship, index)} />;
+  };
+
   return (
     <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
-      {createGrid().map(row => {
-        return row.map(cell => (
+      {createGrid().map((row) => {
+        return row.map((cell) => (
           <div
             className={`BoardCell ${cell.isOuter ? "outer" : ""} ${
-              cell.isHit ? "hit" : ""
+              cell.isHit ? "clicked" : ""
             }`}
             key={cell.x + "" + cell.y}
             onClick={() =>
@@ -56,6 +75,7 @@ const Board = ({ game, playerNum }) => {
               game.moves.clickCell({ coords: cell, targetPlayer: playerNum })
             }>
             {cell.squareText}
+            <div className="Ship">{isOwnBoard && renderShip(cell)}</div>
           </div>
         ));
       })}
@@ -64,3 +84,40 @@ const Board = ({ game, playerNum }) => {
 };
 
 export default Board;
+
+const getShipImage = (ship, index) => {
+  const imageArr = SHIP_IMAGES[ship[0].type];
+  if (!imageArr) return null;
+
+  return imageArr[index];
+};
+
+export const SHIP_IMAGES = {
+  carrier: [
+    "./image/Carrier front.png",
+    "./image/Carrier middle1.png",
+    "./image/Carrier middle2.png",
+    "./image/Carrier middle3.png",
+    "./image/Carrier back.png",
+  ],
+  battleship: [
+    "./image/Battleship front.png",
+    "./image/Battleship middle1.png",
+    "./image/Battleship middle2.png",
+    "./image/Battleship back.png",
+  ],
+  cruiser: [],
+  submarine: [],
+  destroyer: [],
+};
+
+/*
+{
+  carrier: 5,
+  battleship: 4,
+  cruiser: 3,
+  submarine: 3,
+  destroyer: 2,
+};
+
+*/

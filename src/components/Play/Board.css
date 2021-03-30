@@ -33,31 +33,59 @@
   display: grid;
   place-content: center;
 
-  width: 3em;
-  height: 3em;
+  min-width: 3em;
+  min-height: 3em;
 
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid red;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
+  border: 0px solid rgba(255, 255, 255, 0.25);
 
   background-color: var(--primary);
 }
 
-.BoardCell.hit {
+.BoardCell.clicked {
   cursor: not-allowed !important;
 }
 
-.BoardCell.hit::before {
+.BoardCell.clicked::before {
   font-size: 2rem;
   content: "✕";
-  display: flex;
+  display: inline-flex;
   place-content: center;
 
+  height: 0;
+
   color: white;
+
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 
   animation: hit-in 250ms both;
 }
 
-.BoardCell.hit:hover {
+.BoardCell.hit::before {
+  color: red !important;
+
+  -webkit-text-fill-color: red; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}
+
+.BoardCell.clicked:hover {
   filter: none !important;
+}
+
+.BoardCell > .Ship {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.BoardCell > .Ship > img {
+  width: 100%;
+  height: 100%;
 }
 
 /* Cells in enemy player's board */
