@@ -15,6 +15,7 @@ const Setup = props => {
   console.log("Setup component:", props);
 
   const [ isHorizontal, setIsHorizontal ] = useState(true);
+  const [ ships, setShips ] = useState([]); //[{x: 1, y: 2},{x: 1, y: 3},{x: 1, y: 4}],[{x: 3, y: 4}],[{x: 3, y: 3}]
 
   useEffect(() => {
     function onDown(e) {
@@ -28,20 +29,32 @@ const Setup = props => {
     return () => window.removeEventListener('keydown', onDown);
   }, []);
 
+  const submitShips = () => {
+    props.moves.submitShips(ships)
+  }
+
+  const reset = () => {
+    setShips([]);
+  }
+
   return (
       <DndProvider backend={HTML5Backend}>
         <div className="Setup">
             <div className="ShipPool">
-              <h2>Ships:</h2>
+              <h2>Asetetaan laivoja pelaajalle 1</h2>
               <div style={{ display: "flex", flexDirection: isHorizontal ? "row" : "column" }} className="ship-container">
                 <Ship size={5} isHorizontal={isHorizontal} />
                 <Ship size={4} isHorizontal={isHorizontal} />
                 <Ship size={3} isHorizontal={isHorizontal} />
                 <Ship size={2} isHorizontal={isHorizontal} />
               </div>
+              <div>
+                <button className="confirm-button" onClick={submitShips} disabled={ships.length < 4}>Vahvista alusten sijainti!</button>
+                <button className="confirm-button" onClick={reset}>Aseta laivat uudelleen...</button>
+              </div>
             </div>
             <div className="board-area">
-              <DnDBoard size={10} isHorizontal={isHorizontal} />
+              <DnDBoard size={10} ships={ships} setShips={setShips} isHorizontal={isHorizontal} />
             </div>
         </div>
       </DndProvider>

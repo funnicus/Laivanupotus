@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Cell from './Cell';
 
-const DnDBoard = ({ size, isHorizontal }) => {
+const DnDBoard = ({ size, ships, setShips, isHorizontal }) => {
 
     const [ grid, setGrid ] = useState([]);
-    const [ ships, setShips ] = useState([]); //[{x: 1, y: 2},{x: 1, y: 3},{x: 1, y: 4}],[{x: 3, y: 4}],[{x: 3, y: 3}]
 
     const GRID_SIDE_SIZE = size;
     const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -83,7 +82,7 @@ const DnDBoard = ({ size, isHorizontal }) => {
     const dropShip = (x, y, item) => {
         const { size } = item;
         const shipCoord = [];
-        console.log(isHorizontal)
+
         if(isHorizontal){
             if(y+size > GRID_SIDE_SIZE) return;
             for(let i = y; i < y+size; i++){
@@ -104,6 +103,7 @@ const DnDBoard = ({ size, isHorizontal }) => {
                 shipCoord.push({ x: i, y });
             }
         }
+        
         setShips(prev => [ ...prev, shipCoord ]);
     }
 

@@ -11,6 +11,7 @@ const Cell = ({ x, y, squareText, isOuter, isHighlighted, drawShip, dropShip }) 
         hover: () => {
             //drawShip(x, y);
         },
+        canDrop: () => true,
         collect: monitor => ({
           isOver: !!monitor.isOver(),
         }),

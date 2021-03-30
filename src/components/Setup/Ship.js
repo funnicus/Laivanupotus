@@ -5,6 +5,7 @@ import { useDrag } from 'react-dnd'
 const Ship = ({ size, isHorizontal }) => {
 
     const [ nthCell, setNthCell ] = useState(null);
+    const [dropped, setDropped] = useState(false);
 
     const cellNth = (i) => {
         setNthCell(i)
@@ -18,7 +19,11 @@ const Ship = ({ size, isHorizontal }) => {
         },
         collect: (monitor) => ({
           isDragging: !!monitor.isDragging()
-        })
+        }),
+        end: (item, monitor) => {
+            console.log(monitor)
+            if(monitor.didDrop()) setDropped(true);
+        }
       }))
 
     const shipCellStyle = {
@@ -37,9 +42,9 @@ const Ship = ({ size, isHorizontal }) => {
             fontSize: 25,
             fontWeight: 'bold',
             cursor: 'move',
-            display: "flex",
+            display: dropped ? "none" : "flex",
             flexDirection: isHorizontal ? "column" : "row",
-            margin: "10px"
+            margin: "10px",
         }}>
             {Array.from({length: size}, (v, i) => <div key={i} style={shipCellStyle}></div>)}
         </div>
