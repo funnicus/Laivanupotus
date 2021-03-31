@@ -66,26 +66,6 @@ const Setup = (props) => {
             }}
             className="ship-container">
             {renderDraggableShips()}
-            <Ship
-              type="carrier"
-              isHorizontal={isHorizontal}
-              setNthCell={setNthCell}
-            />
-            <Ship
-              type="battleship"
-              isHorizontal={isHorizontal}
-              setNthCell={setNthCell}
-            />
-            <Ship
-              type="cruiser"
-              isHorizontal={isHorizontal}
-              setNthCell={setNthCell}
-            />
-            <Ship
-              type="submarine"
-              isHorizontal={isHorizontal}
-              setNthCell={setNthCell}
-            />
           </div>
           <div>
             <button
