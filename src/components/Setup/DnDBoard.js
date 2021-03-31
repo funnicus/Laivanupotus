@@ -13,6 +13,7 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
     gridTemplateColumns: `repeat(${size}, 1fr)`,
     gridTemplateRows: `repeat(${size}, 1fr)`,
     margin: "20vh auto",
+    backgroundColor: "var(--primary)",
   };
 
   useEffect(() => {
@@ -70,6 +71,13 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         if (!ships[i][j]) continue;
         const coord = ships[i][j];
         board[coord.y][coord.x].isHighlighted = true;
+
+        board[coord.y][coord.x].ship = {
+          type: coord.type,
+          index: j,
+          isHorizontal: coord.isHorizontal,
+        };
+
         //setting the areas around ship, where other ships can't be placed
         board[coord.y][coord.x].canPlace = false;
         board[coord.y - 1][coord.x].canPlace = false;

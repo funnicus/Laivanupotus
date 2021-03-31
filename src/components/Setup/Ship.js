@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ItemTypes } from "./Setup";
 import { useDrag } from "react-dnd";
-import { SHIP_IMAGES } from "../GameRenderer";
+import { SHIP_IMAGES } from "../../Game/images";
 
 const getShipSize = (type) => {
   const sizes = {
@@ -41,7 +41,7 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
 
   return (
     <div
-      className="Ship"
+      className="DnDShip"
       ref={drag}
       style={{
         opacity: isDragging ? 0.5 : 1,
@@ -51,7 +51,6 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
         display: dropped ? "none" : "flex",
         flexDirection: isHorizontal ? "column" : "row",
         margin: "10px",
-        backgroundColor: "transparent",
       }}>
       {Array.from({ length: size }, (v, i) => (
         <div key={i} className="ShipPart" onMouseDown={() => setNthCell(i)}>

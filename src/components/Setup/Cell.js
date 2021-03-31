@@ -1,7 +1,10 @@
 import { ItemTypes } from "./Setup";
 import { useDrop } from "react-dnd";
+import { getShipImage } from "../../Game/images";
+import Ship from "./Ship";
 
 const Cell = ({
+  ship,
   x,
   y,
   squareText,
@@ -30,11 +33,13 @@ const Cell = ({
   );
 
   const cellStyle = {
+    display: "grid",
+    placeContent: "center",
     width: "3rem",
     height: "3rem",
-    backgroundColor: isHighlighted ? "#b2beb5" : "var(--primary)",
     textAlign: "center",
-    border: "1px solid black",
+    border: "1px solid rgba(255,255,255,0.2)",
+
     /*box-sizing because then borders wont make the cell bigger*/
     boxSizing: "border-box",
   };
@@ -47,6 +52,16 @@ const Cell = ({
       x={x}
       y={y}>
       {squareText}
+      {ship && (
+        <div className="DnDShip">
+          <div className="ShipPart">
+            <img
+              className={!ship.isHorizontal ? "horizontal" : ""}
+              src={getShipImage(ship.type, ship.index)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
