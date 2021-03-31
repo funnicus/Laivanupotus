@@ -56,6 +56,6 @@
   -ms-interpolation-mode: nearest-neighbor;
 }
 
-.Ship img.horizontal {
+.DnDShip img.horizontal {
   transform: rotate(-90deg);
 }

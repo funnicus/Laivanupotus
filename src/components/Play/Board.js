@@ -1,4 +1,4 @@
-import SHIP_IMAGES from "../GameRenderer";
+import { SHIP_IMAGES } from "../../Game/images";
 
 const Board = ({ game, playerNum }) => {
   const isOwnBoard = parseInt(game.ctx.currentPlayer) === playerNum;
@@ -83,6 +83,13 @@ const Board = ({ game, playerNum }) => {
     return `BoardCell${outer}${clicked}${hitShip}`;
   };
 
+  const getShipImage = (ship, index) => {
+    const imageArr = SHIP_IMAGES[ship[0].type];
+    if (!imageArr) return null;
+
+    return imageArr[index];
+  };
+
   return (
     <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
       {createGrid().map((row) => {
@@ -101,10 +108,3 @@ const Board = ({ game, playerNum }) => {
 };
 
 export default Board;
-
-const getShipImage = (ship, index) => {
-  const imageArr = SHIP_IMAGES[ship[0].type];
-  if (!imageArr) return null;
-
-  return imageArr[index];
-};

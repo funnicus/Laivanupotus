@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ItemTypes } from "./Setup";
 import { useDrag } from "react-dnd";
-import { SHIP_IMAGES } from "../GameRenderer";
+import { SHIP_IMAGES } from "../../Game/images";
 
 const getShipSize = (type) => {
   const sizes = {
