@@ -41,7 +41,7 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
 
   return (
     <div
-      className="Ship"
+      className="DnDShip"
       ref={drag}
       style={{
         opacity: isDragging ? 0.5 : 1,
