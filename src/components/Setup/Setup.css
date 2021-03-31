@@ -20,7 +20,8 @@
 }
 
 .ship-container {
-    height: 60%;
+    height: 70%;
+    overflow: auto;
 }
 
 .confirm-button {
