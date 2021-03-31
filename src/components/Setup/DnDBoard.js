@@ -8,11 +8,10 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
   const boardStyle = {
-    display: "flex",
-    flexWrap: "wrap",
-    width: `${40 * size}px`,
-    height: `${40 * size}px`,
-    backgroundColor: "black",
+    display: "grid",
+    width: "max-content",
+    gridTemplateColumns: `repeat(${size}, 1fr)`,
+    gridTemplateRows: `repeat(${size}, 1fr)`,
     margin: "20vh auto",
   };
 
@@ -45,7 +44,14 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         }
 
         // subtract 1 from x and y because of the extra cells on the left and top
-        rows.push({ x, y, squareText, isOuter, isHighlighted: false, canPlace: true });
+        rows.push({
+          x,
+          y,
+          squareText,
+          isOuter,
+          isHighlighted: false,
+          canPlace: true,
+        });
       }
       //dont push the first row, because it's not part of the game area
       squares.push(rows);
@@ -66,12 +72,12 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         board[coord.y][coord.x].isHighlighted = true;
         //setting the areas around ship, where other ships can't be placed
         board[coord.y][coord.x].canPlace = false;
-        board[coord.y-1][coord.x].canPlace = false;
-        board[coord.y][coord.x-1].canPlace = false;
+        board[coord.y - 1][coord.x].canPlace = false;
+        board[coord.y][coord.x - 1].canPlace = false;
         //without if checks, would throw errors when ship is placed besides board borders
-        if(coord.y < GRID_SIDE_SIZE-1 && coord.x < GRID_SIDE_SIZE-1) {
-            board[coord.y+1][coord.x].canPlace = false;
-            board[coord.y][coord.x+1].canPlace = false;
+        if (coord.y < GRID_SIDE_SIZE - 1 && coord.x < GRID_SIDE_SIZE - 1) {
+          board[coord.y + 1][coord.x].canPlace = false;
+          board[coord.y][coord.x + 1].canPlace = false;
         }
       }
     }
@@ -134,14 +140,14 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
       start = y - nthCell;
       if (start + size > GRID_SIDE_SIZE || start < 0) return false;
       for (let i = start; i < start + size; i++) {
-        if(!grid[i][x].canPlace) return false;
+        if (!grid[i][x].canPlace) return false;
       }
       return true;
     } else {
       start = x - nthCell;
       if (start + size > GRID_SIDE_SIZE || start < 0) return false;
       for (let i = start; i < start + size; i++) {
-          if(!grid[y][i].canPlace) return false;
+        if (!grid[y][i].canPlace) return false;
       }
       return true;
     }
