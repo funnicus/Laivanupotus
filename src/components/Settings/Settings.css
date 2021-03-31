@@ -10,13 +10,18 @@
 
 #settings-container {
   margin-top: 6rem;
+  width: 100%;
 }
 
 .settingsDiv {
   margin: auto;
-  width: 75%;
+  width: 100%;
+  max-width: 55em;
   padding: 10px;
   text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
+  gap: 1em;
 }
 
 .settingsLabel {
@@ -26,6 +31,7 @@
 
 .settingsInput {
   height: 1.5rem;
+  width: 3rem;
   font-size: 1.25rem;
   margin-right: 10px;
   border-radius: 2rem;
@@ -35,21 +41,38 @@
   padding-right: 8px;
 }
 
+.settingsInput.long {
+  min-width: 6rem;
+  max-width: 12rem;
+  width: 100%;
+}
+
 #ship-container {
   margin: auto;
-  width: 60%;
+  max-width: 40em;
   padding: 10px;
   text-align: center;
   display: grid;
-  grid-template-columns: 40% 10% 40% 10%;
+  grid-template-columns: 1fr 1fr;
   row-gap: 1rem;
 }
 
-#destroyerDiv {
-  grid-column: 1 / span 4;
+@media screen and (max-width: 45em) {
+  #ship-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-#settings-button {
+#destroyerDiv {
+  grid-column: 1 / span 2;
+}
+
+#submitButtonDiv {
+  text-align: center;
+}
+
+#submit-button {
   width: 7.5rem;
   height: 2.5rem;
   font-size: 24px;
@@ -60,7 +83,13 @@
   border-radius: 2rem;
 }
 
-#settings-button:hover {
+#submit-button:hover {
   background-color: var(--light2);
   cursor: pointer;
+}
+
+#error {
+  text-align: center;
+  font-size: 24px;
+  color: #c80d00;
 }

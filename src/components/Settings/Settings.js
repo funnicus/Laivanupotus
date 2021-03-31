@@ -1,9 +1,6 @@
 import { useState } from "react";
 import "./Settings.css";
 
-//TODO: pelilaudan kokoa voi pienentää, vaikka alukset eivät tällöin enää mahdu laudalle
-//TODO: submittaaminen onnistuu kyseisillä virheellisillä arvoilla
-
 /**
  * Settings-komponentti kuvaa pelin vaihetta, jossa pelaajilta kysytään nimet, pelilaudan koko ja alusten määrät
  * @param {Object} props
@@ -38,7 +35,7 @@ const Settings = ({ game }) => {
 
   /*
    * Error-viestin arvo ja funktio sen muuttamiselle
-   * Error-viesti näkyy käyttöliittymässä, jos alusten määrä ylittää sallitun rajan
+   * Error-viesti näkyy käyttöliittymässä, jos pelilaudan koko tai alusten määrä ei kelpaa
    */
   const [error, setError] = useState("");
 
@@ -101,11 +98,47 @@ const Settings = ({ game }) => {
   };
 
   /**
-   * Funktiot eri alustyyppien arvojen päivittämiseen käyttöliittymässä.
+   * Funktio, joka tarkistaa, onko pelilaudan koko sopiva.
+   * Sopiva pelilaudan koko täyttää seuraavat kriteerit
+   * 1) Alusten yhteenlaskettu pinta-ala on enintään puolet pelilaudan pinta-alasta
+   * 2) Pelilaudan koko on vähintään 5 ja enintään 10
+   * @param {Number} gridSize
+   * @returns false, jos kriteerit eivät täyty; true, jos kriteerit täyttyvät
+   */
+  const checkGridSize = (gridSize) => {
+    if (
+      shipAmounts.carriers * 5 +
+        shipAmounts.battleships * 4 +
+        shipAmounts.cruisers * 3 +
+        shipAmounts.submarines * 3 +
+        shipAmounts.destroyers * 2 >
+      (gridSize * gridSize) / 2
+    ) {
+      setError(
+        "Et voi pienentää pelilaudan kokoa, ellet poista joitakin laivoja"
+      );
+      return false;
+    }
+    if (gridSize < 5 || gridSize > 10) {
+      setError("Pelilaudan koon on oltava väliltä 5-10");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
+  /**
+   * Funktiot pelilaudan koon ja eri alustyyppien arvojen päivittämiseen käyttöliittymässä.
+   * Kutsuu checkGridSize-funktiota argumenttina uusi syötetty arvo, tai
    * Kutsuu checkShipAmount-funktiota argumenteilla aluksen tyyppi ja syötetty uusi arvo.
-   * Jos checkShipAmount-funktio palauttaa arvon true, päivitetään käyttöliittymään uusi arvo.
+   * Jos check-funktio palauttaa arvon true, päivitetään käyttöliittymään uusi arvo.
    * @param {Event} e
    */
+  const updateGridSize = (e) => {
+    const fits = checkGridSize(parseInt(e.target.value));
+    if (fits) setGridSize(e.target.valueAsNumber);
+  };
+
   const updateCarriers = (e) => {
     const fits = checkShipAmount("carriers", parseInt(e.target.value));
     if (fits) setCarriers(e.target.valueAsNumber);
@@ -153,90 +186,101 @@ const Settings = ({ game }) => {
       <h1 className="title">Pelin asetukset</h1>
       <div id="settings-container">
         <div className="settingsDiv">
-          <label className="settingsLabel" htmlFor="player1Name">
-            Pelaajan 1 nimi:{" "}
-          </label>
-          <input
-            className="settingsInput"
-            type="text"
-            id="player1Name"
-            value={player1Name}
-            onChange={(e) => setPlayer1Name(e.target.value)}
-          />
-          <label className="settingsLabel" htmlFor="player2Name">
-            Pelaajan 2 nimi:{" "}
-          </label>
-          <input
-            className="settingsInput"
-            type="text"
-            id="player2Name"
-            value={player2Name}
-            onChange={(e) => setPlayer2Name(e.target.value)}
-          />
-        </div>
-        <div>
-          <p>{error}</p>
+          <div className="labelInput">
+            <label className="settingsLabel" htmlFor="player1Name">
+              Pelaajan 1 nimi:{" "}
+            </label>
+            <input
+              className="settingsInput long"
+              type="text"
+              id="player1Name"
+              value={player1Name}
+              onChange={(e) => setPlayer1Name(e.target.value)}
+            />
+          </div>
+          <div className="labelInput">
+            <label className="settingsLabel" htmlFor="player2Name">
+              Pelaajan 2 nimi:{" "}
+            </label>
+            <input
+              className="settingsInput long"
+              type="text"
+              id="player2Name"
+              value={player2Name}
+              onChange={(e) => setPlayer2Name(e.target.value)}
+            />
+          </div>
         </div>
         <div className="settingsDiv">
-          <label className="settingsLabel" htmlFor="gridSize">
-            Pelilaudan koko (5-10):{" "}
-          </label>
-          <input
-            className="settingsInput"
-            type="number"
-            id="gridSize"
-            min="5"
-            max="10"
-            value={gridSize}
-            onChange={(e) => setGridSize(e.target.value)}
-          />
+          <div className="labelInput">
+            <label className="settingsLabel" htmlFor="gridSize">
+              Pelilaudan koko (5-10):{" "}
+            </label>
+            <input
+              className="settingsInput"
+              type="number"
+              id="gridSize"
+              min="5"
+              max="10"
+              value={gridSize}
+              onChange={updateGridSize}
+            />
+          </div>
         </div>
         <div id="ship-container">
-          <label className="settingsLabel" htmlFor="carriers">
-            Lentotukialusten määrä:{" "}
-          </label>
-          <input
-            className="settingsInput"
-            type="number"
-            id="carriers"
-            min="0"
-            value={carriers}
-            onChange={updateCarriers}
-          />
-          <label className="settingsLabel" htmlFor="battleships">
-            Taistelulaivojen määrä:{" "}
-          </label>
-          <input
-            className="settingsInput"
-            type="number"
-            id="battleships"
-            min="0"
-            value={battleships}
-            onChange={updateBattleships}
-          />
-          <label className="settingsLabel" htmlFor="cruisers">
-            Risteilijöiden määrä:{" "}
-          </label>
-          <input
-            className="settingsInput"
-            type="number"
-            id="cruisers"
-            min="0"
-            value={cruisers}
-            onChange={updateCruisers}
-          />
-          <label className="settingsLabel" htmlFor="submarines">
-            Sukellusveneiden määrä:{" "}
-          </label>
-          <input
-            className="settingsInput"
-            type="number"
-            id="submarines"
-            min="0"
-            value={submarines}
-            onChange={updateSubmarines}
-          />
-          <div id="destroyerDiv">
+          <div className="labelInput">
+            <label className="settingsLabel" htmlFor="carriers">
+              Lentotukialusten määrä:{" "}
+            </label>
+            <input
+              className="settingsInput"
+              type="number"
+              id="carriers"
+              min="0"
+              value={carriers}
+              onChange={updateCarriers}
+            />
+          </div>
+          <div className="labelInput">
+            <label className="settingsLabel" htmlFor="battleships">
+              Taistelulaivojen määrä:{" "}
+            </label>
+            <input
+              className="settingsInput"
+              type="number"
+              id="battleships"
+              min="0"
+              value={battleships}
+              onChange={updateBattleships}
+            />
+          </div>
+          <div className="labelInput">
+            <label className="settingsLabel" htmlFor="cruisers">
+              Risteilijöiden määrä:{" "}
+            </label>
+            <input
+              className="settingsInput"
+              type="number"
+              id="cruisers"
+              min="0"
+              value={cruisers}
+              onChange={updateCruisers}
+            />
+          </div>
+          <div className="labelInput">
+            <label className="settingsLabel" htmlFor="submarines">
+              Sukellusveneiden määrä:{" "}
+            </label>
+            <input
+              className="settingsInput"
+              type="number"
+              id="submarines"
+              min="0"
+              value={submarines}
+              onChange={updateSubmarines}
+            />
+          </div>
+          <div id="destroyerDiv" className="labelInput">
             <label className="settingsLabel" htmlFor="destroyers">
               Hävittäjien määrä:{" "}
             </label>
@@ -250,10 +294,13 @@ const Settings = ({ game }) => {
             />
           </div>
         </div>
-        <div className="settingsDiv">
-          <button id="settings-button" onClick={submit}>
+        <div id="submitButtonDiv">
+          <button id="submit-button" onClick={submit}>
             Valmis
           </button>
+        </div>
+        <div id="error">
+          <p>{error}</p>
         </div>
       </div>
     </div>
