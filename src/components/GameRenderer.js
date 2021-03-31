@@ -42,6 +42,7 @@ const GameRenderer = (props) => {
       <ChangeScreen
         playerNum={parseInt(props.ctx.currentPlayer) + 1}
         hide={() => setShowOverlay(false)}
+        game={props}
       />
     );
   }
