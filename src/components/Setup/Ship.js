@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ItemTypes } from "./Setup";
 import { useDrag } from "react-dnd";
+import { SHIP_IMAGES } from "../GameRenderer";
 
 const getShipSize = (type) => {
   const sizes = {
@@ -38,7 +39,12 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
     height: "40px",
     border: "1px solid black",
     boxSizing: "border-box",
-    backgroundColor: "#b2beb5",
+    backgroundColor: "red",
+  };
+
+  const getShipImage = (type, index) => {
+    const imageArr = SHIP_IMAGES[type];
+    return imageArr && imageArr[index];
   };
 
   return (
@@ -55,10 +61,9 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
         margin: "10px",
       }}>
       {Array.from({ length: size }, (v, i) => (
-        <div
-          key={i}
-          style={shipCellStyle}
-          onMouseDown={() => setNthCell(i)}></div>
+        <div key={i} style={shipCellStyle} onMouseDown={() => setNthCell(i)}>
+          <img src={getShipImage(type, i)} />
+        </div>
       ))}
     </div>
   );
