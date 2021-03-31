@@ -24,3 +24,8 @@ export const SHIP_IMAGES = {
   ],
   destroyers: ["./image/Destroyer front.png", "./image/Destroyer back.png"],
 };
+
+export const getShipImage = (type, index) => {
+  const shipParts = SHIP_IMAGES[type];
+  return shipParts && shipParts[index];
+};

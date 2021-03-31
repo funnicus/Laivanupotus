@@ -51,7 +51,6 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
         display: dropped ? "none" : "flex",
         flexDirection: isHorizontal ? "column" : "row",
         margin: "10px",
-        backgroundColor: "transparent",
       }}>
       {Array.from({ length: size }, (v, i) => (
         <div key={i} className="ShipPart" onMouseDown={() => setNthCell(i)}>
