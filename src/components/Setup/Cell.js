@@ -7,6 +7,7 @@ const Cell = ({
   squareText,
   isOuter,
   isHighlighted,
+  canPlace,
   drawShip,
   dropShip,
   canDropShip,
@@ -31,7 +32,7 @@ const Cell = ({
   const cellStyle = {
     width: "40px",
     height: "40px",
-    backgroundColor: isOver || isHighlighted ? "#b2beb5" : "#00d4ff",
+    backgroundColor: isHighlighted ? "#b2beb5" : "#00d4ff",
     textAlign: "center",
     border: "1px solid black",
     /*box-sizing because then borders wont make the cell bigger*/

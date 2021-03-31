@@ -45,7 +45,7 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         }
 
         // subtract 1 from x and y because of the extra cells on the left and top
-        rows.push({ x, y, squareText, isOuter, isHighlighted: false });
+        rows.push({ x, y, squareText, isOuter, isHighlighted: false, canPlace: true });
       }
       //dont push the first row, because it's not part of the game area
       squares.push(rows);
@@ -64,6 +64,15 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         if (!ships[i][j]) continue;
         const coord = ships[i][j];
         board[coord.y][coord.x].isHighlighted = true;
+        //setting the areas around ship, where other ships can't be placed
+        board[coord.y][coord.x].canPlace = false;
+        board[coord.y-1][coord.x].canPlace = false;
+        board[coord.y][coord.x-1].canPlace = false;
+        //without if checks, would throw errors when ship is placed besides board borders
+        if(coord.y < GRID_SIDE_SIZE-1 && coord.x < GRID_SIDE_SIZE-1) {
+            board[coord.y+1][coord.x].canPlace = false;
+            board[coord.y][coord.x+1].canPlace = false;
+        }
       }
     }
   };
@@ -125,28 +134,14 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
       start = y - nthCell;
       if (start + size > GRID_SIDE_SIZE || start < 0) return false;
       for (let i = start; i < start + size; i++) {
-        if (i < 1 || i > GRID_SIDE_SIZE - 1) return false;
-        if (
-          grid[i][x + 1].isHighlighted ||
-          grid[i][x - 1].isHighlighted ||
-          grid[i][x].isHighlighted
-        )
-          return false;
-        if (i === start && grid[i - 1][x].isHighlighted) return false;
+        if(!grid[i][x].canPlace) return false;
       }
       return true;
     } else {
       start = x - nthCell;
       if (start + size > GRID_SIDE_SIZE || start < 0) return false;
       for (let i = start; i < start + size; i++) {
-        if (i < 1 || i > GRID_SIDE_SIZE - 1) return false;
-        if (
-          grid[y + 1][i].isHighlighted ||
-          grid[y - 1][i].isHighlighted ||
-          grid[y][i].isHighlighted
-        )
-          return false;
-        if (i === start && grid[x][i - 1].isHighlighted) return false;
+          if(!grid[y][i].canPlace) return false;
       }
       return true;
     }
