@@ -104,5 +104,7 @@ export default Board;
 
 const getShipImage = (ship, index) => {
   const imageArr = SHIP_IMAGES[ship[0].type];
-  return imageArr && imageArr[index];
+  if (!imageArr) return null;
+
+  return imageArr[index];
 };

@@ -34,14 +34,6 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
     },
   }));
 
-  const shipCellStyle = {
-    width: "40px",
-    height: "40px",
-    border: "1px solid black",
-    boxSizing: "border-box",
-    backgroundColor: "red",
-  };
-
   const getShipImage = (type, index) => {
     const imageArr = SHIP_IMAGES[type];
     return imageArr && imageArr[index];
@@ -59,10 +51,14 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
         display: dropped ? "none" : "flex",
         flexDirection: isHorizontal ? "column" : "row",
         margin: "10px",
+        backgroundColor: "transparent",
       }}>
       {Array.from({ length: size }, (v, i) => (
-        <div key={i} style={shipCellStyle} onMouseDown={() => setNthCell(i)}>
-          <img src={getShipImage(type, i)} />
+        <div key={i} className="ShipPart" onMouseDown={() => setNthCell(i)}>
+          <img
+            className={!isHorizontal ? "horizontal" : ""}
+            src={getShipImage(type, i)}
+          />
         </div>
       ))}
     </div>

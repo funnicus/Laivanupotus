@@ -30,11 +30,12 @@ const Cell = ({
   );
 
   const cellStyle = {
-    width: "40px",
-    height: "40px",
+    width: "3rem",
+    height: "3rem",
     backgroundColor: isHighlighted ? "#b2beb5" : "#00d4ff",
     textAlign: "center",
     border: "1px solid black",
+    backgroundColor: "var(--primary)",
     /*box-sizing because then borders wont make the cell bigger*/
     boxSizing: "border-box",
   };
