@@ -1,9 +1,6 @@
 import { useState } from "react";
 import "./Settings.css";
 
-//TODO: pelilaudan kokoa voi pienentää, vaikka alukset eivät tällöin enää mahdu laudalle
-//TODO: submittaaminen onnistuu kyseisillä virheellisillä arvoilla
-
 /**
  * Settings-komponentti kuvaa pelin vaihetta, jossa pelaajilta kysytään nimet, pelilaudan koko ja alusten määrät
  * @param {Object} props
@@ -38,7 +35,7 @@ const Settings = ({ game }) => {
 
   /*
    * Error-viestin arvo ja funktio sen muuttamiselle
-   * Error-viesti näkyy käyttöliittymässä, jos alusten määrä ylittää sallitun rajan
+   * Error-viesti näkyy käyttöliittymässä, jos pelilaudan koko tai alusten määrä ei kelpaa
    */
   const [error, setError] = useState("");
 
@@ -101,11 +98,48 @@ const Settings = ({ game }) => {
   };
 
   /**
-   * Funktiot eri alustyyppien arvojen päivittämiseen käyttöliittymässä.
+   * Funktio, joka tarkistaa, onko pelilaudan koko sopiva.
+   * Sopiva pelilaudan koko täyttää seuraavat kriteerit
+   * 1) Alusten yhteenlaskettu pinta-ala on enintään puolet pelilaudan pinta-alasta
+   * 2) Pelilaudan koko on vähintään 5 ja enintään 10
+   * @param {Number} gridSize
+   * @returns false, jos kriteerit eivät täyty; true, jos kriteerit täyttyvät
+   */
+  const checkGridSize = (gridSize) => {
+    console.log(gridSize);
+    if (
+      shipAmounts.carriers * 5 +
+        shipAmounts.battleships * 4 +
+        shipAmounts.cruisers * 3 +
+        shipAmounts.submarines * 3 +
+        shipAmounts.destroyers * 2 >
+      (gridSize * gridSize) / 2
+    ) {
+      setError(
+        "Et voi pienentää pelilaudan kokoa, ellet poista joitakin laivoja"
+      );
+      return false;
+    }
+    if (gridSize < 5 || gridSize > 10) {
+      setError("Pelilaudan koon on oltava väliltä 5-10");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
+  /**
+   * Funktiot pelilaudan koon ja eri alustyyppien arvojen päivittämiseen käyttöliittymässä.
+   * Kutsuu checkGridSize-funktiota argumenttina uusi syötetty arvo, tai
    * Kutsuu checkShipAmount-funktiota argumenteilla aluksen tyyppi ja syötetty uusi arvo.
-   * Jos checkShipAmount-funktio palauttaa arvon true, päivitetään käyttöliittymään uusi arvo.
+   * Jos check-funktio palauttaa arvon true, päivitetään käyttöliittymään uusi arvo.
    * @param {Event} e
    */
+  const updateGridSize = (e) => {
+    const fits = checkGridSize(parseInt(e.target.value));
+    if (fits) setGridSize(e.target.valueAsNumber);
+  };
+
   const updateCarriers = (e) => {
     const fits = checkShipAmount("carriers", parseInt(e.target.value));
     if (fits) setCarriers(e.target.valueAsNumber);
@@ -188,7 +222,7 @@ const Settings = ({ game }) => {
             min="5"
             max="10"
             value={gridSize}
-            onChange={(e) => setGridSize(e.target.value)}
+            onChange={updateGridSize}
           />
         </div>
         <div id="ship-container">
