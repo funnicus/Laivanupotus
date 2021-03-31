@@ -63,6 +63,7 @@ const Setup = (props) => {
             style={{
               display: "flex",
               flexDirection: isHorizontal ? "row" : "column",
+              flexWrap: "wrap"
             }}
             className="ship-container">
             {renderDraggableShips()}
