@@ -171,6 +171,11 @@ const Settings = ({ game }) => {
    * Funktio myös lopettaa pelin Settings-vaiheen.
    */
   const submit = () => {
+    const sum = Object.values(shipAmounts).reduce((acc, curr) => acc + curr, 0);
+    if (sum <= 0) {
+      setError("Laivoja on oltava enemmän kuin nolla!");
+      return;
+    }
     game.moves.setPlayerNames(1, player1Name);
     game.moves.setPlayerNames(2, player2Name);
     game.moves.setBoardSize(parseInt(gridSize));
