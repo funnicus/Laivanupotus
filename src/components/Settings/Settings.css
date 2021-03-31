@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Open+Sans&display=swap");
+
+:root {
+  --primary: #00bac8;
+  --light: #e0f7f8;
+  --light2: #b2eaec;
+  --bg: #ebf4f5;
+  --dark: #095e5d;
+}
+
+#settings-container {
+  margin-top: 6rem;
+}
+
+.settingsDiv {
+  margin: auto;
+  width: 75%;
+  padding: 10px;
+  text-align: center;
+}
+
+.settingsLabel {
+  margin-left: 10px;
+  font-size: 1.25rem;
+}
+
+.settingsInput {
+  height: 1.5rem;
+  font-size: 1.25rem;
+  margin-right: 10px;
+  border-radius: 2rem;
+  border: solid 1px var(--dark);
+  padding: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#ship-container {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 40% 10% 40% 10%;
+  row-gap: 1rem;
+}
+
+#destroyerDiv {
+  grid-column: 1 / span 4;
+}
+
+#settings-button {
+  width: 7.5rem;
+  height: 2.5rem;
+  font-size: 24px;
+  background-color: var(--light);
+  border: 1px solid var(--primary);
+  font-family: "Montserrat";
+  color: #000000;
+  border-radius: 2rem;
+}
+
+#settings-button:hover {
+  background-color: var(--light2);
+  cursor: pointer;
+}

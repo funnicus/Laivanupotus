@@ -1,6 +1,14 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 import { MAX_BOARD_SIZE, MIN_BOARD_SIZE } from "./Game";
 
+export const setPlayerNames = (G, ctx, playerNum, playerName) => {
+  if (playerNum === 1) {
+    G.player1Name = playerName || "Pelaaja 1";
+  } else if (playerNum === 2) {
+    G.player2Name = playerName || "Pelaaja 2";
+  }
+};
+
 /**
  * Updates the size of the game boards
  */
@@ -11,6 +19,35 @@ export const setBoardSize = (G, ctx, size) => {
   for (let i = 0; i < G.boards.length; i++) {
     G.boards[i] = Array(size).fill(Array(size).fill(null));
   }
+};
+
+export const setShipAmounts = (G, ctx, shipAmounts) => {
+  const size = G.boards[0][0].length;
+
+  if (
+    shipAmounts.carriers * 5 +
+      shipAmounts.battleships * 4 +
+      shipAmounts.cruisers * 3 +
+      shipAmounts.submarines * 3 +
+      shipAmounts.destroyers * 2 >
+    (size * size) / 2
+  )
+    return INVALID_MOVE;
+
+  if (
+    shipAmounts.carriers < 0 ||
+    shipAmounts.battleships < 0 ||
+    shipAmounts.cruisers < 0 ||
+    shipAmounts.submarines < 0 ||
+    shipAmounts.destroyers < 0
+  )
+    return INVALID_MOVE;
+
+  G.shipAmounts.carriers = shipAmounts.carriers;
+  G.shipAmounts.battleships = shipAmounts.battleships;
+  G.shipAmounts.cruisers = shipAmounts.cruisers;
+  G.shipAmounts.submarines = shipAmounts.submarines;
+  G.shipAmounts.destroyers = shipAmounts.destroyers;
 };
 
 /**

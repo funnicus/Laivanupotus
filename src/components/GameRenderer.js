@@ -1,6 +1,7 @@
+import Settings from "./Settings/Settings";
 import Setup from "./Setup/Setup";
 import Play from "./Play/Play";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import ChangeScreen from "./ChangeScreen/ChangeScreen";
 
 /**
@@ -17,9 +18,14 @@ const GameRenderer = (props) => {
     setShowOverlay(true); // näyttää peliruudun kun pelaaja vaihtuu
   }, [props.ctx.currentPlayer, props.ctx.phase]);
 
+  console.log(props);
+
   const Game = () => {
     switch (props.ctx.phase) {
       default:
+      case "settings":
+        return <Settings game={props} />;
+
       case "setup":
         return <Setup {...props} />;
 

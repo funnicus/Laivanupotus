@@ -1,4 +1,12 @@
-import { submitShips, setBoardSize, shootAt } from "./moves";
+import { TurnOrder } from "boardgame.io/core";
+
+import {
+  setBoardSize,
+  setPlayerNames,
+  setShipAmounts,
+  shootAt,
+  submitShips,
+} from "./moves";
 
 export const DEFAULT_BOARD_SIZE = 9; // initial size of board
 export const MAX_BOARD_SIZE = 10;
@@ -34,26 +42,40 @@ const Game = {
   setup: (ctx) => {
     return {
       boards: createBoards(ctx),
-      shipsPlayer1: [],
-      shipsPlayer2: [],
+      player1Name: "Pelaaja 1",
+      player2Name: "Pelaaja 2",
       shipAmounts: {
-        carriers: 1,
-        battleships: 2,
-        cruisers: 2,
-        submarines: 1,
-        destroyers: 1,
+        carriers: 0,
+        battleships: 0,
+        cruisers: 0,
+        submarines: 0,
+        destroyers: 0,
       },
     };
   },
 
+  turn: {
+    order: TurnOrder.RESET, // Reset to player 1 when phase changes
+  },
+
   phases: {
+    // players choose the game settings during this phase
+    settings: {
+      start: true, // start game at this phase
+      next: "setup",
+      moves: {
+        setPlayerNames,
+        setBoardSize,
+        setShipAmounts,
+      },
+    },
+
     // players place their ships during this phase
     setup: {
-      start: true, // start game at this phase
       next: "play", // name of next phase
       moves: {
-        submitShips: submitShips,
-        setBoardSize: setBoardSize,
+        submitShips,
+        setBoardSize,
       },
     },
 
