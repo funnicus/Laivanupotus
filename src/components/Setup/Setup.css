@@ -1,6 +1,5 @@
 .Setup {
   display: flex;
-  font-family: sans-serif;
 }
 
 .ShipPool {
@@ -11,6 +10,10 @@
   color: var(--primary);
 
   text-align: center;
+}
+
+#setShip {
+  font-family: "Montserrat";
 }
 
 .ship-container {

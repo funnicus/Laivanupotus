@@ -77,7 +77,7 @@ const Setup = (props) => {
     <DndProvider backend={HTML5Backend}>
       <div className="Setup">
         <div className="ShipPool">
-          <h2>Asetetaan laivoja pelaajalle {playerName}</h2>
+          <h2 id="setShip">Asetetaan laivoja pelaajalle {playerName}</h2>
           <p>Voit kääntää laivoja painamalla r-näppäintä</p>
           <div
             style={{
@@ -85,18 +85,20 @@ const Setup = (props) => {
               flexDirection: isHorizontal ? "row" : "column",
               flexWrap: "wrap",
             }}
-            className="ship-container">
+            className="ship-container"
+          >
             {renderDraggableShips()}
           </div>
           <div>
             <button
               className="confirm-button"
               onClick={() => props.moves.submitShips(ships)}
-              disabled={ships.length < totalShips}>
+              disabled={ships.length < totalShips}
+            >
               Vahvista laivojen sijainti!
             </button>
             <button className="confirm-button" onClick={() => props.undo()}>
-              Aseta laivat uudelleen...
+              Aseta laivat uudelleen
             </button>
           </div>
         </div>

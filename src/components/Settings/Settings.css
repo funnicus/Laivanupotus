@@ -117,5 +117,5 @@
 #error {
   text-align: center;
   font-size: 24px;
-  color: #c80d00;
+  color: var(--error);
 }
