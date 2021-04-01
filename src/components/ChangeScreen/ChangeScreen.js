@@ -1,5 +1,10 @@
 import "./ChangeScreen.css";
 
+/**
+ * Overlay component to render when players are switching seats.
+ * Shows the name of the player that is up next and a button to start the turn
+ * @param {object} props { hide, playerNum, game }
+ */
 const ChangeScreen = ({ hide, playerNum, game }) => {
   const playerName = playerNum === 1 ? game.G.player1Name : game.G.player2Name;
 
