@@ -13,7 +13,7 @@ const WinScreen = ({ game, setShowWinScreen }) => {
     <div id="winScreenContainer">
       <div className="WinScreen">
         <button id="close-button" onClick={() => setShowWinScreen(false)}>
-          x
+          <img src="./icons/x.svg" />
         </button>
         <h1 className="title ws">{playerName} voitti pelin!</h1>
         <div id="wsButtonContainer">

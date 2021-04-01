@@ -8,7 +8,7 @@ const Credits = () => {
     <div>
       <Link to="/">
         <button title="Takaisin" className="back-button">
-          ←
+          <img src="./icons/arrow-left.svg" />
         </button>
       </Link>
       <h1 className="title">Tekijät</h1>

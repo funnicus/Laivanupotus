@@ -85,8 +85,11 @@ const Board = ({ game, playerNum }) => {
     return SHIP_IMAGES[type] && SHIP_IMAGES[type][index];
   };
 
+  // true if the cell has a sunken ship in it
+  const cellIsSunk = (cell) => getShipAtCoords(cell)?.sunk;
+
   // true if the cell should render the ship part it has
-  const showShip = (cell) => getShipAtCoords(cell)?.sunk || isOwnBoard;
+  const showShip = (cell) => cellIsSunk(cell) || isOwnBoard;
 
   // calculates the cell's classnames based on its state
   const cellClassName = (cell) => {

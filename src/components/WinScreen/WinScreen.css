@@ -60,3 +60,8 @@
   background-color: var(--light2);
   cursor: pointer;
 }
+
+#close-button img {
+  display: flex;
+  width: 100%;
+}
