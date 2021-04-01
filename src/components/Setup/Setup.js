@@ -7,10 +7,16 @@ import Ship from "./Ship";
 
 import "./Setup.css";
 
+//react dnd ItemType for drag and drop
 export const ItemTypes = {
   SHIP: "ship",
 };
 
+/**
+ * Renders the setup screen
+ * @param {Object} props 
+ * @returns {JSX.Element}
+ */
 const Setup = (props) => {
   const { shipAmounts, boards } = props.G;
   const gridSize = boards[0].length + 1;
@@ -30,6 +36,10 @@ const Setup = (props) => {
     return () => window.removeEventListener("keydown", onDown);
   }, []);
 
+  /**
+   * Creates an array containing Ship-components adn return them
+   * @returns {JSX.Element[]}
+   */
   const renderDraggableShips = () => {
     const shipArr = Object.keys(shipAmounts);
 

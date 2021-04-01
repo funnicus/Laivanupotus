@@ -3,6 +3,11 @@ import { ItemTypes } from "./Setup";
 import { useDrag } from "react-dnd";
 import { SHIP_IMAGES } from "../../Game/images";
 
+/**
+ * Return a size corresponding to the type given as an function argument
+ * @param {*} type 
+ * @returns {number}
+ */
 const getShipSize = (type) => {
   const sizes = {
     carriers: 5,
@@ -15,6 +20,11 @@ const getShipSize = (type) => {
   return sizes[type];
 };
 
+/**
+ * Renders an individual ship for drag and drop
+ * @param {Object} props 
+ * @returns {JSX.Element}
+ */
 const Ship = ({ type, isHorizontal, setNthCell }) => {
   const [dropped, setDropped] = useState(false);
 
@@ -34,6 +44,12 @@ const Ship = ({ type, isHorizontal, setNthCell }) => {
     },
   }));
 
+  /**
+   * Fetches the correct image for a geiven ship type
+   * @param {*} type 
+   * @param {*} index 
+   * @returns 
+   */
   const getShipImage = (type, index) => {
     const imageArr = SHIP_IMAGES[type];
     return imageArr && imageArr[index];
