@@ -83,8 +83,27 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
 
   const { x, y } = coords;
   const board = G.boards[targetPlayer];
+  const targetsShips = targetPlayer == 0 ? G.shipsPlayer1 : G.shipsPlayer2;
+  const targetName = targetPlayer == 0 ? G.player1Name : G.player2Name;
 
   if (board[x][y] !== null) return INVALID_MOVE;
   board[x][y] = true;
-  ctx.events.endTurn();
+
+  const shipHit = targetsShips.find((ship) =>
+    ship.coords.find((coords) => coords.x - 1 === x && coords.y - 1 === y)
+  );
+
+  if (shipHit) {
+    shipHit.hits += 1;
+    if (shipHit.hits == shipHit.coords.length) {
+      console.log("laiva upposi");
+      G.message = `Upotit pelaajan ${targetName} laivan`;
+    } else {
+      console.log("osuit laivaan");
+      G.message = `Osuit pelaajan ${targetName} laivaan`;
+    }
+  } else {
+    G.message = "";
+    ctx.events.endTurn();
+  }
 };
