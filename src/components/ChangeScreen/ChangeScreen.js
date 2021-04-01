@@ -1,12 +1,14 @@
 import "./ChangeScreen.css";
 
-const ChangeScreen = ({ hide, playerNum }) => {
+const ChangeScreen = ({ hide, playerNum, game }) => {
+  const playerName = playerNum === 1 ? game.G.player1Name : game.G.player2Name;
+
   return (
     <div className="ChangeScreen">
-      <div>
-        <h1>Player {playerNum}'s turn</h1>
+      <div id="turn">
+        <h1>Vuorossa: {playerName}</h1>
         <button className="home-button" onClick={hide}>
-          Start turn
+          Aloita vuoro
         </button>
       </div>
     </div>
