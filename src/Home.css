@@ -122,3 +122,18 @@ body,
   font-size: 24px;
   color: var(--dark);
 }
+
+/*
+* Animation used to make the ships shift a bit like in waves
+*/
+@keyframes boat-waves {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
