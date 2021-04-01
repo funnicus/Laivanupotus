@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Cell from "./Cell";
 
+/**
+ * Renders the board for drag and drop
+ * @param {Object} props 
+ * @returns {JSX.Element}
+ */
 const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
   const [grid, setGrid] = useState([]);
 
@@ -92,21 +97,6 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
   };
 
   /**
-   * May be obsolete...
-   * @param {number} x
-   * @param {number} y
-   */
-  const drawShip = (x, y) => {
-    setGrid((prevGrid) => {
-      const newGrid = [...prevGrid];
-      for (let i = x; i < x + 5; i++) {
-        newGrid[y][i].isHighlighted = true;
-      }
-      return newGrid;
-    });
-  };
-
-  /**
    * Function handles ship placement
    * @param {number} x
    * @param {number} y
@@ -153,14 +143,14 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
     let start;
     if (isHorizontal) {
       start = y - nthCell;
-      if (start + size > GRID_SIDE_SIZE || start < 0) return false;
+      if (start + size > GRID_SIDE_SIZE || start < 1) return false;
       for (let i = start; i < start + size; i++) {
         if (!grid[i][x].canPlace) return false;
       }
       return true;
     } else {
       start = x - nthCell;
-      if (start + size > GRID_SIDE_SIZE || start < 0) return false;
+      if (start + size > GRID_SIDE_SIZE || start < 1) return false;
       for (let i = start; i < start + size; i++) {
         if (!grid[y][i].canPlace) return false;
       }
@@ -178,7 +168,6 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
             <Cell
               key={cell.x + " " + cell.y + " " + isHorizontal}
               {...cell}
-              drawShip={drawShip}
               dropShip={dropShip}
               canDropShip={canDropShip}
             />

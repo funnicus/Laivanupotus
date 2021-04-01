@@ -2,15 +2,17 @@ import { ItemTypes } from "./Setup";
 import { useDrop } from "react-dnd";
 import { getShipImage } from "../../Game/images";
 
+/**
+ * Renders an individual cell for the drag and drop board
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
 const Cell = ({ ship, x, y, squareText, isOuter, dropShip, canDropShip }) => {
-  const [_, drop] = useDrop(
+  const [, drop] = useDrop(
     () => ({
       accept: ItemTypes.SHIP,
       drop: (item) => {
         dropShip(x, y, item);
-      },
-      hover: () => {
-        //drawShip(x, y);
       },
       canDrop: (item) => canDropShip(x, y, item),
       collect: (monitor) => ({
@@ -27,7 +29,6 @@ const Cell = ({ ship, x, y, squareText, isOuter, dropShip, canDropShip }) => {
     height: "3rem",
     textAlign: "center",
     border: "1px solid rgba(255,255,255,0.2)",
-
     /*box-sizing because then borders wont make the cell bigger*/
     boxSizing: "border-box",
   };

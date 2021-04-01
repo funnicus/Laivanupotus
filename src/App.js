@@ -8,6 +8,10 @@ import Help from "./components/Help/Help";
 import Credits from "./components/Credits/Credits";
 import "./Home.css";
 
+/**
+ * The app component renders everything
+ * @returns {JSX.Element}
+ */
 const App = () => {
   const GameComponent = Client({
     game: Game,
