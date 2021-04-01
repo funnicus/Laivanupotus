@@ -8,6 +8,7 @@ import Cell from "./Cell";
  */
 const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
   const [grid, setGrid] = useState([]);
+  const [rerenders, setRerenders] = useState(0);
 
   const GRID_SIDE_SIZE = size;
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -63,6 +64,8 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
       squares.push(rows);
     }
     drawShipsOnBoard(squares);
+    //cells won't receive updated grids without this!
+    setRerenders(rerenders+1);
     return squares;
   };
 
@@ -131,33 +134,6 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
     setShips((prev) => [...prev, newShip]);
   };
 
-  /**
-   * Checks if ship can be dropped on target
-   * @param {number} x
-   * @param {number} y
-   * @param {Object} item
-   * @returns
-   */
-  const canDropShip = (x, y, item) => {
-    const { size } = item;
-    let start;
-    if (isHorizontal) {
-      start = y - nthCell;
-      if (start + size > GRID_SIDE_SIZE || start < 1) return false;
-      for (let i = start; i < start + size; i++) {
-        if (!grid[i][x].canPlace) return false;
-      }
-      return true;
-    } else {
-      start = x - nthCell;
-      if (start + size > GRID_SIDE_SIZE || start < 1) return false;
-      for (let i = start; i < start + size; i++) {
-        if (!grid[y][i].canPlace) return false;
-      }
-      return true;
-    }
-  };
-
   return (
     <div className="DnDBoard" style={boardStyle} key={nthCell}>
       {grid.map((row) => {
@@ -166,10 +142,13 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
             //avaimessa isHorizontal, jotta <Cell> uudelleen-renderöityy, kun kyseisen propsin arvo vaihtuu
             //cursed solution, i know :)
             <Cell
-              key={cell.x + " " + cell.y + " " + isHorizontal}
+              key={cell.x + " " + cell.y + " " + isHorizontal + "" + rerenders}
               {...cell}
+              grid={grid}
+              isHorizontal={isHorizontal}
+              nthCell={nthCell}
+              GRID_SIDE_SIZE={GRID_SIDE_SIZE}
               dropShip={dropShip}
-              canDropShip={canDropShip}
             />
           );
         });
