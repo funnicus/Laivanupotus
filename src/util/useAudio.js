@@ -17,7 +17,6 @@ export const useSfx = ({ url, volume }) => {
   }, []);
 
   useEffect(() => {
-    if (resetOnPlay) audio.currentTime = 0;
     if (playing) audio.play();
     if (!playing) {
       audio.pause();

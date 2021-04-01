@@ -2,14 +2,15 @@ import { useState } from "react";
 import "./Settings.css";
 
 /**
- * Settings-komponentti kuvaa pelin vaihetta, jossa pelaajilta kysytään nimet, pelilaudan koko ja alusten määrät
+ * Settings-component represents a game phase, where the players fill in their names,
+ * board size and ship amounts
  * @param {Object} props
- * @returns Settings-elementin, jossa pelaajilta kysytään edellämainittuja tietoja
+ * @returns Settings-element that describes what will show on the screen
  */
 const Settings = ({ game }) => {
   /*
-   * Muuttujat pelaajaien nimille, laudan koolle ja alusten määrille.
-   * Muuttujat kuvaavat kyseisiä arvoja pelissä, eivät Settings-komponentissa
+   * Variables for the player names, board size and ship amounts.
+   * Variables describe the values in the game, not inside the Settings-component
    */
   const {
     player1Name: player1NameGame,
@@ -20,7 +21,8 @@ const Settings = ({ game }) => {
   const gridSizeGame = boards[0].length;
 
   /*
-   * Settings-komponentin input-fieldeissä olevat arvot ja funktiot niiden muuttamiselle
+   * Variables for the aforementioned values inside the Settings-component
+   * Functions to change the values of these variables
    */
   const [player1Name, setPlayer1Name] = useState(player1NameGame);
   const [player2Name, setPlayer2Name] = useState(player2NameGame);
@@ -34,13 +36,13 @@ const Settings = ({ game }) => {
   const [destroyers, setDestroyers] = useState(initialShipAmounts.destroyers);
 
   /*
-   * Error-viestin arvo ja funktio sen muuttamiselle
-   * Error-viesti näkyy käyttöliittymässä, jos pelilaudan koko tai alusten määrä ei kelpaa
+   * Variable for an error-message and a function to change its value
+   * Error-message is shown if the grid size or ship amounts are invalid
    */
   const [error, setError] = useState("");
 
   /*
-   * Objekti, joka sisältää kaikkien alusten määrät
+   * Object, that contains the amount of ships for each ship type
    */
   const shipAmounts = {
     carriers,
@@ -51,13 +53,13 @@ const Settings = ({ game }) => {
   };
 
   /**
-   * Funktio, joka tarkistaa, ovatko alusten arvot sopivat.
-   * Sopivat alusten arvot täyttävät seuraavat kriteerit
-   * 1) Alusten yhteenlaskettu pinta-ala on enintään puolet pelilaudan pinta-alasta
-   * 2) Minkään aluksen määrä ei ole negatiivinen
-   * @param {String} type aluksen, jonka arvoa muutetaan, tyyppi
-   * @param {Number} amount aluksen uusi määrä
-   * @returns false, jos kriteerit eivät täyty; true, jos kriteerit täyttyvät
+   * Function that checks whether the ship amounts are valid.
+   * Valid ship amounts meet the following citeria:
+   * 1) The combined area of the ships is at most half of the area of the game board
+   * 2) Each ship type's amount is positive
+   * @param {String} type the ship type of the ship whose value is being changed
+   * @param {Number} amount the proposed new value for the amount of said ship type
+   * @returns false, if the criteria is not met; true, if the criteria is met
    */
   const checkShipAmount = (type, amount) => {
     const amounts = { ...shipAmounts, [type]: amount };
@@ -98,12 +100,12 @@ const Settings = ({ game }) => {
   };
 
   /**
-   * Funktio, joka tarkistaa, onko pelilaudan koko sopiva.
-   * Sopiva pelilaudan koko täyttää seuraavat kriteerit
-   * 1) Alusten yhteenlaskettu pinta-ala on enintään puolet pelilaudan pinta-alasta
-   * 2) Pelilaudan koko on vähintään 5 ja enintään 10
-   * @param {Number} gridSize
-   * @returns false, jos kriteerit eivät täyty; true, jos kriteerit täyttyvät
+   * Function that checks whether the board size is valid.
+   * Valid board size meets the following criteria:
+   * 1) The combined area of the ships is at most half of the area of the game board
+   * 2) The board size is at least 5 and at most 10
+   * @param {Number} gridSize the proposed new value for the board size
+   * @returns false, if the criteria is not met; true, if the criteria is met
    */
   const checkGridSize = (gridSize) => {
     if (
@@ -128,10 +130,10 @@ const Settings = ({ game }) => {
   };
 
   /**
-   * Funktiot pelilaudan koon ja eri alustyyppien arvojen päivittämiseen käyttöliittymässä.
-   * Kutsuu checkGridSize-funktiota argumenttina uusi syötetty arvo, tai
-   * Kutsuu checkShipAmount-funktiota argumenteilla aluksen tyyppi ja syötetty uusi arvo.
-   * Jos check-funktio palauttaa arvon true, päivitetään käyttöliittymään uusi arvo.
+   * Functions to update the board size and amounts of different ship types in the GUI.
+   * Calls the checkGridSize-function with argument new inputted value, or
+   * Calls the checkShipAmount-function with arguments ship type and new inputted value.
+   * If the check-function returns true, the new value is updated to the GUI.
    * @param {Event} e
    */
   const updateGridSize = (e) => {
@@ -165,10 +167,9 @@ const Settings = ({ game }) => {
   };
 
   /**
-   * Funktio, joka päivittää pelissä olevat arvot
-   * pelaajien nimille, laudan koolle ja alusten määrille
-   * vastaamaan käyttöliittymässä syötettyjä arvoja.
-   * Funktio myös lopettaa pelin Settings-vaiheen.
+   * Function that updates the player names, board size and ship amounts
+   * in the game to match the values inputted in the GUI.
+   * Function also ends the Settings-phase.
    */
   const submit = () => {
     const sum = Object.values(shipAmounts).reduce((acc, curr) => acc + curr, 0);
@@ -184,7 +185,7 @@ const Settings = ({ game }) => {
   };
 
   /**
-   * Käyttöliittymän toiminnallisuus (eli käytännössä input-fieldit)
+   * The layout of the Settings-component
    */
   return (
     <div>

@@ -98,6 +98,9 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
     if (shipHit.hits == shipHit.coords.length) {
       G.message.type = "sunk";
       G.message.text = `Upotit pelaajan ${targetName} laivan`;
+      targetPlayer == 0 ? G.sunkShipsP1++ : G.sunkShipsP2++;
+      if(G.sunkShipsP1 === targetsShips.length) ctx.events.endPhase();
+      if(G.sunkShipsP2 === targetsShips.length) ctx.events.endPhase();
     } else {
       G.message.type = "hit";
       G.message.text = `Osuit pelaajan ${targetName} laivaan`;
