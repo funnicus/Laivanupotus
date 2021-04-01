@@ -1,3 +1,12 @@
+@keyframes message-anim {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 /*
 * Style for the message that tells the player if he has hit or sunk a ship
 */
@@ -5,6 +14,10 @@
   height: 0;
   margin-top: 2em;
   text-align: center;
+}
+
+#message > h2 {
+  animation: message-anim 150ms both;
 }
 
 /* Container for both boards */
@@ -30,14 +43,17 @@
 }
 
 .BoardCell {
+  position: relative;
+
   display: grid;
   place-content: center;
 
-  min-width: 3em;
-  min-height: 3em;
+  width: 3rem;
+  height: 3rem;
 
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
   background-color: var(--primary);
 }
@@ -52,6 +68,11 @@
   display: flex;
   place-content: center;
 
+  position: absolute;
+  left: 50%;
+  top: 3px;
+
+  width: 0;
   height: 0;
 
   color: white;
@@ -69,14 +90,13 @@
 }
 
 .BoardCell .Ship {
-  display: flex;
-  width: 100%;
-  height: 100%;
+  width: 3rem;
+  height: 3rem;
 }
 
 .BoardCell .Ship img {
-  width: 100%;
-  height: 100%;
+  width: 3rem;
+  height: 3rem;
 }
 
 .BoardCell .Ship img.horizontal {
@@ -100,9 +120,14 @@
   background-color: transparent;
 }
 
-.BoardCell .OuterText {
+.BoardCell.outer .OuterText {
   display: grid;
   place-content: center;
+
+  position: absolute;
+
+  width: 3rem;
+  height: 3rem;
 
   color: gray;
 }
