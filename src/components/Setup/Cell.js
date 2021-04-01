@@ -7,7 +7,54 @@ import { getShipImage } from "../../Game/images";
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const Cell = ({ ship, x, y, squareText, isOuter, dropShip, canDropShip }) => {
+const Cell = ({ 
+  ship, 
+  x, 
+  y, 
+  squareText, 
+  isOuter, 
+  grid, 
+  isHorizontal, 
+  nthCell, 
+  GRID_SIDE_SIZE, 
+  dropShip 
+}) => {
+
+  /**
+   * Checks if ship can be dropped on target
+   * @param {number} x
+   * @param {number} y
+   * @param {Object} item
+   * @returns
+   */
+   const canDropShip = (x, y, item) => {
+
+    const { size } = item;
+    let start;
+
+    if (isHorizontal) {
+      start = y - nthCell;
+
+      if (start + size > GRID_SIDE_SIZE || start < 1) return false;
+
+      for (let i = start; i < start + size; i++) {
+        if (!grid[i][x].canPlace) return false;
+      }
+
+      return true;
+    } else {
+      start = x - nthCell;
+
+      if (start + size > GRID_SIDE_SIZE || start < 1) return false;
+
+      for (let i = start; i < start + size; i++) {
+        if (!grid[y][i].canPlace) return false;
+      }
+
+      return true;
+    }
+  };
+
   const [, drop] = useDrop(
     () => ({
       accept: ItemTypes.SHIP,
@@ -36,7 +83,7 @@ const Cell = ({ ship, x, y, squareText, isOuter, dropShip, canDropShip }) => {
   return (
     <div
       ref={isOuter ? null : drop}
-      key={x + "" + y}
+      key={x + "" + y + grid}
       style={cellStyle}
       x={x}
       y={y}>
