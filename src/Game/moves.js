@@ -1,5 +1,5 @@
 import { INVALID_MOVE } from "boardgame.io/core";
-import { MAX_BOARD_SIZE, MIN_BOARD_SIZE } from "./Game";
+import { createBoards, MAX_BOARD_SIZE, MIN_BOARD_SIZE } from "./Game";
 
 /**
  * Function that sets the player names in the game.
@@ -139,4 +139,15 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
     G.message.text = "";
     ctx.events.endTurn();
   }
+};
+
+export const resetGame = (G, ctx) => {
+  G.boards = createBoards(ctx);
+  G.shipsPlayer1 = [];
+  G.shipsPlayer2 = [];
+  G.sunkShipsP1 = 0;
+  G.sunkShipsP2 = 0;
+  G.message.text = "";
+  G.message.type = "nohit";
+  ctx.events.setPhase("settings");
 };

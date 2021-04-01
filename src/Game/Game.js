@@ -1,6 +1,7 @@
 import { TurnOrder } from "boardgame.io/core";
 
 import {
+  resetGame,
   setBoardSize,
   setPlayerNames,
   setShipAmounts,
@@ -18,7 +19,7 @@ export const MIN_BOARD_SIZE = 5;
  * @param {Object} ctx
  * @returns
  */
-const createBoards = (ctx) => {
+export const createBoards = (ctx) => {
   let boards = [];
 
   for (let i = 0; i < ctx.numPlayers; i++) {
@@ -51,11 +52,11 @@ const Game = {
       shipsPlayer1: [],
       shipsPlayer2: [],
       shipAmounts: {
-        carriers: 0,
-        battleships: 0,
-        cruisers: 0,
-        submarines: 0,
-        destroyers: 0,
+        carriers: 1,
+        battleships: 1,
+        cruisers: 2,
+        submarines: 2,
+        destroyers: 3,
       },
       sunkShipsP1: 0,
       sunkShipsP2: 0,
@@ -91,6 +92,7 @@ const Game = {
     play: {
       moves: {
         clickCell: shootAt,
+        resetGame,
       },
     },
   },
