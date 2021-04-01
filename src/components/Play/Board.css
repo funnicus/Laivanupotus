@@ -12,6 +12,8 @@
 */
 #message {
   height: 0;
+  margin: 0 auto;
+  width: 25em;
   margin-top: 2em;
   text-align: center;
   font-family: "Montserrat";

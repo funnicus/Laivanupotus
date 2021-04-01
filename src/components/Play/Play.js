@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSfx } from "../../util/useAudio";
 import WinScreen from "../WinScreen/WinScreen";
@@ -12,6 +12,8 @@ import "./Board.css";
  */
 const Play = (game) => {
   const message = game.G.message;
+
+  const [showWinScreen, setShowWinScreen] = useState(false);
 
   const [playHit] = useSfx({
     url: "./assets/explosion_effect.mp3",
@@ -30,7 +32,7 @@ const Play = (game) => {
 
   // Play sound effects based on message changes
   useEffect(() => {
-    let timeout;
+    let timeouts = [];
 
     switch (message.type) {
       default:
@@ -43,20 +45,19 @@ const Play = (game) => {
 
       case "sunk":
         playHit();
-        timeout = setTimeout(playSunk, 1000);
+        timeouts.push(setTimeout(playSunk, 1000));
         break;
 
       case "gameOver":
         playHit();
-        timeout = setTimeout(playSunk, 1000);
+        timeouts.push(setTimeout(playSunk, 1000));
+        timeouts.push(setTimeout(() => setShowWinScreen(true), 3000));
         playGameOver();
         break;
     }
 
-    return () => clearTimeout(timeout);
-  }, [message]);
-
-  const gameIsOver = message.type === "gameOver";
+    return () => timeouts.forEach((t) => clearTimeout(t));
+  }, [message.type]);
 
   return (
     <>
@@ -66,13 +67,15 @@ const Play = (game) => {
         </button>
       </Link>
       <div id="message">
-        <h2>{message.text}</h2>
+        <h2>{!showWinScreen && message.text}</h2>
       </div>
       <div className="BattleshipBoards">
         <Board game={game} playerNum={0} />
         <Board game={game} playerNum={1} />
       </div>
-      {gameIsOver && <WinScreen game={game} />}
+      {showWinScreen && (
+        <WinScreen game={game} setShowWinScreen={setShowWinScreen} />
+      )}
     </>
   );
 };

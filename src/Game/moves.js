@@ -130,11 +130,11 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
       shipHit.sunk = true;
 
       if (G.sunkShipsP1 === targetsShips.length) {
-        G.message.text = `${G.player2Name} voitti pelin!`;
+        G.message.text = `Voitit pelin!`;
         G.message.type = "gameOver";
       }
       if (G.sunkShipsP2 === targetsShips.length) {
-        G.message.text = `${G.player1Name} voitti pelin!`;
+        G.message.text = `Voitit pelin!`;
         G.message.type = "gameOver";
       }
     } else {
@@ -157,4 +157,9 @@ export const resetGame = (G, ctx) => {
   G.message.text = "";
   G.message.type = "nohit";
   ctx.events.setPhase("settings");
+};
+
+export const clearMessage = (G, ctx) => {
+  G.message.text = "";
+  G.message.type = "";
 };

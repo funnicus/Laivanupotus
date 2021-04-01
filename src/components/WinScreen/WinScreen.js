@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./WinScreen.css";
 
-const WinScreen = ({ game }) => {
+const WinScreen = ({ game, setShowWinScreen }) => {
   const playerName =
     game.ctx.currentPlayer === "0" ? game.G.player1Name : game.G.player2Name;
 
@@ -10,14 +10,23 @@ const WinScreen = ({ game }) => {
   };
 
   return (
-    <div className="WinScreen">
-      <h1 className="title">{playerName} voitti pelin!</h1>
-      <Link to="/play">
-        <button onClick={newGame}>Pelaa uudestaan!</button>
-      </Link>
-      <Link to="/">
-        <button>Lopeta pelaaminen</button>
-      </Link>
+    <div id="winScreenContainer">
+      <div className="WinScreen">
+        <button id="close-button" onClick={() => setShowWinScreen(false)}>
+          x
+        </button>
+        <h1 className="title ws">{playerName} voitti pelin!</h1>
+        <div id="wsButtonContainer">
+          <Link to="/play">
+            <button className="home-button ws" onClick={newGame}>
+              Pelaa uudestaan!
+            </button>
+          </Link>
+          <Link to="/">
+            <button className="home-button ws">Lopeta pelaaminen</button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
