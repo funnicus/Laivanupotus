@@ -1,7 +1,6 @@
 import { ItemTypes } from "./Setup";
 import { useDrop } from "react-dnd";
 import { getShipImage } from "../../Game/images";
-import { useState } from "react";
 
 /**
  * Renders an individual cell for the drag and drop board
