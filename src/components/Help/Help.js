@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+/*
+ * React-component for the Help-page
+ */
 const Help = () => {
   return (
     <div>

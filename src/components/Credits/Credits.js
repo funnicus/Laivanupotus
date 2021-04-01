@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+/*
+ * React-component for the Credits-page
+ */
 const Credits = () => {
   return (
     <div>

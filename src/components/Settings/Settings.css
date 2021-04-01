@@ -1,18 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Open+Sans&display=swap");
-
-:root {
-  --primary: #00bac8;
-  --light: #e0f7f8;
-  --light2: #b2eaec;
-  --bg: #ebf4f5;
-  --dark: #095e5d;
-}
-
+/*
+* Location for the settings form
+*/
 #settings-container {
   margin-top: 6rem;
   width: 100%;
 }
 
+/*
+* Location for the player name and grid size components
+*/
 .settingsDiv {
   margin: auto;
   width: 100%;
@@ -24,11 +20,17 @@
   gap: 1em;
 }
 
+/*
+* Style for the labels in the Settings-component
+*/
 .settingsLabel {
   margin-left: 10px;
   font-size: 1.25rem;
 }
 
+/*
+* Style for the input fields in the Settings-components
+*/
 .settingsInput {
   height: 1.5rem;
   width: 3rem;
@@ -41,12 +43,18 @@
   padding-right: 8px;
 }
 
+/*
+* Style for the input fields in the Settings-component that should be long
+*/
 .settingsInput.long {
   min-width: 6rem;
   max-width: 12rem;
   width: 100%;
 }
 
+/*
+* Location of the component that contains ship amounts
+*/
 #ship-container {
   margin: auto;
   max-width: 40em;
@@ -57,6 +65,9 @@
   row-gap: 1rem;
 }
 
+/*
+* Location of the component that contains ship amounts on a smaller screen
+*/
 @media screen and (max-width: 45em) {
   #ship-container {
     display: flex;
@@ -64,14 +75,23 @@
   }
 }
 
+/*
+* Location of the component for destroyer amounts
+*/
 #destroyerDiv {
   grid-column: 1 / span 2;
 }
 
+/*
+* Location for the submit button
+*/
 #submitButtonDiv {
   text-align: center;
 }
 
+/*
+* Style for the submit button
+*/
 #submit-button {
   width: 7.5rem;
   height: 2.5rem;
@@ -83,11 +103,17 @@
   border-radius: 2rem;
 }
 
+/*
+* Style for the submit button, when the mouse hovers over it
+*/
 #submit-button:hover {
   background-color: var(--light2);
   cursor: pointer;
 }
 
+/*
+* Style for the error message
+*/
 #error {
   text-align: center;
   font-size: 24px;
