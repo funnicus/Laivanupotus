@@ -1,7 +1,20 @@
+@keyframes message-anim {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 #message {
   height: 0;
   margin-top: 2em;
   text-align: center;
+}
+
+#message > h2 {
+  animation: message-anim 150ms both;
 }
 
 /* Container for both boards */

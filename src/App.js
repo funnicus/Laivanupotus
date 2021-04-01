@@ -17,6 +17,7 @@ const App = () => {
     game: Game,
     board: GameRenderer,
     numPlayers: 2,
+    debug: false,
   });
 
   const bgMusicRef = useRef();
