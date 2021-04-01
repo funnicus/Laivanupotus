@@ -14,7 +14,7 @@ export const ItemTypes = {
 
 /**
  * Renders the setup screen
- * @param {Object} props 
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const Setup = (props) => {

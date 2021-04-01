@@ -27,6 +27,16 @@
   height: 100vh;
 }
 
+.BoardContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.BoardContainer .PlayerName {
+  color: gray;
+}
+
 .Board {
   display: grid;
   height: max-content;

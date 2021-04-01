@@ -5,9 +5,11 @@ const Board = ({ game, playerNum }) => {
 
   const size = game.G.boards[playerNum].length + 1;
   const board = game.G.boards[playerNum];
-  const ownShips = game.G[playerNum === 0 ? "shipsPlayer1" : "shipsPlayer2"];
+  const ownShips = playerNum === 0 ? game.G.shipsPlayer1 : game.G.shipsPlayer2;
 
-  const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+  const playerName = playerNum === 0 ? game.G.player1Name : game.G.player2Name;
+
+  const chars = "ABCDEFGHIJ";
 
   const boardStyle = {
     gridTemplateColumns: `repeat(${size}, 1fr)`,
@@ -71,11 +73,11 @@ const Board = ({ game, playerNum }) => {
 
   const cellOnClick = (cell) => {
     if (isOwnBoard) return;
-    const a = game.moves.clickCell({
+
+    game.moves.clickCell({
       coords: { x: cell.x - 1, y: cell.y - 1 },
       targetPlayer: playerNum,
     });
-    console.log(a);
   };
 
   const cellClassName = (cell) => {
@@ -94,18 +96,21 @@ const Board = ({ game, playerNum }) => {
   };
 
   return (
-    <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
-      {createGrid().map((row) => {
-        return row.map((cell) => (
-          <div
-            className={cellClassName(cell)}
-            key={cell.x + "" + cell.y}
-            onClick={() => cellOnClick(cell)}>
-            <div className="OuterText">{cell.squareText}</div>
-            {isOwnBoard && <div className="Ship">{renderShip(cell)}</div>}
-          </div>
-        ));
-      })}
+    <div className="BoardContainer">
+      <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
+        {createGrid().map((row) => {
+          return row.map((cell) => (
+            <div
+              className={cellClassName(cell)}
+              key={cell.x + "" + cell.y}
+              onClick={() => cellOnClick(cell)}>
+              <div className="OuterText">{cell.squareText}</div>
+              {isOwnBoard && <div className="Ship">{renderShip(cell)}</div>}
+            </div>
+          ));
+        })}
+      </div>
+      <h2 className="PlayerName">{playerName}</h2>
     </div>
   );
 };

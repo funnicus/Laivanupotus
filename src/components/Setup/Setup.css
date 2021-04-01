@@ -33,10 +33,12 @@
   border: 1px solid var(--primary);
   font-family: "Montserrat";
   color: #000000;
+
+  transition: opacity 100ms;
 }
 
 .confirm-button:disabled {
-  opacity: 0.8;
+  opacity: 0.4;
 }
 
 .confirm-button:hover:disabled {
@@ -51,6 +53,28 @@
 .board-area {
   height: 100vh;
   width: 80%;
+
+  color: gray;
+}
+
+.DnDCell {
+  display: grid;
+  place-content: center;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /*box-sizing because then borders wont make the cell bigger*/
+  box-sizing: border-box;
+
+  background-color: var(--primary);
+}
+
+.DnDCell.outer {
+  pointer-events: none;
+  border: 1px solid transparent;
+
+  background-color: transparent;
 }
 
 .DnDShip {

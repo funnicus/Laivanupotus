@@ -18,7 +18,6 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
     gridTemplateColumns: `repeat(${size}, 1fr)`,
     gridTemplateRows: `repeat(${size}, 1fr)`,
     margin: "20vh auto",
-    backgroundColor: "var(--primary)",
   };
 
   useEffect(() => {
