@@ -80,6 +80,13 @@ body,
   border-radius: 100%;
 }
 
+.back-button img {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: scale(0.8);
+}
+
 .back-button.play {
   font-size: 20px;
   width: 10rem;
