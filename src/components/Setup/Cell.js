@@ -75,9 +75,12 @@ const Cell = ({
     <div
       ref={isOuter ? null : drop}
       key={x + "" + y + grid}
-      className={`DnDCell ${isOuter && "outer"} ${showDenied && "Denied"}`}
+      className={`DnDCell ${isOuter ? "outer" : ""} ${
+        showDenied ? "Denied" : ""
+      }`}
       x={x}
-      y={y}>
+      y={y}
+    >
       {squareText}
       {ship && (
         <div className="DnDShip">
