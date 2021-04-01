@@ -18,8 +18,6 @@ const GameRenderer = (props) => {
     setShowOverlay(true); // näyttää peliruudun kun pelaaja vaihtuu
   }, [props.ctx.currentPlayer, props.ctx.phase]);
 
-  console.log(props);
-
   const Game = () => {
     switch (props.ctx.phase) {
       default:

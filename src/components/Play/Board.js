@@ -71,10 +71,11 @@ const Board = ({ game, playerNum }) => {
 
   const cellOnClick = (cell) => {
     if (isOwnBoard) return;
-    game.moves.clickCell({
+    const a = game.moves.clickCell({
       coords: { x: cell.x - 1, y: cell.y - 1 },
       targetPlayer: playerNum,
     });
+    console.log(a);
   };
 
   const cellClassName = (cell) => {
@@ -99,7 +100,8 @@ const Board = ({ game, playerNum }) => {
           <div
             className={cellClassName(cell)}
             key={cell.x + "" + cell.y}
-            onClick={() => cellOnClick(cell)}>
+            onClick={() => cellOnClick(cell)}
+          >
             <div className="OuterText">{cell.squareText}</div>
             <div className="Ship">{isOwnBoard && renderShip(cell)}</div>
           </div>

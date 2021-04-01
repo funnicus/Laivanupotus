@@ -1,3 +1,9 @@
+#message {
+  height: 0;
+  margin-top: 2em;
+  text-align: center;
+}
+
 /* Container for both boards */
 .BattleshipBoards {
   display: grid;
