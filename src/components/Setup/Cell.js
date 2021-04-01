@@ -2,19 +2,8 @@ import { ItemTypes } from "./Setup";
 import { useDrop } from "react-dnd";
 import { getShipImage } from "../../Game/images";
 
-const Cell = ({
-  ship,
-  x,
-  y,
-  squareText,
-  isOuter,
-  isHighlighted,
-  canPlace,
-  drawShip,
-  dropShip,
-  canDropShip,
-}) => {
-  const [{ isOver }, drop] = useDrop(
+const Cell = ({ ship, x, y, squareText, isOuter, dropShip, canDropShip }) => {
+  const [_, drop] = useDrop(
     () => ({
       accept: ItemTypes.SHIP,
       drop: (item) => {
