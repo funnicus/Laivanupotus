@@ -79,6 +79,13 @@ const Setup = (props) => {
     <DndProvider backend={HTML5Backend}>
       <div className="Setup">
         <div className="ShipPool">
+          <button
+            onClick={() => props.events.setPhase("settings")}
+            title="Takaisin"
+            className="back-button"
+          >
+            ←
+          </button>
           <h2 id="setShip">Asetetaan laivoja pelaajalle {playerName}</h2>
           <p>Voit kääntää laivoja painamalla r-näppäintä</p>
           <div
