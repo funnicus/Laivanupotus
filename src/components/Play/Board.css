@@ -105,6 +105,10 @@
   filter: none !important;
 }
 
+.BoardCell.hit .Ship {
+  opacity: 0.5;
+}
+
 .BoardCell .Ship {
   position: absolute;
   width: 3rem;
@@ -125,10 +129,6 @@
 /* Cells in enemy player's board */
 .Board:not(.own) .BoardCell {
   cursor: pointer;
-}
-
-.Board:not(.own) .BoardCell:hover {
-  filter: brightness(1.15);
 }
 
 /* Cells that aren't part of the play area */
