@@ -62,6 +62,7 @@
   box-sizing: border-box;
 
   background-color: var(--primary);
+  transition: background-color 250ms;
 }
 
 .DnDCell.outer {
@@ -80,6 +81,8 @@
   height: max-content;
   min-width: 3rem;
   min-height: 3rem;
+
+  animation: boat-waves 5s infinite ease-in-out;
 }
 
 .DnDShip .ShipPart {
