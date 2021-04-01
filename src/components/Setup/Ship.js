@@ -5,7 +5,7 @@ import { SHIP_IMAGES } from "../../Game/images";
 
 /**
  * Return a size corresponding to the type given as an function argument
- * @param {*} type 
+ * @param {*} type
  * @returns {number}
  */
 const getShipSize = (type) => {
@@ -22,33 +22,37 @@ const getShipSize = (type) => {
 
 /**
  * Renders an individual ship for drag and drop
- * @param {Object} props 
+ * @param {Object} props
  * @returns {JSX.Element}
  */
-const Ship = ({ type, isHorizontal, setNthCell }) => {
+const Ship = ({ type, isHorizontal, setNthCell, setIsDragging }) => {
   const [dropped, setDropped] = useState(false);
 
   const size = getShipSize(type);
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.SHIP,
-    item: {
-      size,
-      type,
+    item: () => {
+      setIsDragging(true);
+      return {
+        size,
+        type,
+      };
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
     end: (item, monitor) => {
+      setIsDragging(false);
       if (monitor.didDrop()) setDropped(true);
     },
   }));
 
   /**
    * Fetches the correct image for a geiven ship type
-   * @param {*} type 
-   * @param {*} index 
-   * @returns 
+   * @param {*} type
+   * @param {*} index
+   * @returns
    */
   const getShipImage = (type, index) => {
     const imageArr = SHIP_IMAGES[type];

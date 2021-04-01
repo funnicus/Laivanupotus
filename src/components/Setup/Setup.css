@@ -71,6 +71,10 @@
   background-color: transparent;
 }
 
+.DnDCell.Denied {
+  background-color: var(--denied-drop);
+}
+
 .DnDShip {
   width: max-content;
   height: max-content;
