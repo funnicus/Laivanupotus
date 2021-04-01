@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSfx } from "../../util/useAudio";
+import WinScreen from "../WinScreen/WinScreen";
 import Board from "./Board";
 import "./Board.css";
 
@@ -21,19 +22,38 @@ const Play = (game) => {
     volume: 0.2,
   });
 
+  const [playGameOver] = useSfx({
+    url: "./assets/water_splash.mp3",
+    volume: 0.4,
+  });
+
   // Play sound effects based on message changes
   useEffect(() => {
     let timeout;
 
-    if (message.type === "nohit") return;
-    if (message.type === "hit") playHit();
-    if (message.type === "sunk") {
-      playHit();
-      timeout = setTimeout(playSunk, 1000); // 1s delay
+    switch (message.type) {
+      default:
+      case "nohit":
+        return;
+
+      case "hit":
+        playHit();
+        break;
+
+      case "sunk":
+        playHit();
+        timeout = setTimeout(playSunk, 1000);
+        break;
+
+      case "gameOver":
+        playGameOver();
+        break;
     }
 
     return () => clearTimeout(timeout);
   }, [message]);
+
+  const gameIsOver = message.type === "gameOver";
 
   return (
     <>
@@ -44,6 +64,7 @@ const Play = (game) => {
         <Board game={game} playerNum={0} />
         <Board game={game} playerNum={1} />
       </div>
+      {gameIsOver && <WinScreen game={game} />}
     </>
   );
 };

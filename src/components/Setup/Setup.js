@@ -61,6 +61,7 @@ const Setup = (props) => {
       for (let i = 0; i < amount; i++) {
         arr.push(
           <Ship
+            key={shipType + i}
             type={shipType}
             isHorizontal={isHorizontal}
             setNthCell={setNthCell}
@@ -84,16 +85,14 @@ const Setup = (props) => {
               flexDirection: isHorizontal ? "row" : "column",
               flexWrap: "wrap",
             }}
-            className="ship-container"
-          >
+            className="ship-container">
             {renderDraggableShips()}
           </div>
           <div>
             <button
               className="confirm-button"
               onClick={() => props.moves.submitShips(ships)}
-              disabled={ships.length < totalShips}
-            >
+              disabled={ships.length < totalShips}>
               Vahvista laivojen sijainti!
             </button>
             <button className="confirm-button" onClick={() => props.undo()}>
