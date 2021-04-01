@@ -96,14 +96,15 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
   if (shipHit) {
     shipHit.hits += 1;
     if (shipHit.hits == shipHit.coords.length) {
-      console.log("laiva upposi");
-      G.message = `Upotit pelaajan ${targetName} laivan`;
+      G.message.type = "sunk";
+      G.message.text = `Upotit pelaajan ${targetName} laivan`;
     } else {
-      console.log("osuit laivaan");
-      G.message = `Osuit pelaajan ${targetName} laivaan`;
+      G.message.type = "hit";
+      G.message.text = `Osuit pelaajan ${targetName} laivaan`;
     }
   } else {
-    G.message = "";
+    G.message.type = "nohit";
+    G.message.text = "";
     ctx.events.endTurn();
   }
 };

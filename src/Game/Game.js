@@ -41,7 +41,10 @@ const Game = {
   /* Setup the empty game board */
   setup: (ctx) => {
     return {
-      message: "",
+      message: {
+        type: "nohit",
+        text: "",
+      },
       boards: createBoards(ctx),
       player1Name: "Pelaaja 1",
       player2Name: "Pelaaja 2",
