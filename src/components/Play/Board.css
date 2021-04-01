@@ -1,3 +1,6 @@
+/*
+* Style for the message that tells the player if he has hit or sunk a ship
+*/
 #message {
   height: 0;
   margin-top: 2em;

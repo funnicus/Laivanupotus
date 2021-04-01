@@ -1,6 +1,13 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 import { MAX_BOARD_SIZE, MIN_BOARD_SIZE } from "./Game";
 
+/**
+ * Function that sets the player names in the game.
+ * @param {Object} G used by boardgame.io, represents game state
+ * @param {Object} ctx used by boardgame.io, represents game metadata
+ * @param {Number} playerNum  number of the player whose name is being set
+ * @param {String} playerName name that is being set for the player
+ */
 export const setPlayerNames = (G, ctx, playerNum, playerName) => {
   if (playerNum === 1) {
     G.player1Name = playerName || "Pelaaja 1";
@@ -10,7 +17,11 @@ export const setPlayerNames = (G, ctx, playerNum, playerName) => {
 };
 
 /**
- * Updates the size of the game boards
+ * Function that sets the board size.
+ * @param {Object} G used by boardgame.io, represents game state
+ * @param {Object} ctx used by boardgame.io, represents game metadata
+ * @param {Number} size size that is being set for the board
+ * @returns INVALID_MOVE (boardgame.io's way of invalidating a move) if the size is not allowed
  */
 export const setBoardSize = (G, ctx, size) => {
   if (typeof size !== "number") return INVALID_MOVE;
@@ -21,9 +32,20 @@ export const setBoardSize = (G, ctx, size) => {
   }
 };
 
+/**
+ * Function that sets the ship amounts.
+ * This function also checks the validity of the ship amounts, even though the validity is also checked in
+ * the Settings.js file. The criteria for valid ship amounts is documented in said file.
+ * The validity is checked twice for extra security.
+ * @param {Object} G used by boardgame.io, represents game state
+ * @param {Object} ctx used by boardgame.io, represents game metadata
+ * @param {Object} shipAmounts that contains key-value-pairs for each ship type
+ * @returns INVALID_MOVE if the ship amounts are not valid
+ */
 export const setShipAmounts = (G, ctx, shipAmounts) => {
   const size = G.boards[0][0].length;
 
+  // Checking whether the ship amounts are valid
   if (
     shipAmounts.carriers * 5 +
       shipAmounts.battleships * 4 +
@@ -43,6 +65,7 @@ export const setShipAmounts = (G, ctx, shipAmounts) => {
   )
     return INVALID_MOVE;
 
+  // Setting the ship values once it has been checked that they are valid
   G.shipAmounts.carriers = shipAmounts.carriers;
   G.shipAmounts.battleships = shipAmounts.battleships;
   G.shipAmounts.cruisers = shipAmounts.cruisers;
@@ -99,8 +122,8 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
       G.message.type = "sunk";
       G.message.text = `Upotit pelaajan ${targetName} laivan`;
       targetPlayer == 0 ? G.sunkShipsP1++ : G.sunkShipsP2++;
-      if(G.sunkShipsP1 === targetsShips.length) ctx.events.endPhase();
-      if(G.sunkShipsP2 === targetsShips.length) ctx.events.endPhase();
+      if (G.sunkShipsP1 === targetsShips.length) ctx.events.endPhase();
+      if (G.sunkShipsP2 === targetsShips.length) ctx.events.endPhase();
     } else {
       G.message.type = "hit";
       G.message.text = `Osuit pelaajan ${targetName} laivaan`;

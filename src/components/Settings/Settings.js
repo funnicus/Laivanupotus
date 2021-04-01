@@ -63,15 +63,7 @@ const Settings = ({ game }) => {
    */
   const checkShipAmount = (type, amount) => {
     const amounts = { ...shipAmounts, [type]: amount };
-    console.log(shipAmounts);
-    console.log(
-      amounts.carriers * 5 +
-        amounts.battleships * 4 +
-        amounts.cruisers * 3 +
-        amounts.submarines * 3 +
-        amounts.destroyers * 2
-    );
-
+    // Checks criteria 1
     if (
       amounts.carriers * 5 +
         amounts.battleships * 4 +
@@ -86,6 +78,7 @@ const Settings = ({ game }) => {
       return false;
     }
 
+    //Checks criteria 2
     if (
       amounts.carriers < 0 ||
       amounts.battleships < 0 ||
@@ -95,6 +88,7 @@ const Settings = ({ game }) => {
     )
       return false;
 
+    // Resets error message to empty when all criteria is met
     setError("");
     return true;
   };
@@ -108,6 +102,7 @@ const Settings = ({ game }) => {
    * @returns false, if the criteria is not met; true, if the criteria is met
    */
   const checkGridSize = (gridSize) => {
+    // Checks criteria 1, criteria must be checked both when updating ship amount and when updating grid size!!
     if (
       shipAmounts.carriers * 5 +
         shipAmounts.battleships * 4 +
@@ -121,10 +116,12 @@ const Settings = ({ game }) => {
       );
       return false;
     }
+    // Checks criteria 2
     if (gridSize < 5 || gridSize > 10) {
       setError("Pelilaudan koon on oltava väliltä 5-10");
       return false;
     }
+    // Resets error message to empty when all criteria is met
     setError("");
     return true;
   };
@@ -172,6 +169,7 @@ const Settings = ({ game }) => {
    * Function also ends the Settings-phase.
    */
   const submit = () => {
+    // Checks that the players have added at least one ship to the game
     const sum = Object.values(shipAmounts).reduce((acc, curr) => acc + curr, 0);
     if (sum <= 0) {
       setError("Laivoja on oltava enemmän kuin nolla!");
