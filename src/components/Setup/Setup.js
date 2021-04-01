@@ -18,6 +18,8 @@ const Setup = (props) => {
     (acc, curr) => acc + curr,
     0
   );
+  const playerName =
+    props.ctx.currentPlayer === "0" ? props.G.player1Name : props.G.player2Name;
 
   const [isHorizontal, setIsHorizontal] = useState(true);
   const [nthCell, setNthCell] = useState(null);
@@ -60,9 +62,8 @@ const Setup = (props) => {
     <DndProvider backend={HTML5Backend}>
       <div className="Setup">
         <div className="ShipPool">
-          <h2>
-            Asetetaan laivoja pelaajalle {parseInt(props.ctx.currentPlayer) + 1}
-          </h2>
+          <h2>Asetetaan laivoja pelaajalle {playerName}</h2>
+          <p>Voit kääntää laivoja painamalla r-näppäintä</p>
           <div
             style={{
               display: "flex",
