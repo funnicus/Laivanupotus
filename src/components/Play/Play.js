@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useSfx } from "../../util/useAudio";
 import WinScreen from "../WinScreen/WinScreen";
 import Board from "./Board";
@@ -46,6 +47,8 @@ const Play = (game) => {
         break;
 
       case "gameOver":
+        playHit();
+        timeout = setTimeout(playSunk, 1000);
         playGameOver();
         break;
     }
@@ -57,6 +60,11 @@ const Play = (game) => {
 
   return (
     <>
+      <Link to="/">
+        <button title="Takaisin" className="back-button play">
+          Lopeta peli
+        </button>
+      </Link>
       <div id="message">
         <h2>{message.text}</h2>
       </div>

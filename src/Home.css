@@ -1,8 +1,7 @@
 /*
-* Font for the UI
+* Fonts for the UI
 */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Open+Sans&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto&display=swap");
 /*
 * Variables for the UI's colours
 */
@@ -12,7 +11,7 @@
   --light2: #b2eaec;
   --bg: #ebf4f5;
   --dark: #095e5d;
-
+  --error: #c80d00;
   --denied-drop: #c02f47;
 }
 
@@ -22,6 +21,7 @@
 body,
 #home-bg {
   background-color: var(--bg);
+  font-family: "Roboto";
 }
 
 /*
@@ -78,6 +78,12 @@ body,
   font-family: "Montserrat";
   color: var(--dark);
   border-radius: 100%;
+}
+
+.back-button.play {
+  font-size: 20px;
+  width: 10rem;
+  border-radius: 1.42rem;
 }
 
 /*
