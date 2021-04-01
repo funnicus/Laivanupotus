@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useSfx = ({ url, volume, resetOnPlay }) => {
+export const useSfx = ({ url, volume }) => {
   const [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);
 
@@ -9,9 +9,11 @@ export const useSfx = ({ url, volume, resetOnPlay }) => {
   }, []);
 
   useEffect(() => {
-    if (resetOnPlay) audio.currentTime = 0;
     if (playing) audio.play();
-    if (!playing) audio.pause();
+    if (!playing) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
   }, [playing]);
 
   // update status of playing
