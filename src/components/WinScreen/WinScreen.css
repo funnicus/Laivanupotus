@@ -1,23 +1,62 @@
-.WinScreen {
+#winScreenContainer {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-content: center;
+  backdrop-filter: blur(7px);
+  z-index: 10;
+}
 
+.WinScreen {
   width: 100%;
   height: 100%;
 
   max-width: 40em;
   max-height: 30em;
 
-  padding: 2em;
+  padding: 1.5em;
 
   border-radius: 1em;
-
-  transform: translate(-50%, -50%);
 
   background-color: rgb(240, 240, 240);
 
   box-shadow: 0 1em 4em rgba(0, 0, 0, 0.25);
+}
 
-  z-index: 10;
+.home-button.ws {
+  width: 18rem;
+  font-size: 24px;
+  padding: 15px;
+}
+
+.title.ws {
+  margin-top: 1.25em;
+}
+
+#wsButtonContainer {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2em;
+  margin: 1em;
+  margin-top: 4em;
+}
+
+#close-button {
+  float: right;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 25px;
+  background-color: var(--light);
+  border: 1px solid var(--primary);
+  font-family: "Montserrat";
+  color: var(--dark);
+  border-radius: 100%;
+}
+
+#close-button:hover {
+  background-color: var(--light2);
+  cursor: pointer;
 }

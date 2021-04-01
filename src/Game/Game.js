@@ -1,6 +1,7 @@
 import { TurnOrder } from "boardgame.io/core";
 
 import {
+  clearMessage,
   resetGame,
   setBoardSize,
   setPlayerNames,
@@ -93,6 +94,7 @@ const Game = {
       moves: {
         clickCell: shootAt,
         resetGame,
+        clearMessage,
       },
     },
   },
