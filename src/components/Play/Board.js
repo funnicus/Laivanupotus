@@ -9,7 +9,7 @@ const Board = ({ game, playerNum }) => {
 
   const playerName = playerNum === 0 ? game.G.player1Name : game.G.player2Name;
 
-  const chars = "ABCDEFGHIJ";
+  const chars = Math.random() < 0.05 ? "HELLOWORLD" : "ABCDEFGHIJ";
 
   const boardStyle = {
     gridTemplateColumns: `repeat(${size}, 1fr)`,
@@ -54,6 +54,15 @@ const Board = ({ game, playerNum }) => {
     );
   };
 
+  const cellOnClick = (cell) => {
+    if (isOwnBoard) return;
+
+    game.moves.clickCell({
+      coords: { x: cell.x - 1, y: cell.y - 1 },
+      targetPlayer: playerNum,
+    });
+  };
+
   const renderShip = (cell) => {
     const ship = getShipAtCoords(cell);
     if (!ship) return null;
@@ -71,28 +80,21 @@ const Board = ({ game, playerNum }) => {
     );
   };
 
-  const cellOnClick = (cell) => {
-    if (isOwnBoard) return;
-
-    game.moves.clickCell({
-      coords: { x: cell.x - 1, y: cell.y - 1 },
-      targetPlayer: playerNum,
-    });
+  // returns a ship image
+  const getShipImage = (type, index) => {
+    return SHIP_IMAGES[type] && SHIP_IMAGES[type][index];
   };
 
+  // true if the cell should render the ship part it has
+  const showShip = (cell) => getShipAtCoords(cell)?.sunk || isOwnBoard;
+
+  // calculates the cell's classnames based on its state
   const cellClassName = (cell) => {
     const outer = cell.isOuter ? " outer" : "";
     const clicked = cell.isHit ? " clicked" : "";
     const hitShip = clicked && getShipAtCoords(cell) ? " hit" : "";
 
     return `BoardCell${outer}${clicked}${hitShip}`;
-  };
-
-  const getShipImage = (type, index) => {
-    const imageArr = SHIP_IMAGES[type];
-    if (!imageArr) return null;
-
-    return imageArr[index];
   };
 
   return (
@@ -105,7 +107,7 @@ const Board = ({ game, playerNum }) => {
               key={cell.x + "" + cell.y}
               onClick={() => cellOnClick(cell)}>
               <div className="OuterText">{cell.squareText}</div>
-              {isOwnBoard && <div className="Ship">{renderShip(cell)}</div>}
+              {showShip(cell) && <div className="Ship">{renderShip(cell)}</div>}
             </div>
           ));
         })}

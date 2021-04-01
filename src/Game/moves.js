@@ -119,9 +119,16 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
   if (shipHit) {
     shipHit.hits += 1;
     if (shipHit.hits == shipHit.coords.length) {
+      // show message to players
       G.message.type = "sunk";
       G.message.text = `Upotit pelaajan ${targetName} laivan`;
+
+      // increment amount of ships sunk
       targetPlayer == 0 ? G.sunkShipsP1++ : G.sunkShipsP2++;
+
+      // add 'sunk' value to ship
+      shipHit.sunk = true;
+
       if (G.sunkShipsP1 === targetsShips.length) {
         G.message.text = `${G.player2Name} voitti pelin!`;
         G.message.type = "gameOver";
