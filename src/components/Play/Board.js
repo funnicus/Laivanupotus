@@ -48,7 +48,7 @@ const Board = ({ game, playerNum }) => {
   const getShipAtCoords = (cell) => {
     const { x, y } = cell;
     return ownShips.find((ship) =>
-      ship.find((coords) => coords.x === x && coords.y === y)
+      ship.coords.find((coords) => coords.x === x && coords.y === y)
     );
   };
 
@@ -56,8 +56,10 @@ const Board = ({ game, playerNum }) => {
     const ship = getShipAtCoords(cell);
     if (!ship) return null;
 
-    const index = ship.findIndex((c) => c.x === cell.x && c.y === cell.y);
-    const isHorizontal = !ship[0].isHorizontal; // huoh, isHorizontalia pitää käyttää näin päin koska spagetti muualla
+    const index = ship.coords.findIndex(
+      (c) => c.x === cell.x && c.y === cell.y
+    );
+    const isHorizontal = !ship.coords[0].isHorizontal; // huoh, isHorizontalia pitää käyttää näin päin koska spagetti muualla
 
     return (
       <img
@@ -84,7 +86,7 @@ const Board = ({ game, playerNum }) => {
   };
 
   const getShipImage = (ship, index) => {
-    const imageArr = SHIP_IMAGES[ship[0].type];
+    const imageArr = SHIP_IMAGES[ship.coords[0].type];
     if (!imageArr) return null;
 
     return imageArr[index];
@@ -97,7 +99,8 @@ const Board = ({ game, playerNum }) => {
           <div
             className={cellClassName(cell)}
             key={cell.x + "" + cell.y}
-            onClick={() => cellOnClick(cell)}>
+            onClick={() => cellOnClick(cell)}
+          >
             <div className="OuterText">{cell.squareText}</div>
             <div className="Ship">{isOwnBoard && renderShip(cell)}</div>
           </div>

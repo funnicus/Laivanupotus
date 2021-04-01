@@ -67,9 +67,9 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
    */
   const drawShipsOnBoard = (board) => {
     for (let i = 0; i < ships.length; i++) {
-      for (let j = 0; j < ships[i].length; j++) {
-        if (!ships[i][j]) continue;
-        const coord = ships[i][j];
+      const ship = ships[i];
+      for (let j = 0; j < ship.coords.length; j++) {
+        const coord = ship.coords[j];
         board[coord.y][coord.x].isHighlighted = true;
 
         board[coord.y][coord.x].ship = {
@@ -131,7 +131,12 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
       }
     }
 
-    setShips((prev) => [...prev, shipCoord]);
+    const newShip = {
+      hits: 0,
+      coords: shipCoord,
+    };
+
+    setShips((prev) => [...prev, newShip]);
   };
 
   /**

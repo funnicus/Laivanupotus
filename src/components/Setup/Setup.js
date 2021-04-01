@@ -63,16 +63,18 @@ const Setup = (props) => {
             style={{
               display: "flex",
               flexDirection: isHorizontal ? "row" : "column",
-              flexWrap: "wrap"
+              flexWrap: "wrap",
             }}
-            className="ship-container">
+            className="ship-container"
+          >
             {renderDraggableShips()}
           </div>
           <div>
             <button
               className="confirm-button"
               onClick={() => props.moves.submitShips(ships)}
-              disabled={ships.length < 4}>
+              disabled={ships.length < 1}
+            >
               Vahvista laivojen sijainti!
             </button>
             <button className="confirm-button" onClick={() => props.undo()}>
