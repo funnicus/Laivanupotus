@@ -14,6 +14,10 @@ export const ItemTypes = {
 const Setup = (props) => {
   const { shipAmounts, boards } = props.G;
   const gridSize = boards[0].length + 1;
+  const totalShips = Object.values(shipAmounts).reduce(
+    (acc, curr) => acc + curr,
+    0
+  );
 
   const [isHorizontal, setIsHorizontal] = useState(true);
   const [nthCell, setNthCell] = useState(null);
@@ -73,7 +77,7 @@ const Setup = (props) => {
             <button
               className="confirm-button"
               onClick={() => props.moves.submitShips(ships)}
-              disabled={ships.length < 1}
+              disabled={ships.length < totalShips}
             >
               Vahvista laivojen sijainti!
             </button>
