@@ -61,7 +61,7 @@
 
 /* Current player's own board */
 .Board.own {
-  opacity: 0.6;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
@@ -110,8 +110,8 @@
   filter: none !important;
 }
 
-.BoardCell.hit .Ship {
-  opacity: 0.5;
+.Board:not(.own) .BoardCell.hit .Ship {
+  opacity: 0.6;
 }
 
 .BoardCell .Ship {
