@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Settings.css";
 
 /**
@@ -187,6 +188,11 @@ const Settings = ({ game }) => {
    */
   return (
     <div>
+      <Link to="/">
+        <button title="Takaisin" className="back-button">
+          ←
+        </button>
+      </Link>
       <h1 className="title">Pelin asetukset</h1>
       <div id="settings-container">
         <div className="settingsDiv">
