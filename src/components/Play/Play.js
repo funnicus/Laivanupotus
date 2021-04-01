@@ -17,7 +17,7 @@ const Play = (game) => {
 
   const [playHit] = useSfx({
     url: "./assets/explosion_effect.mp3",
-    volume: 0.15,
+    volume: 0.12,
   });
 
   const [playSunk] = useSfx({
