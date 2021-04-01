@@ -1,7 +1,7 @@
 import Settings from "./Settings/Settings";
 import Setup from "./Setup/Setup";
 import Play from "./Play/Play";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import ChangeScreen from "./ChangeScreen/ChangeScreen";
 
 /**

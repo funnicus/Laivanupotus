@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 import { Client } from "boardgame.io/react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Game from "./Game/Game";
@@ -19,12 +19,12 @@ const App = () => {
     numPlayers: 2,
   });
 
-  const audioRef = useRef();
+  const bgMusicRef = useRef();
 
   //audio volume
   useEffect(() => {
-    audioRef.current.volume = 0.05;
-  }, [])
+    bgMusicRef.current.volume = 0.05;
+  }, []);
 
   return (
     <div>
@@ -44,7 +44,11 @@ const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
-      <audio autoPlay ref={audioRef} loop src="./assets/battleship_music.mp3"></audio>
+      <audio
+        autoPlay
+        ref={bgMusicRef}
+        loop
+        src="./assets/battleship_music.mp3"></audio>
     </div>
   );
 };
