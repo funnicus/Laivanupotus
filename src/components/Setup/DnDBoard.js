@@ -6,18 +6,24 @@ import Cell from "./Cell";
  * @param {Object} props
  * @returns {JSX.Element}
  */
-const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
+const DnDBoard = ({
+  gridSize,
+  ships,
+  setShips,
+  isHorizontal,
+  nthCell,
+  isDragging,
+}) => {
   const [grid, setGrid] = useState([]);
   const [rerenders, setRerenders] = useState(0);
 
-  const GRID_SIDE_SIZE = size;
   const chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
   const boardStyle = {
     display: "grid",
     width: "max-content",
-    gridTemplateColumns: `repeat(${size}, 1fr)`,
-    gridTemplateRows: `repeat(${size}, 1fr)`,
+    gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
+    gridTemplateRows: `repeat(${gridSize}, 1fr)`,
     margin: "20vh auto",
   };
 
@@ -31,9 +37,9 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
    */
   const createGrid = () => {
     const squares = [];
-    for (let y = 0; y < GRID_SIDE_SIZE; y++) {
+    for (let y = 0; y < gridSize; y++) {
       const rows = [];
-      for (let x = 0; x < GRID_SIDE_SIZE; x++) {
+      for (let x = 0; x < gridSize; x++) {
         let isOuter = x === 0 && y === 0; // top-left cell is automatically out
 
         let squareText = "";
@@ -49,7 +55,6 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
           isOuter = true;
         }
 
-        // subtract 1 from x and y because of the extra cells on the left and top
         rows.push({
           x,
           y,
@@ -59,12 +64,11 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
           canPlace: true,
         });
       }
-      //dont push the first row, because it's not part of the game area
       squares.push(rows);
     }
     drawShipsOnBoard(squares);
     //cells won't receive updated grids without this!
-    setRerenders(rerenders+1);
+    setRerenders(rerenders + 1);
     return squares;
   };
 
@@ -90,7 +94,7 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
         board[coord.y - 1][coord.x].canPlace = false;
         board[coord.y][coord.x - 1].canPlace = false;
         //without if checks, would throw errors when ship is placed besides board borders
-        if (coord.y < GRID_SIDE_SIZE - 1 && coord.x < GRID_SIDE_SIZE - 1) {
+        if (coord.y < gridSize - 1 && coord.x < gridSize - 1) {
           board[coord.y + 1][coord.x].canPlace = false;
           board[coord.y][coord.x + 1].canPlace = false;
         }
@@ -146,8 +150,9 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
               grid={grid}
               isHorizontal={isHorizontal}
               nthCell={nthCell}
-              GRID_SIDE_SIZE={GRID_SIDE_SIZE}
+              GRID_SIDE_SIZE={gridSize}
               dropShip={dropShip}
+              isDragging={isDragging}
             />
           );
         });

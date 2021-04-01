@@ -31,6 +31,7 @@ const Setup = (props) => {
   const playerName =
     props.ctx.currentPlayer === "0" ? props.G.player1Name : props.G.player2Name;
 
+  const [isDragging, setIsDragging] = useState(false);
   const [isHorizontal, setIsHorizontal] = useState(true);
   const [nthCell, setNthCell] = useState(null);
   const [ships, setShips] = useState([]);
@@ -65,6 +66,7 @@ const Setup = (props) => {
             type={shipType}
             isHorizontal={isHorizontal}
             setNthCell={setNthCell}
+            setIsDragging={setIsDragging}
           />
         );
       }
@@ -104,11 +106,12 @@ const Setup = (props) => {
         </div>
         <div className="board-area">
           <DnDBoard
-            size={gridSize}
+            gridSize={gridSize}
             ships={ships}
             setShips={setShips}
             isHorizontal={isHorizontal}
             nthCell={nthCell}
+            isDragging={isDragging}
           />
         </div>
       </div>

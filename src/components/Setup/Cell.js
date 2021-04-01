@@ -18,6 +18,8 @@ const Cell = ({
   nthCell,
   GRID_SIDE_SIZE,
   dropShip,
+  canPlace,
+  isDragging,
 }) => {
   /**
    * Checks if ship can be dropped on target
@@ -67,11 +69,13 @@ const Cell = ({
     [x, y]
   );
 
+  const showDenied = !isOuter && !canPlace && isDragging;
+
   return (
     <div
       ref={isOuter ? null : drop}
       key={x + "" + y + grid}
-      className={`DnDCell ${isOuter ? "outer" : ""}`}
+      className={`DnDCell ${isOuter && "outer"} ${showDenied && "Denied"}`}
       x={x}
       y={y}>
       {squareText}
