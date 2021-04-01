@@ -14,7 +14,7 @@ export const ItemTypes = {
 
 /**
  * Renders the setup screen
- * @param {Object} props 
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const Setup = (props) => {
@@ -24,6 +24,10 @@ const Setup = (props) => {
     (acc, curr) => acc + curr,
     0
   );
+
+  /*
+   * Variable for the name of the player whose ships are being setup
+   */
   const playerName =
     props.ctx.currentPlayer === "0" ? props.G.player1Name : props.G.player2Name;
 
@@ -80,14 +84,16 @@ const Setup = (props) => {
               flexDirection: isHorizontal ? "row" : "column",
               flexWrap: "wrap",
             }}
-            className="ship-container">
+            className="ship-container"
+          >
             {renderDraggableShips()}
           </div>
           <div>
             <button
               className="confirm-button"
               onClick={() => props.moves.submitShips(ships)}
-              disabled={ships.length < totalShips}>
+              disabled={ships.length < totalShips}
+            >
               Vahvista laivojen sijainti!
             </button>
             <button className="confirm-button" onClick={() => props.undo()}>

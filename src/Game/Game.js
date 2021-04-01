@@ -58,7 +58,7 @@ const Game = {
         destroyers: 0,
       },
       sunkShipsP1: 0,
-      sunkShipsP2: 0
+      sunkShipsP2: 0,
     };
   },
 

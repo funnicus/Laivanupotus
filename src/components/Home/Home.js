@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+/*
+ * React-component for the home page
+ */
 const Home = () => {
   return (
     <div id="home-bg">

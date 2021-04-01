@@ -14,13 +14,11 @@ const Play = (game) => {
   const [playHit] = useSfx({
     url: "./assets/explosion_effect.mp3",
     volume: 0.15,
-    resetOnPlay: true,
   });
 
   const [playSunk] = useSfx({
     url: "./assets/ship_sunk.mp3",
     volume: 0.2,
-    resetOnPlay: true,
   });
 
   // Play sound effects based on message changes

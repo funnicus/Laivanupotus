@@ -3,7 +3,7 @@ import Cell from "./Cell";
 
 /**
  * Renders the board for drag and drop
- * @param {Object} props 
+ * @param {Object} props
  * @returns {JSX.Element}
  */
 const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
