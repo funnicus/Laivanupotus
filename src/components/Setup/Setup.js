@@ -82,9 +82,8 @@ const Setup = (props) => {
           <button
             onClick={() => props.events.setPhase("settings")}
             title="Takaisin"
-            className="back-button"
-          >
-            ←
+            className="back-button">
+            <img src="./icons/arrow-left.svg" />
           </button>
           <h2 id="setShip">Asetetaan laivoja pelaajalle {playerName}</h2>
           <p>Voit kääntää laivoja painamalla r-näppäintä</p>
@@ -94,16 +93,14 @@ const Setup = (props) => {
               flexDirection: isHorizontal ? "row" : "column",
               flexWrap: "wrap",
             }}
-            className="ship-container"
-          >
+            className="ship-container">
             {renderDraggableShips()}
           </div>
           <div>
             <button
               className="confirm-button"
               onClick={() => props.moves.submitShips(ships)}
-              disabled={ships.length < totalShips}
-            >
+              disabled={ships.length < totalShips}>
               Vahvista laivojen sijainti!
             </button>
             <button className="confirm-button" onClick={() => props.undo()}>
