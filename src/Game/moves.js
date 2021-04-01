@@ -122,8 +122,14 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
       G.message.type = "sunk";
       G.message.text = `Upotit pelaajan ${targetName} laivan`;
       targetPlayer == 0 ? G.sunkShipsP1++ : G.sunkShipsP2++;
-      if (G.sunkShipsP1 === targetsShips.length) ctx.events.endPhase();
-      if (G.sunkShipsP2 === targetsShips.length) ctx.events.endPhase();
+      if (G.sunkShipsP1 === targetsShips.length) {
+        G.message.text = `${G.player2Name} voitti pelin!`;
+        G.message.type = "gameOver";
+      }
+      if (G.sunkShipsP2 === targetsShips.length) {
+        G.message.text = `${G.player1Name} voitti pelin!`;
+        G.message.type = "gameOver";
+      }
     } else {
       G.message.type = "hit";
       G.message.text = `Osuit pelaajan ${targetName} laivaan`;
