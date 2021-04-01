@@ -133,6 +133,8 @@ const DnDBoard = ({ size, ships, setShips, isHorizontal, nthCell }) => {
 
     const newShip = {
       hits: 0,
+      type,
+      isHorizontal,
       coords: shipCoord,
     };
 

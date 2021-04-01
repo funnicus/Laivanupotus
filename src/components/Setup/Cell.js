@@ -1,7 +1,6 @@
 import { ItemTypes } from "./Setup";
 import { useDrop } from "react-dnd";
 import { getShipImage } from "../../Game/images";
-import Ship from "./Ship";
 
 const Cell = ({
   ship,

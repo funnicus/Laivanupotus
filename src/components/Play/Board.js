@@ -59,12 +59,12 @@ const Board = ({ game, playerNum }) => {
     const index = ship.coords.findIndex(
       (c) => c.x === cell.x && c.y === cell.y
     );
-    const isHorizontal = !ship.coords[0].isHorizontal; // huoh, isHorizontalia pitää käyttää näin päin koska spagetti muualla
+    const isHorizontal = !ship.isHorizontal; // huoh, isHorizontalia pitää käyttää näin päin koska spagetti muualla
 
     return (
       <img
         className={isHorizontal ? "horizontal" : ""}
-        src={getShipImage(ship, index)}
+        src={getShipImage(ship.type, index)}
       />
     );
   };
@@ -85,8 +85,8 @@ const Board = ({ game, playerNum }) => {
     return `BoardCell${outer}${clicked}${hitShip}`;
   };
 
-  const getShipImage = (ship, index) => {
-    const imageArr = SHIP_IMAGES[ship.coords[0].type];
+  const getShipImage = (type, index) => {
+    const imageArr = SHIP_IMAGES[type];
     if (!imageArr) return null;
 
     return imageArr[index];
@@ -99,8 +99,7 @@ const Board = ({ game, playerNum }) => {
           <div
             className={cellClassName(cell)}
             key={cell.x + "" + cell.y}
-            onClick={() => cellOnClick(cell)}
-          >
+            onClick={() => cellOnClick(cell)}>
             <div className="OuterText">{cell.squareText}</div>
             <div className="Ship">{isOwnBoard && renderShip(cell)}</div>
           </div>
