@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename="/Laivanupotus/">
         <Switch>
           <Route path="/" exact>
             <Home />
