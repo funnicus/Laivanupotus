@@ -2,7 +2,7 @@
 
 ## Tietoa sovelluksesta
 
-Turun yliopiston käyttöliittymät-kurssia varten tehty laivanupotus-peli.Sovellus on toteutettu käyttäen JavaScriptiä seuraavien kirjastojen kanssa: [React](https://reactjs.org/), [React DnD](https://funnicus.github.io/Laivanupotus/), [Boardgame.io](https://boardgame.io/).
+Turun yliopiston käyttöliittymät-kurssia varten tehty laivanupotus-peli. Sovellus on toteutettu käyttäen JavaScriptiä seuraavien kirjastojen kanssa: [React](https://reactjs.org/), [React DnD](https://funnicus.github.io/Laivanupotus/), [Boardgame.io](https://boardgame.io/).
 
 ## Sovelluksen käyttö
 
