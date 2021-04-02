@@ -10,7 +10,7 @@ import {
   submitShips,
 } from "./moves";
 
-export const DEFAULT_BOARD_SIZE = 9; // initial size of board
+export const DEFAULT_BOARD_SIZE = 10; // initial size of board
 export const MAX_BOARD_SIZE = 10;
 export const MIN_BOARD_SIZE = 5;
 

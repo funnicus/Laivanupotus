@@ -4,8 +4,13 @@
 #settings-container {
   margin-top: 6rem;
   width: 100%;
+  max-width: 55em;
+  margin: 0 auto;
 }
 
+#settings-help {
+  text-align: center;
+}
 /*
 * Location for the player name and grid size components
 */
@@ -86,15 +91,22 @@
 * Location for the submit button
 */
 #submitButtonDiv {
+  margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 17rem;
+  align-items: center;
 }
 
 /*
-* Style for the submit button
+* Style for the buttons on the settings-page
 */
-#submit-button {
-  width: 7.5rem;
-  height: 2.5rem;
+.settings-button {
+  margin-top: 1.5em;
+  width: max-content;
+  padding: 25px;
+  height: 5rem;
   font-size: 24px;
   background-color: var(--light);
   border: 1px solid var(--primary);

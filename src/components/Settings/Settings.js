@@ -118,7 +118,7 @@ const Settings = ({ game }) => {
       return false;
     }
     // Checks criteria 2
-    if (gridSize < 5 || gridSize > 10) {
+    else if (gridSize < 5 || gridSize > 10) {
       setError("Pelilaudan koon on oltava väliltä 5-10");
       return false;
     }
@@ -183,6 +183,10 @@ const Settings = ({ game }) => {
     game.events.endPhase();
   };
 
+  const reset = () => {
+    game.moves.resetGame();
+  };
+
   /**
    * The layout of the Settings-component
    */
@@ -195,6 +199,12 @@ const Settings = ({ game }) => {
       </Link>
       <h1 className="title">Pelin asetukset</h1>
       <div id="settings-container">
+        <p id="settings-help">
+          Jotta kaikki laivat mahtuvat pelilaudalle, on laivojen yhteenlasketun
+          pinta-alan oltava enintään puolet pelilaudan koosta. Sinulle näytetään
+          virheviesti, jos joku arvo ei ole sopiva. <br></br> Voit vaihtaa
+          kaikki arvot takaisin oletusarvoiksi painamalla "Nollaa arvot"-nappia.
+        </p>
         <div className="settingsDiv">
           <div className="labelInput">
             <label className="settingsLabel" htmlFor="player1Name">
@@ -230,8 +240,6 @@ const Settings = ({ game }) => {
               className="settingsInput"
               type="number"
               id="gridSize"
-              min="5"
-              max="10"
               value={gridSize}
               onChange={updateGridSize}
             />
@@ -305,8 +313,11 @@ const Settings = ({ game }) => {
           </div>
         </div>
         <div id="submitButtonDiv">
-          <button id="submit-button" onClick={submit}>
-            Valmis
+          <button className="settings-button" onClick={submit}>
+            Vahvista asetukset
+          </button>
+          <button className="settings-button" onClick={reset}>
+            Nollaa arvot
           </button>
         </div>
         <div id="error">
