@@ -118,7 +118,7 @@
 /*
 * Style for the submit button, when the mouse hovers over it
 */
-#submit-button:hover {
+.settings-button:hover {
   background-color: var(--light2);
   cursor: pointer;
 }
