@@ -25,11 +25,11 @@ Lisätietoja React sovelluksen käytöstä [täällä](./REACTAPP.md)
 
 Opiskelijanumerot AUTHORS.md-tiedostossa.
 
-- Juhana Kuparinen
+- Juhana
     - Drag and Drop
-- Juho Ollila
+- Juho
     - Grafiikat
-- Millina Lehikoinen
+- Millina
     - Menu, Setup Form ja pelin loppuminen
-- Matias Kumpulainen
+- Matias
     - Laivanupotus
