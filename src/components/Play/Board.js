@@ -14,6 +14,7 @@ const Board = ({ game, playerNum }) => {
   const boardStyle = {
     gridTemplateColumns: `repeat(${size}, 1fr)`,
     gridTemplateRows: `repeat(${size}, max-content)`,
+    backgroundImage: "url('./image/ocean.png')",
   };
 
   const createGrid = () => {

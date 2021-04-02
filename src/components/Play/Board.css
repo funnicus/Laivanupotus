@@ -7,12 +7,12 @@
   }
 }
 
-@keyframes fade-in {
+@keyframes ocean {
   from {
-    opacity: 0;
+    background-position: 0px 0px;
   }
   to {
-    opacity: 1;
+    background-position: 320px 320px;
   }
 }
 
@@ -57,6 +57,11 @@
   height: max-content;
 
   transition: opacity 500ms;
+
+  image-rendering: pixelated;
+
+  background-size: 320px;
+  animation: ocean 200s infinite;
 }
 
 /* Current player's own board */
@@ -75,12 +80,17 @@
   box-sizing: border-box;
 
   border: 1px solid rgba(255, 255, 255, 0.2);
-
-  background-color: var(--primary);
+  transition: background-color 400ms;
 }
 
-.Board:not(.own) .BoardCell:hover {
-  filter: brightness(1.1);
+.BoardCell:not(.outer) {
+  background-color: rgba(0, 187, 200, 0.8);
+}
+
+.Board:not(.own) .BoardCell:not(.clicked):hover {
+  background-color: rgba(255, 255, 255, 0.2);
+
+  transition: background-color 0ms;
 }
 
 .BoardCell.clicked {
@@ -141,7 +151,7 @@
   pointer-events: none;
   border: 1px solid transparent;
 
-  background-color: transparent;
+  background-color: var(--bg);
 }
 
 .BoardCell.outer .OuterText {
