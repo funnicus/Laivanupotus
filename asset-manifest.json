@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Laivanupotus/static/css/main.ca05a7ec.chunk.css",
-    "main.js": "/Laivanupotus/static/js/main.b8e0a69f.chunk.js",
-    "main.js.map": "/Laivanupotus/static/js/main.b8e0a69f.chunk.js.map",
+    "main.js": "/Laivanupotus/static/js/main.de56c367.chunk.js",
+    "main.js.map": "/Laivanupotus/static/js/main.de56c367.chunk.js.map",
     "runtime-main.js": "/Laivanupotus/static/js/runtime-main.9906bab4.js",
     "runtime-main.js.map": "/Laivanupotus/static/js/runtime-main.9906bab4.js.map",
     "static/js/2.05244da5.chunk.js": "/Laivanupotus/static/js/2.05244da5.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.9906bab4.js",
     "static/js/2.05244da5.chunk.js",
     "static/css/main.ca05a7ec.chunk.css",
-    "static/js/main.b8e0a69f.chunk.js"
+    "static/js/main.de56c367.chunk.js"
   ]
 }
