@@ -35,6 +35,14 @@ body,
   color: var(--primary);
 }
 
+.sub-title {
+  text-align: center;
+  margin-top: 2.25em;
+  font-family: "Montserrat";
+  font-size: 24px;
+  color: var(--primary);
+}
+
 /*
 * Location for the home page buttons
 */
@@ -103,12 +111,32 @@ body,
 }
 
 /*
+* Location for the help-page content
+*/
+#help-div {
+  margin-bottom: 5rem;
+}
+
+/*
 * Style for the text on the Help-page
 */
-#help-text {
+.help-text {
   text-align: justify;
   text-justify: inter-word;
-  padding: 2em;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  font-size: 18px;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+#body-link {
+  color: var(--primary);
+}
+
+#body-link:hover {
+  color: var(--dark);
+  cursor: pointer;
 }
 
 /*
