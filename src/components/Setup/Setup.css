@@ -56,6 +56,11 @@
   color: gray;
 }
 
+.DnDBoard {
+  background-size: 320px;
+  animation: ocean 120s linear infinite;
+}
+
 .DnDCell {
   display: grid;
   place-content: center;
@@ -66,7 +71,7 @@
   /*box-sizing because then borders wont make the cell bigger*/
   box-sizing: border-box;
 
-  background-color: var(--primary);
+  background-color: var(--cell-bg);
   transition: background-color 250ms;
 }
 
@@ -74,7 +79,7 @@
   pointer-events: none;
   border: 1px solid transparent;
 
-  background-color: transparent;
+  background-color: var(--bg);
 }
 
 .DnDCell.Denied {
