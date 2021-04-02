@@ -8,9 +8,13 @@
   margin: 0 auto;
 }
 
+/*
+* Centering the text on the settings-page
+*/
 #settings-help {
   text-align: center;
 }
+
 /*
 * Location for the player name and grid size components
 */

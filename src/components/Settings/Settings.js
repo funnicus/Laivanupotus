@@ -5,7 +5,7 @@ import "./Settings.css";
 /**
  * Settings-component represents a game phase, where the players fill in their names,
  * board size and ship amounts
- * @param {Object} props
+ * @param {Object} game boardgame.io
  * @returns Settings-element that describes what will show on the screen
  */
 const Settings = ({ game }) => {

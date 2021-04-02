@@ -104,6 +104,10 @@ const isInsideBounds = (G, coords, playerNum) => {
 export const shootAt = (G, ctx, { coords, targetPlayer }) => {
   if (!isInsideBounds(G, coords, targetPlayer)) return INVALID_MOVE;
 
+  /*
+   * Variables for the coordinates of the cell that's being shot,
+   * the target's board, their ships and their name in the game
+   */
   const { x, y } = coords;
   const board = G.boards[targetPlayer];
   const targetsShips = targetPlayer == 0 ? G.shipsPlayer1 : G.shipsPlayer2;
@@ -112,12 +116,16 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
   if (board[x][y] !== null) return INVALID_MOVE;
   board[x][y] = true;
 
+  /*
+   * Function to find whether there's a ship in the cell that's being shoot at
+   */
   const shipHit = targetsShips.find((ship) =>
     ship.coords.find((coords) => coords.x - 1 === x && coords.y - 1 === y)
   );
 
   if (shipHit) {
     shipHit.hits += 1;
+    //if ship has as many hits as its length, it has sunk
     if (shipHit.hits == shipHit.coords.length) {
       // show message to players
       G.message.type = "sunk";
@@ -129,6 +137,8 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
       // add 'sunk' value to ship
       shipHit.sunk = true;
 
+      // if the array for the target's sunk ships is
+      // as long as the list of all of their ships, the player wins
       if (G.sunkShipsP1 === targetsShips.length) {
         G.message.text = `Voitit pelin!`;
         G.message.type = "gameOver";
@@ -148,6 +158,11 @@ export const shootAt = (G, ctx, { coords, targetPlayer }) => {
   }
 };
 
+/**
+ * Function to reset the game when the players want to play a new game
+ * @param {Object} G used by boardgame.io, represents game state
+ * @param {Object} ctx used by boardgame.io, represents game metadata
+ */
 export const resetGame = (G, ctx) => {
   G.boards = createBoards(ctx);
   G.shipsPlayer1 = [];
@@ -159,6 +174,11 @@ export const resetGame = (G, ctx) => {
   ctx.events.setPhase("settings");
 };
 
+/**
+ * Function to clear the message
+ * @param {Object} G used by boardgame.io, represents game state
+ * @param {Object} ctx used by boardgame.io, represents game metadata
+ */
 export const clearMessage = (G, ctx) => {
   G.message.text = "";
   G.message.type = "";
