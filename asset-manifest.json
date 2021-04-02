@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Laivanupotus/static/css/main.ca05a7ec.chunk.css",
+    "main.js": "/Laivanupotus/static/js/main.5dfd50c1.chunk.js",
+    "main.js.map": "/Laivanupotus/static/js/main.5dfd50c1.chunk.js.map",
+    "runtime-main.js": "/Laivanupotus/static/js/runtime-main.9906bab4.js",
+    "runtime-main.js.map": "/Laivanupotus/static/js/runtime-main.9906bab4.js.map",
+    "static/js/2.05244da5.chunk.js": "/Laivanupotus/static/js/2.05244da5.chunk.js",
+    "static/js/2.05244da5.chunk.js.map": "/Laivanupotus/static/js/2.05244da5.chunk.js.map",
+    "static/js/3.c6839d59.chunk.js": "/Laivanupotus/static/js/3.c6839d59.chunk.js",
+    "static/js/3.c6839d59.chunk.js.map": "/Laivanupotus/static/js/3.c6839d59.chunk.js.map",
+    "index.html": "/Laivanupotus/index.html",
+    "static/css/main.ca05a7ec.chunk.css.map": "/Laivanupotus/static/css/main.ca05a7ec.chunk.css.map",
+    "static/js/2.05244da5.chunk.js.LICENSE.txt": "/Laivanupotus/static/js/2.05244da5.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9906bab4.js",
+    "static/js/2.05244da5.chunk.js",
+    "static/css/main.ca05a7ec.chunk.css",
+    "static/js/main.5dfd50c1.chunk.js"
+  ]
+}
