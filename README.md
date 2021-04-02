@@ -2,7 +2,7 @@
 
 ## Tietoa sovelluksesta
 
-Turun yliopiston käyttöliittymät-kurssia varten tehty laivanupotus-peli.
+Turun yliopiston käyttöliittymät-kurssia varten tehty laivanupotus-peli.Sovellus on toteutettu käyttäen JavaScriptiä seuraavien kirjastojen kanssa: [React](https://reactjs.org/), [React DnD](https://funnicus.github.io/Laivanupotus/), [Boardgame.io](https://boardgame.io/).
 
 ## Sovelluksen käyttö
 
@@ -16,12 +16,12 @@ Lataa riippuvuudet.
 
 ### `npm start`
 
-Suorittaa sovelluksen kehitysmodissa. Sovellus käynnistyy osoitteeseen localhost://3000 automaattisesti.
+Suorittaa sovelluksen kehitysmodissa. Sovellus käynnistyy osoitteeseen http://localhost:3000 automaattisesti.
 
 Lisätietoja React sovelluksen käytöstä [täällä](./REACTAPP.md) 
 
 
-## [Tekijät](./AUTHORS.md)
+## Tekijät
 
 Opiskelijanumerot AUTHORS.md-tiedostossa.
 
