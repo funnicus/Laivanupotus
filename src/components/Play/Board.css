@@ -7,15 +7,6 @@
   }
 }
 
-@keyframes ocean {
-  from {
-    background-position: 0px 0px;
-  }
-  to {
-    background-position: 320px 320px;
-  }
-}
-
 /*
 * Style for the message that tells the player if he has hit or sunk a ship
 */
@@ -61,7 +52,7 @@
   image-rendering: pixelated;
 
   background-size: 320px;
-  animation: ocean 200s infinite;
+  animation: ocean 120s linear infinite;
 }
 
 /* Current player's own board */
@@ -84,7 +75,7 @@
 }
 
 .BoardCell:not(.outer) {
-  background-color: rgba(0, 187, 200, 0.8);
+  background-color: var(--cell-bg);
 }
 
 .Board:not(.own) .BoardCell:not(.clicked):hover {

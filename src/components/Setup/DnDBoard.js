@@ -25,6 +25,7 @@ const DnDBoard = ({
     gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
     gridTemplateRows: `repeat(${gridSize}, 1fr)`,
     margin: "20vh auto",
+    backgroundImage: "url('./image/ocean.png')",
   };
 
   useEffect(() => {
