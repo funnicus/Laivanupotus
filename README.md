@@ -6,7 +6,7 @@ Turun yliopiston käyttöliittymät-kurssia varten tehty laivanupotus-peli.
 
 ## Sovelluksen käyttö
 
-Tarvitset node.js:n asennettuna koneellasi.
+Tarvitset node.js:n asennettuna koneellesi.
 
 Pääset aloittamaan sovelluksen käytön suorittamalla seuraavat komennot projektin juuresta:
 
