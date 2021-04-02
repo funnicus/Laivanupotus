@@ -16,7 +16,9 @@ const Credits = () => {
         <h2 className="credit-name">Juhana - Drag and Drop</h2>
         <h2 className="credit-name">Juho - Grafiikat</h2>
         <h2 className="credit-name">Matias - Laivanupotus</h2>
-        <h2 className="credit-name">Millina - Menu ja Setup Form</h2>
+        <h2 className="credit-name">
+          Millina - Menu, Setup Form ja Pelin loppuminen
+        </h2>
       </div>
     </div>
   );

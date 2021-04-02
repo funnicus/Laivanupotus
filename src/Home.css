@@ -27,7 +27,7 @@ body,
 }
 
 /*
-* Style for the title
+* Style for the titles
 */
 .title {
   text-align: center;
@@ -37,6 +37,9 @@ body,
   color: var(--primary);
 }
 
+/*
+* Style for subtitles
+*/
 .sub-title {
   text-align: center;
   margin-top: 2.25em;
@@ -90,6 +93,9 @@ body,
   border-radius: 100%;
 }
 
+/*
+* Style for the symbol for the back button
+*/
 .back-button img {
   display: flex;
   width: 100%;
@@ -97,6 +103,9 @@ body,
   transform: scale(0.8);
 }
 
+/*
+* Style for the back button in the play phase
+*/
 .back-button.play {
   font-size: 20px;
   width: 10rem;
@@ -132,10 +141,16 @@ body,
   margin: 0 auto;
 }
 
+/*
+* Colour for the link in the help-page
+*/
 #body-link {
   color: var(--primary);
 }
 
+/*
+* Style for the link when hovered
+*/
 #body-link:hover {
   color: var(--dark);
   cursor: pointer;

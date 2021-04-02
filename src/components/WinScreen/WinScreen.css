@@ -1,3 +1,6 @@
+/*
+* Positions win screen and blurs background
+*/
 #winScreenContainer {
   position: absolute;
   top: 0;
@@ -9,6 +12,9 @@
   z-index: 10;
 }
 
+/*
+* Win screen style
+*/
 .WinScreen {
   width: 100%;
   height: 100%;
@@ -25,16 +31,25 @@
   box-shadow: 0 1em 4em rgba(0, 0, 0, 0.25);
 }
 
+/*
+* Style for the buttons in the win screen
+*/
 .home-button.ws {
   width: 18rem;
   font-size: 24px;
   padding: 15px;
 }
 
+/*
+* Style for the title on the win screen
+*/
 .title.ws {
   margin-top: 1.25em;
 }
 
+/*
+* Locates buttons on the win screen
+*/
 #wsButtonContainer {
   text-align: center;
   display: grid;
@@ -44,6 +59,9 @@
   margin-top: 4em;
 }
 
+/*
+* Style for the button that closes the win screen
+*/
 #close-button {
   float: right;
   width: 2.25rem;
@@ -56,11 +74,17 @@
   border-radius: 100%;
 }
 
+/*
+* Style for the close-button when the mouse hovers over it
+*/
 #close-button:hover {
   background-color: var(--light2);
   cursor: pointer;
 }
 
+/*
+* Style for the symbol inside of the close-button
+*/
 #close-button img {
   display: flex;
   width: 100%;
