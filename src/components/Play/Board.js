@@ -101,6 +101,8 @@ const Board = ({ game, playerNum }) => {
     return `BoardCell${outer}${clicked}${hitShip}`;
   };
 
+  const gameIsOver = game.G.message.type === "gameOver";
+
   return (
     <div className="BoardContainer">
       <div className={`Board ${isOwnBoard ? "own" : ""}`} style={boardStyle}>
@@ -109,7 +111,7 @@ const Board = ({ game, playerNum }) => {
             <div
               className={cellClassName(cell)}
               key={cell.x + "" + cell.y}
-              onClick={() => cellOnClick(cell)}>
+              onClick={() => !gameIsOver && cellOnClick(cell)}>
               <div className="OuterText">{cell.squareText}</div>
               {showShip(cell) && <div className="Ship">{renderShip(cell)}</div>}
             </div>
