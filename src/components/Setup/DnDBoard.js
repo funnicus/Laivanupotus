@@ -94,10 +94,8 @@ const DnDBoard = ({
         board[coord.y - 1][coord.x].canPlace = false;
         board[coord.y][coord.x - 1].canPlace = false;
         //without if checks, would throw errors when ship is placed besides board borders
-        if (coord.y < gridSize - 1 && coord.x < gridSize - 1) {
-          board[coord.y + 1][coord.x].canPlace = false;
-          board[coord.y][coord.x + 1].canPlace = false;
-        }
+        if(coord.y < gridSize -1) board[coord.y + 1][coord.x].canPlace = false;
+        if(coord.x < gridSize - 1) board[coord.y][coord.x + 1].canPlace = false;
       }
     }
   };
